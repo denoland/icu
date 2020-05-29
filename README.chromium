@@ -227,3 +227,10 @@ D. Local Modifications
 7. Enable tracing of file but not resource, only for Chromium
     to reduce performance impact/risk.
   - patches/restrace.patch
+
+8. #if 0 new code in Locale::createCanonical which added in
+   https://github.com/unicode-org/icu/pull/951 that use ures and caused
+   30ms startup performance regression.
+  - patches/turnOffNewCodeInLocaleCanonical.patch
+  - upstream bug:
+    https://unicode-org.atlassian.net/browse/ICU-21139
