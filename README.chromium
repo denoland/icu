@@ -232,5 +232,9 @@ D. Local Modifications
    https://github.com/unicode-org/icu/pull/951 that use ures and caused
    30ms startup performance regression.
   - patches/turnOffNewCodeInLocaleCanonical.patch
-  - upstream bug:
     https://unicode-org.atlassian.net/browse/ICU-21139
+
+9. Fix Locale addLikelySubtag
+  - patches/localeAddLikely.patch
+  - upstream bug:
+    https://unicode-org.atlassian.net/browse/ICU-13786
