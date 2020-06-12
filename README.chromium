@@ -236,5 +236,14 @@ D. Local Modifications
 
 9. Fix Locale addLikelySubtag
   - patches/localeAddLikely.patch
+  - upstreawm PR:
+    https://github.com/unicode-org/icu/pull/1140
   - upstream bug:
     https://unicode-org.atlassian.net/browse/ICU-13786
+
+10. Add ability to use locale default for minimum grouping digits
+ - patches/grouping_digits.patch
+ - upstream PR:
+   https://github.com/unicode-org/icu/pull/1152
+ - upbstream bug:
+   https://unicode-org.atlassian.net/browse/ICU-21109
