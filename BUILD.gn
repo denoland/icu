@@ -129,6 +129,10 @@ config("visibility_hidden") {
 template("generate_icui18n") {
   assert(defined(invoker.icuuc_deps), "Need the 'icuuc_deps' parameter.")
   icuuc_deps = invoker.icuuc_deps
+  fuchsia_output_name_postfix = ""
+  if (defined(invoker.fuchsia_output_name_postfix)) {
+    fuchsia_output_name_postfix = invoker.fuchsia_output_name_postfix
+  }
   extra_configs = []
   if (defined(invoker.extra_configs)) {
     extra_configs += invoker.extra_configs
@@ -657,7 +661,9 @@ template("generate_icui18n") {
     if (is_fuchsia) {
       # Fuchsia puts its own libicui18n.so in /system/lib where we need to put our
       # .so when doing component builds, so we need to give this a different name.
-      output_name = "icui18n_cr"
+      output_name = "icui18n_cr${fuchsia_output_name_postfix}"
+    } else {
+      assert(fuchsia_output_name_postfix == "")
     }
 
     # Make icu into a standalone static library. Currently This is only useful on
@@ -677,12 +683,19 @@ generate_icui18n("icui18n") {
 generate_icui18n("icui18n_hidden_visibility") {
   extra_configs = [ ":visibility_hidden" ]
   icuuc_deps = [ ":icuuc_hidden_visibility" ]
+  if (is_fuchsia) {
+    fuchsia_output_name_postfix = "_hidden_visibility"
+  }
 }
 
 template("generate_icuuc") {
   extra_configs = []
   if (defined(invoker.extra_configs)) {
     extra_configs += invoker.extra_configs
+  }
+  fuchsia_output_name_postfix = ""
+  if (defined(invoker.fuchsia_output_name_postfix)) {
+    fuchsia_output_name_postfix = invoker.fuchsia_output_name_postfix
   }
   component(target_name) {
     # find  source/common -maxdepth 1  ! -type d  | egrep  '\.(c|cpp|h)$' |\
@@ -1131,7 +1144,9 @@ template("generate_icuuc") {
     if (is_fuchsia) {
       # Fuchsia puts its own libicuuc.so in /system/lib where we need to put our
       # .so when doing component builds, so we need to give this a different name.
-      output_name = "icuuc_cr"
+      output_name = "icuuc_cr${fuchsia_output_name_postfix}"
+    } else {
+      assert(fuchsia_output_name_postfix == "")
     }
   }
 }
@@ -1141,6 +1156,9 @@ generate_icuuc("icuuc") {
 }
 generate_icuuc("icuuc_hidden_visibility") {
   extra_configs = [ ":visibility_hidden" ]
+  if (is_fuchsia) {
+    fuchsia_output_name_postfix = "_hidden_visibility"
+  }
 }
 
 if (is_android && enable_java_templates) {
