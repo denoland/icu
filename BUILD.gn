@@ -121,7 +121,7 @@ config("icu_code") {
 # Config used to set default visibility to hidden.
 config("visibility_hidden") {
   cflags = []
-  if (is_clang || is_linux || is_android) {
+  if (is_mac || is_linux || is_android) {
     cflags += [ "-fvisibility=hidden" ]
   }
 }
