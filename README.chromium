@@ -1,6 +1,7 @@
 Name: icu
 URL: https://github.com/unicode-org/icu
 Version: 67.1
+CPEPrefix: cpe:/a:icu-project:international_components_for_unicode:67.1
 License: MIT
 Security Critical: yes
 
