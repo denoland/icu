@@ -126,6 +126,7 @@ config("icu_code") {
       # https://unicode-org.atlassian.net/projects/ICU/issues/ICU-20869
       # is fixed.
       "-Wno-implicit-int-float-conversion",
+      "-Wno-conversion",
     ]
   }
 }
