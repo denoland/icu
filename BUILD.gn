@@ -93,7 +93,7 @@ config("icu_code") {
       "/wd4267",  # Conversion from size_t on 64-bits.
       "/utf-8",  # ICU source files are in UTF-8.
     ]
-  } else if (is_linux || is_android || icu_is_in_fuchsia) {
+  } else if (is_linux || is_chromeos || is_android || icu_is_in_fuchsia) {
     cflags += [ "-Wno-unused-function" ]
   }
   if (is_clang) {
@@ -111,7 +111,7 @@ config("icu_code") {
       "-Wno-unused-variable",
     ]
   }
-  if (is_clang || is_linux || is_android || icu_is_in_fuchsia) {
+  if (is_clang || is_linux || is_chromeos || is_android || icu_is_in_fuchsia) {
     cflags += [
       # ICU uses its own deprecated functions.
       "-Wno-deprecated-declarations",
@@ -134,7 +134,7 @@ config("icu_code") {
 # Config used to set default visibility to hidden.
 config("visibility_hidden") {
   cflags = []
-  if (is_mac || is_linux || is_android) {
+  if (is_mac || is_linux || is_chromeos || is_android) {
     cflags += [ "-fvisibility=hidden" ]
   }
 }
