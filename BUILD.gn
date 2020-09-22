@@ -150,7 +150,11 @@ template("generate_icu_component") {
                              ])
       assert(fuchsia_output_name_postfix == "")
 
-      # ICU uses RTTI, replace the default "no rtti" config.
+      # ICU uses RTTI, replace the default "no rtti" config (if applied).
+      configs += [
+        "//build/config:no_rtti",
+        "//build/config:symbol_visibility_hidden",
+      ]
       configs -= [
         "//build/config:no_rtti",
         "//build/config:symbol_visibility_hidden",
@@ -180,7 +184,11 @@ template("generate_icu_component") {
         assert(fuchsia_output_name_postfix == "")
       }
 
-      # ICU uses RTTI, replace the default "no rtti" config.
+      # ICU uses RTTI, replace the default "no rtti" config (if applied).
+      configs += [
+        "//build/config/compiler:no_rtti",
+        "//build/config/compiler:chromium_code",
+      ]
       configs -= [
         "//build/config/compiler:no_rtti",
         "//build/config/compiler:chromium_code",
