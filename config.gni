@@ -9,7 +9,7 @@ declare_args() {
 
   # If true, compile icu into a standalone static library. Currently this is
   # only useful on Chrome OS.
-  icu_disable_thin_archive = is_chromeos && !is_component_build
+  icu_disable_thin_archive = false
 }
 
 # Set to true if icu is being built from the Fuchsia tree.
