@@ -22,17 +22,19 @@ function copy_common {
   TZRES_PREFIX="data/out/build/icudt${VERSION}l"
 
   echo "Generating the big endian data bundle"
-  LD_LIBRARY_PATH=lib bin/icupkg -tb "${DATA_PREFIX}l.dat" "${DATA_PREFIX}b.dat"
+  LD_LIBRARY_PATH=lib bin/icupkg -tb --ignore-deps "${DATA_PREFIX}l.dat" "${DATA_PREFIX}b.dat"
 
   echo "Copying icudtl.dat and icudtlb.dat"
   for endian in l b
   do
+    rm "${TOPSRC}/common/icudt${endian}.dat"
     cp "${DATA_PREFIX}${endian}.dat" "${TOPSRC}/common/icudt${endian}.dat"
   done
 
   echo "Copying metaZones.res, timezoneTypes.res, zoneinfo64.res"
   for tzfile in metaZones timezoneTypes zoneinfo64
   do
+    rm "${TOPSRC}/tzres/${tzfile}.res"
     cp "${TZRES_PREFIX}/${tzfile}.res" "${TOPSRC}/tzres/${tzfile}.res"
   done
 
@@ -42,6 +44,7 @@ function copy_common {
 function copy_data {
   echo "Copying icudtl.dat for $1"
 
+  rm "${TOPSRC}/$2/icudtl.dat"
   cp "data/out/tmp/icudt${VERSION}l.dat" "${TOPSRC}/$2/icudtl.dat"
 
   echo "Done with copying pre-built ICU data file for $1."
@@ -50,14 +53,15 @@ function copy_data {
 function copy_android_extra {
   echo "Copying icudtl_extra.dat for AndroidExtra"
 
-  LD_LIBRARY_PATH=lib/ bin/icupkg -r \
+  LD_LIBRARY_PATH=lib/ bin/icupkg -r --ignore-deps \
     "${TOPSRC}/filters/android-extra-removed-resources.txt" \
     "data/out/tmp/icudt${VERSION}l.dat"
 
   echo "AFTER strip out the content is"
-  LD_LIBRARY_PATH=lib/ bin/icupkg -l \
+  LD_LIBRARY_PATH=lib/ bin/icupkg -l --ignore-deps \
     "data/out/tmp/icudt${VERSION}l.dat"
 
+  rm "${TOPSRC}/android_small/icudtl_extra.dat"
   cp "data/out/tmp/icudt${VERSION}l.dat" "${TOPSRC}/android_small/icudtl_extra.dat"
 
   echo "Done with copying pre-built ICU data file for AndroidExtra."
