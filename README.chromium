@@ -222,7 +222,15 @@ D. Local Modifications
   - patches/restrace.patch
 
 7. Patch Arabic date time pattern back to 67 value to avoid test
-   breakage in 
+   breakage in
    third_party/blink/web_tests/fast/forms/datetimelocal/datetimelocal-appearance-l10n.html
   - patches/ardatepattern.patch
   - https://bugs.chromium.org/p/chromium/issues/detail?id=1139186
+
+8. Patch fix for CFI due to unnecessary cast
+  - patches/fixCFI.patch
+  - updatream PR:
+    https://github.com/unicode-org/icu/pull/1440
+  - updtream bug:
+    https://unicode-org.atlassian.net/browse/ICU-21373
+
