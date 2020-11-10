@@ -234,3 +234,11 @@ D. Local Modifications
   - updtream bug:
     https://unicode-org.atlassian.net/browse/ICU-21373
 
+9. Patch fix for > 8 items in ListFormatter Memory READ
+  - patches/listformatmemread.patch
+  - updatream PR:
+    https://github.com/unicode-org/icu/pull/1450
+  - updtream bug:
+    https://unicode-org.atlassian.net/browse/ICU-21383
+  
+
