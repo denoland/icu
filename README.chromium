@@ -240,5 +240,10 @@ D. Local Modifications
     https://github.com/unicode-org/icu/pull/1450
   - updtream bug:
     https://unicode-org.atlassian.net/browse/ICU-21383
-  
 
+10. Patch fix for Locale::setKeywordValue
+    patches/setkeywordvalue.patch
+  - updatream PR:
+    https://github.com/unicode-org/icu/pull/1461
+  - updtream bug:
+    https://unicode-org.atlassian.net/browse/ICU-21385
