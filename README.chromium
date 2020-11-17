@@ -253,3 +253,9 @@ D. Local Modifications
   - updtream bug:
     https://unicode-org.atlassian.net/browse/ICU-21392
 
+12. Patch mapping for 'cel-gaulish'
+    patches/remove-cel-gaulish.patch
+  - updatream PR:
+    https://github.com/unicode-org/icu/pull/1470
+  - updtream bug:
+    https://unicode-org.atlassian.net/browse/ICU-21401

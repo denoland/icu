@@ -1,0 +1,12 @@
+diff --git a/source/common/uloc_tag.cpp b/source/common/uloc_tag.cpp
+index 7f7fd911..035e0925 100644
+--- a/source/common/uloc_tag.cpp
++++ b/source/common/uloc_tag.cpp
+@@ -129,7 +129,6 @@ static const char* const LEGACY[] = {
+     // Legacy tags with no preferred value in the IANA
+     // registry. Kept for now for the backward compatibility
+     // because ICU has mapped them this way.
+-    "cel-gaulish",  "xtg-x-cel-gaulish",
+     "i-default",    "en-x-i-default",
+     "i-enochian",   "und-x-i-enochian",
+     "i-mingo",      "see-x-i-mingo",
