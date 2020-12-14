@@ -261,13 +261,13 @@ D. Local Modifications
     https://unicode-org.atlassian.net/browse/ICU-21410
 
 13. Patch locale canoncalization fixes
+    patches/loc.patch
   - updatream PR:
     https://github.com/unicode-org/icu/pull/1470
     https://github.com/unicode-org/icu/pull/1475
     https://github.com/unicode-org/icu/pull/1478
     https://github.com/unicode-org/icu/pull/1491
     https://github.com/unicode-org/icu/pull/1504
-
   - updtream bug:
     https://unicode-org.atlassian.net/browse/ICU-21401
     https://unicode-org.atlassian.net/browse/ICU-21402
@@ -275,3 +275,10 @@ D. Local Modifications
     https://unicode-org.atlassian.net/browse/ICU-21406
     https://unicode-org.atlassian.net/browse/ICU-21414
     https://unicode-org.atlassian.net/browse/ICU-21433
+
+14. Patch locale canoncalization fixes which is part of 68.2
+    patches/loc2.patch
+  - updatream PR:
+    https://github.com/unicode-org/icu/pull/1502
+  - updtream bug:
+    https://unicode-org.atlassian.net/browse/ICU-21430
