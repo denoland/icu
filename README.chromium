@@ -285,3 +285,16 @@ D. Local Modifications
     https://github.com/unicode-org/icu/pull/1502
   - updtream bug:
     https://unicode-org.atlassian.net/browse/ICU-21430
+
+15. Remove explicit std::atomic<NumberRangeFormatterImpl*> template
+    instantiation
+    patches/atomic_template_instantiation.patch
+  - The explicit instantiation was added to silence MSVC C4251 warnings:
+    https://unicode-org.atlassian.net/browse/ICU-20157
+    Small test cases show that it is generally an error to instantiate
+    std::atomic<T*> with an incomplete type T with MSVC, clang, and GCC, so this
+    instantiation never should have worked:
+    https://gcc.godbolt.org/z/34xx8h
+    At this time, it's not clear if this particular instantiation with
+    NumberRangeFormatterImpl* was ever necessary for MSVC. Further testing with
+    MSVC is required to upstream this patch.
