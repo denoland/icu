@@ -298,3 +298,9 @@ D. Local Modifications
     At this time, it's not clear if this particular instantiation with
     NumberRangeFormatterImpl* was ever necessary for MSVC. Further testing with
     MSVC is required to upstream this patch.
+
+16. Patch data/unit/fa.txt back to pre68.1 version
+    patches/back_patch_fa_unit_to_67.patch
+  - upstream bug:
+    https://unicode-org.atlassian.net/browse/CLDR-14476
+    https://unicode-org.atlassian.net/browse/ICU-21485
