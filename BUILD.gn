@@ -433,13 +433,11 @@ if (icu_use_data_file) {
       outputs = [ "{{bundle_resources_dir}}/{{source_file_part}}" ]
     }
   } else {
-    group("icudata") {
-      if (icu_copy_icudata_to_root_build_dir) {
-        # Guarded by a flag, to avoid name clashes if other build processes
-        # also happen to generate the output file by the same name.
-        # See README.fuchsia for details.
-        public_deps = [ ":copy_icudata" ]
-      }
+    # rusty_v8 hack: we do not want to include the icudata file in the rusty_v8
+    # crate, but unfortunately the GN build depends on it being here. Therefore
+    # we've inserted this source_set as a no-op.
+    source_set("icudata") {
+      print("$data_dir/$data_bundle")  # to avoid unused variable error.
     }
   }
 
