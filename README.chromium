@@ -304,3 +304,10 @@ D. Local Modifications
   - upstream bug:
     https://unicode-org.atlassian.net/browse/CLDR-14476
     https://unicode-org.atlassian.net/browse/ICU-21485
+
+17. Patch regexp to fix security bug
+    patches/regex_minMatchLength.patch
+  - upstream bug:
+    https://unicode-org.atlassian.net/browse/ICU-21492
+  - updatream PR:
+    https://github.com/unicode-org/icu/pull/1577
