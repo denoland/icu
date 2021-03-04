@@ -125,6 +125,10 @@ config("icu_code") {
       # is fixed.
       "-Wno-implicit-int-float-conversion",
       "-Wno-conversion",
+
+      # Used for conditional changes to the compilation process that
+      # are only needed for the Fuchsia toolchain.
+      "-DICU_IS_IN_FUCHSIA",
     ]
   }
 }
