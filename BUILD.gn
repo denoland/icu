@@ -134,6 +134,12 @@ config("icu_code") {
       "-Wno-implicit-int-float-conversion",
       "-Wno-conversion",
 
+      # Needed for C++20
+      "-Wno-ambiguous-reversed-operator",
+      "-Wno-rewrite-not-bool",
+      "-Wno-deprecated-anon-enum-enum-conversion",
+      "-Wno-deprecated-array-compare",
+
       # Used for conditional changes to the compilation process that
       # are only needed for the Fuchsia toolchain.
       "-DICU_IS_IN_FUCHSIA",
