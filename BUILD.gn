@@ -299,6 +299,12 @@ group("icuuc_hidden_visibility") {
   public_deps = [ ":icuuc_private_hidden_visibility" ]
 }
 
+# TODO(1250014): Consider removing the misspelled target after some sufficient
+# time has passed.
+group("icuuc_hidden_visiblity") {
+  public_deps = [ ":icuuc_hidden_visibility" ]
+}
+
 source_set("icuuc_public") {
   sources = icuuc_public
 }
@@ -314,7 +320,7 @@ generate_icuuc("icuuc_private") {
 
 generate_icuuc("icuuc_private_hidden_visibility") {
   extra_configs = [ ":visibility_hidden" ]
-  output_name = "icuuc_hidden_visibility"
+  output_name = "icuuc_hidden_visiblity"
   visibility = [
     ":icui18n_hidden_visibility",
     ":icuuc_hidden_visibility",
