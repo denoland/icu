@@ -305,7 +305,7 @@ source_set("icuuc_public") {
 
 generate_icuuc("icuuc_private") {
   extra_configs = []
-  output_name = "icuuc_private"
+  output_name = "icuuc"
   visibility = [
     ":icui18n",
     ":icuuc",
