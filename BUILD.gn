@@ -295,14 +295,8 @@ group("icuuc") {
   public_deps = [ ":icuuc_private" ]
 }
 
-group("icuuc_hidden_visibility") {
-  public_deps = [ ":icuuc_private_hidden_visibility" ]
-}
-
-# TODO(1250014): Consider removing the misspelled target after some sufficient
-# time has passed.
 group("icuuc_hidden_visiblity") {
-  public_deps = [ ":icuuc_hidden_visibility" ]
+  public_deps = [ ":icuuc_private_hidden_visibility" ]
 }
 
 source_set("icuuc_public") {
