@@ -246,3 +246,12 @@ D. Local Modifications
 9.  Patch source/common/uposixdefs.h so it compiles on Fuchsia on Macs.
     patches/fuchsia.patch
   - context bug: https://bugs.chromium.org/p/chromium/issues/detail?id=1184527
+
+10. Rename the following file due to path conflict.
+    mv source/common/BUILD source/common/BUILD.unused
+    mv source/data/unidata/norm2/BUILD source/data/unidata/norm2/BUILD.unused
+    mv source/i18n/BUILD source/i18n/BUILD.unused
+    mv source/stubdata/BUILD source/stubdata/BUILD.unused
+    mv source/tools/gennorm2/BUILD source/tools/gennorm2/BUILD.unused
+    mv source/tools/toolutil/BUILD source/tools/toolutil/BUILD.unused
+
