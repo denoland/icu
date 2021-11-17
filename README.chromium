@@ -139,6 +139,8 @@ them when updating ICU.
 2. source/data/brkitr
   - dictionaries/khmerdict.txt: Abridged Khmer dictionary. See
     https://unicode-org.atlassian.net/browse/ICU-9451
+  - dictionaries/laodict.txt: Abridged Lao dictionary. We keep using the smaller
+    old version from ICU69-1.
   - rules/word_ja.txt (used only on Android)
     Added for Japanese-specific word-breaking without the C+J dictionary.
   - rules/{root,zh,zh_Hant}.txt
