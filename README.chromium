@@ -257,3 +257,10 @@ D. Local Modifications
     mv source/tools/gennorm2/BUILD source/tools/gennorm2/BUILD.unused
     mv source/tools/toolutil/BUILD source/tools/toolutil/BUILD.unused
 
+11. Remove deprecated ctgmath header
+    patches/lstmbe-header.patch
+  - upstream PR:
+    https://github.com/unicode-org/icu/pull/1948
+  - upstream bug:
+    https://unicode-org.atlassian.net/browse/ICU-21865
+
