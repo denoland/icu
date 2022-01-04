@@ -141,7 +141,7 @@
     },
     "brkitr_tree": {
       "excludelist": [
-	"en_US_POSIX"
+        "en_US_POSIX"
       ]
     },
 // Based on the ICU63 version of
@@ -191,7 +191,7 @@
       "filterType": "language",
       "includelist": [
 // Need to explicitly add "root"
-	"root",
+        "root",
 
         "am",
         "ar",
@@ -256,13 +256,13 @@
     "coll_tree": {
       "filterType": "union",
       "unionOf": [
-	{
+        {
           "includelist": [
             "en",
             "en_US"
-	  ]
-	},
-	{
+          ]
+        },
+        {
           "filterType": "language",
           "includelist": [
 // Need to explicitly add "root"
@@ -322,7 +322,7 @@
             "uk",
             "vi",
             "zh"
-	  ]
+          ]
         }
       ]
     },
@@ -341,7 +341,7 @@
       "filterType": "language",
       "includelist": [
 // Need to explicitly add "root"
-	"root",
+        "root",
 
         "am",
         "ar",
@@ -416,7 +416,7 @@
       "filterType": "language",
       "includelist": [
 // Need to explicitly add "root"
-	"root",
+        "root",
 
         "am",
         "ar",
@@ -482,10 +482,10 @@
       "filterType": "language",
       "includelist": [
 // Need to explicitly add "root"
-	"root",
+        "root",
 
 // Need to explicitly add "tzdbNames"
-	"tzdbNames",
+        "tzdbNames",
 
         "am",
         "ar",
@@ -937,7 +937,7 @@
           "yi",
           "yo",
           "zu"
-	]
+        ]
       },
       "rules": [
         "-/*",
@@ -1299,7 +1299,7 @@
       ],
       "rules": [
         "-/UCARules",
-	"-/collations/*/Sequence"
+        "-/collations/*/Sequence"
       ]
     },
 // The following rules must be placed below "-/collations/*/Sequence" to avoid keeping empty unihan, big5han and gb2312han
@@ -1311,8 +1311,8 @@
       ],
       "files": {
         "includelist": [
-	  "zh"
-	]
+          "zh"
+        ]
       },
       "rules": [
         "-/*/unihan",
@@ -1341,7 +1341,7 @@
       "files": {
         "includelist": [
           "supplementalData"
-	]
+        ]
       },
       "rules": [
         "-/*",
@@ -1363,7 +1363,7 @@
       ],
       "rules": [
         "-/*",
-       "+/RuleBasedTransliteratorIDs/Latin-ASCII"
+        "+/RuleBasedTransliteratorIDs/Latin-ASCII"
       ]
     },
 // Based on filter_unit_data
