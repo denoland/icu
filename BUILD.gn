@@ -305,7 +305,7 @@ template("generate_icuuc") {
       deps += [ ":icudata_hash" ]
     }
 
-    if (icu_use_data_file) {
+    if (icu_use_data_file && icu_use_stub_data) {
       sources += [ "source/stubdata/stubdata.cpp" ]
     }
 
