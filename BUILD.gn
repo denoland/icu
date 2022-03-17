@@ -96,7 +96,7 @@ config("icu_code") {
         # https://crbug.com/1274247
         # <ctgmath> is deprecated in C++17, but ICU still uses it, so we should
         # silence the warning for now.
-        "_SILENCE_CXX17_C_HEADER_DEPRECATION_WARNING"
+        "_SILENCE_CXX17_C_HEADER_DEPRECATION_WARNING",
       ]
     }
   } else if (is_linux || is_chromeos || is_android || icu_is_in_fuchsia) {
@@ -361,6 +361,7 @@ if (is_android && enable_java_templates) {
     }
   }
 
+  # TODO(crbug.com/1146288): remove this when the extra_icu module is removed.
   android_assets("icu_extra_assets") {
     if (icu_use_data_file) {
       sources = [ "$root_out_dir/icudtl_extra.dat" ]
@@ -371,8 +372,7 @@ if (is_android && enable_java_templates) {
 }
 
 if (is_android) {
-  # Use android_small for now to keep the size till we decide to switch to the new one.
-  data_dir = "android_small"
+  data_dir = "android"
 } else if (is_ios) {
   data_dir = "ios"
 } else if (is_chromeos) {
@@ -412,6 +412,7 @@ if (icu_use_data_file) {
     }
   }
 
+  # TODO(crbug.com/1146288): remove this when the extra_icu module is removed.
   copy("extra_icudata") {
     sources = [ "//third_party/icu/android_small/icudtl_extra.dat" ]
     outputs = [ "$root_out_dir/icudtl_extra.dat" ]
