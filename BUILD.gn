@@ -370,6 +370,9 @@ if (is_android) {
   data_dir = "chromeos"
 } else if (target_cpu == "wasm") {
   data_dir = "flutter"
+} else if (icu_is_in_fuchsia && icu_fuchsia_override_data_dir != "") {
+  # See //config.gni for details.
+  data_dir = icu_fuchsia_override_data_dir
 } else {
   data_dir = "common"
 }
