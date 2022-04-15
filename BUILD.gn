@@ -146,7 +146,7 @@ config("icu_code") {
       "-DICU_IS_IN_FUCHSIA",
     ]
   }
-  if (target_cpu == "wasm") {
+  if (current_cpu == "wasm") {
     # Tell ICU that we are a 32 bit platform, otherwise,
     # double-conversion-utils.h doesn't know how to operate.
     defines += [ "__i386__" ]
@@ -368,7 +368,7 @@ if (is_android) {
   data_dir = "ios"
 } else if (is_chromeos) {
   data_dir = "chromeos"
-} else if (target_cpu == "wasm") {
+} else if (current_cpu == "wasm") {
   data_dir = "flutter"
 } else if (icu_is_in_fuchsia && icu_fuchsia_override_data_dir != "") {
   # See //config.gni for details.
@@ -406,14 +406,14 @@ if (icu_use_data_file) {
     }
   }
 } else {
-  if (target_cpu == "wasm") {
+  if (current_cpu == "wasm") {
     data_assembly = "$target_gen_dir/${data_bundle_prefix}_dat.cpp"
   } else {
     data_assembly = "$target_gen_dir/${data_bundle_prefix}_dat.S"
   }
   inline_data_assembly = "$target_gen_dir/${data_bundle_prefix}_dat.cc"
   action("make_data_assembly") {
-    if (target_cpu == "wasm") {
+    if (current_cpu == "wasm") {
       # See scripts/make_data_cpp.py for details on building ICU for wasm.
       script = "scripts/make_data_cpp.py"
       inputs = [ "$data_dir/$data_bundle" ]
