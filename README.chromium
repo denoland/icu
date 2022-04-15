@@ -248,3 +248,8 @@ D. Local Modifications
 9.  Patch source/common/uposixdefs.h so it compiles on Fuchsia on Macs.
     patches/fuchsia.patch
   - context bug: https://bugs.chromium.org/p/chromium/issues/detail?id=1184527
+
+10. Patch i18n/dtitvfmt.cpp to fix DateIntervalFormat regression
+    patches/DateIntervalFormatnormalizeHourMetacharacters.patch
+  - https://github.com/unicode-org/icu/pull/2060
+  - https://unicode-org.atlassian.net/browse/ICU-21984
