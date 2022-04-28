@@ -253,3 +253,13 @@ D. Local Modifications
     patches/DateIntervalFormatnormalizeHourMetacharacters.patch
   - https://github.com/unicode-org/icu/pull/2060
   - https://unicode-org.atlassian.net/browse/ICU-21984
+
+11. Patch common/locid.cpp to fix heap-buffer-overflow
+    patches/AliasDataBuilder-readAlias.patch
+  - https://patch-diff.githubusercontent.com/raw/unicode-org/icu/pull/2067
+  - https://unicode-org.atlassian.net/browse/ICU-21994
+
+12. Patch source/i18n/collationdatabuilder.*
+    patches/collationdatabuilder.patch
+  - https://github.com/unicode-org/icu/pull/2052
+  - https://unicode-org.atlassian.net/browse/ICU-20715
