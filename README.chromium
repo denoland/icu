@@ -268,3 +268,8 @@ D. Local Modifications
     patches/formatted_string_builder.patch
   - https://github.com/unicode-org/icu/pull/2070
   - https://unicode-org.atlassian.net/browse/ICU-22005
+
+14. Patch to fix C++20 enum issues
+    patches/cxx20enum.patch
+  - https://unicode-org.atlassian.net/browse/ICU-22014
+  - https://github.com/unicode-org/icu/pull/2084
