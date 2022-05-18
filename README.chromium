@@ -273,3 +273,7 @@ D. Local Modifications
     patches/cxx20enum.patch
   - https://unicode-org.atlassian.net/browse/ICU-22014
   - https://github.com/unicode-org/icu/pull/2084
+
+15. Patch to remove ATOMIC_VAR_INIT for C++20
+    patches/rmATOMIC_VAR_INIT.patch
+  - https://github.com/unicode-org/icu/pull/2090
