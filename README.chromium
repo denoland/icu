@@ -282,3 +282,7 @@ D. Local Modifications
     patches/calendar-get-out-of-bound.patch
   - https://unicode-org.atlassian.net/browse/ICU-22023
   - https://github.com/unicode-org/icu/pull/2086
+    AND
+    patches/calendar-get-out-of-bound2.patch
+  - https://unicode-org.atlassian.net/browse/ICU-22043
+  - https://github.com/unicode-org/icu/pull/2100
