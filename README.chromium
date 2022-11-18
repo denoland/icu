@@ -244,3 +244,7 @@ D. Local Modifications
 9.  Patch source/common/uposixdefs.h so it compiles on Fuchsia on Macs.
     patches/fuchsia.patch
   - context bug: https://bugs.chromium.org/p/chromium/issues/detail?id=1184527
+
+10. Patch ICU to fix mix usage of UBool which break win64_msvc
+  - patches/fix-bool-mix-use.patch
+  - https://github.com/unicode-org/icu/pull/2255
