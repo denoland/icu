@@ -24,11 +24,6 @@ group("icu") {
     ":icui18n",
     ":icuuc",
   ]
-  if (icu_is_in_fuchsia) {
-    # All use of //third_party/icu is funneled through //src/lib/icu in
-    # Fuchsia.
-    visibility = [ "//src/lib/icu/*" ]
-  }
 }
 
 # Shared config used by ICU and all dependents.
@@ -473,11 +468,6 @@ if (icu_use_data_file) {
     } else {
       sources = [ data_assembly ]
       deps = [ ":make_data_assembly" ]
-      if (icu_is_in_fuchsia) {
-        # All use of //third_party/icu is funneled through //src/lib/icu in
-        # Fuchsia.
-        visibility = [ "//src/lib/icu/*" ]
-      }
     }
   }
 }
