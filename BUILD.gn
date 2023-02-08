@@ -438,7 +438,7 @@ if (icu_use_data_file) {
         # Guarded by a flag, to avoid name clashes if other build processes
         # also happen to generate the output file by the same name.
         # See README.fuchsia for details.
-        deps = [ ":copy_icudata" ]
+        public_deps = [ ":copy_icudata" ]
       }
     }
   }
