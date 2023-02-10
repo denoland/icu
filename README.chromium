@@ -171,11 +171,16 @@ D. Local Modifications
 
 
 2. Breakiterator patches
-  - patches/wordbrk.patch for word.txt
+  - patches/wordbrk.patch for word.txt, word_POSIX.txt, and word_fi_sv.txt
     a. Move full stops (U+002E, U+FF0E) from MidNumLet to MidNum so that
        FQDN labels can be split at '.'
     b. Move fullwidth digits (U+FF10 - U+FF19) from Ideographic to Numeric.
        See http://unicode.org/cldr/trac/ticket/6555
+    c. Restore pre-ICU 72 behavior of breaking at '@'. The new upstream behavior
+       of not breaking at '@' interacted badly with the local change to break at
+       '.' (D.2.a above): although not breaking at '@' is intended to not break
+       within e-mail addresses, this is not possible with Chromium's
+       break-at-'.' behavior.
 
   - patches/khmer-dictbe.patch
     Adjust parameters to use a smaller Khmer dictionary (khmerdict.txt).
