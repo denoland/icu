@@ -169,6 +169,11 @@ D. Local Modifications
 
   - patches/locale1.patch: Minor fixes for Korean
 
+  - patches/name_5_langs.patch: add the native names of 5 languages not currently
+    supported by CLDR/ICU. When updating the ICU to a new version,
+    source/data/lang/{ay,dv,ilo,lus,ts}.txt have to be checked and if they are
+    present with their display names populated, this patch has to be adjusted
+    or discarded as necessary.
 
 2. Breakiterator patches
   - patches/wordbrk.patch for word.txt, word_POSIX.txt, and word_fi_sv.txt
