@@ -258,9 +258,6 @@ uk{
         "America:Chihuahua"{
             ec{"Чіуауа"}
         }
-        "America:Ciudad_Juarez"{
-            ec{"С’юдад-Хуарес"}
-        }
         "America:Coral_Harbour"{
             ec{"Атікокан"}
         }

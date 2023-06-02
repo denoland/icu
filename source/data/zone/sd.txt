@@ -258,9 +258,6 @@ sd{
         "America:Chihuahua"{
             ec{"چي هوا هوا"}
         }
-        "America:Ciudad_Juarez"{
-            ec{"سوڊيڊ جوريز"}
-        }
         "America:Coral_Harbour"{
             ec{"اٽيڪوڪن"}
         }

@@ -93,7 +93,7 @@ StringCharacterIterator::operator==(const ForwardCharacterIterator& that) const 
         return false;
     }
 
-    const StringCharacterIterator&    realThat = static_cast<const StringCharacterIterator&>(that);
+    StringCharacterIterator&    realThat = (StringCharacterIterator&)that;
 
     return text == realThat.text
         && pos == realThat.pos

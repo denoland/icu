@@ -39,7 +39,7 @@ class UnaccentTransliterator : public Transliterator {
     /**
      * Unaccent a single character using normalizer.
      */
-    char16_t unaccent(char16_t c) const;
+    UChar unaccent(UChar c) const;
 
     Normalizer normalizer;
 };

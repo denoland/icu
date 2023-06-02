@@ -19,7 +19,7 @@
 
 using namespace icu;
 
-U_CFUNC int c_main();
+U_CFUNC int c_main(void);
 
 void printUnicodeString(const UnicodeString &s) {
     char charBuf[1000];
@@ -96,7 +96,7 @@ void printAt(BreakIterator &boundary, int32_t pos )
 }
 
 /* Creating and using text boundaries */
-int main()
+int main( void )
 {
     puts("ICU Break Iterator Sample Program\n");
     puts("C++ Break Iteration\n");

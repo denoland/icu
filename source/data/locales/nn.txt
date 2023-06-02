@@ -146,6 +146,15 @@ nn{
                         "fr.",
                         "la.",
                     }
+                    narrow{
+                        "S",
+                        "M",
+                        "T",
+                        "O",
+                        "T",
+                        "F",
+                        "L",
+                    }
                     short{
                         "sø.",
                         "må.",
@@ -230,6 +239,24 @@ nn{
                 Md{
                     M{"dd.MM–dd.MM"}
                     d{"dd.MM–dd.MM"}
+                }
+            }
+            monthNames{
+                format{
+                    abbreviated{
+                        "jan.",
+                        "feb.",
+                        "mars",
+                        "apr.",
+                        "mai",
+                        "juni",
+                        "juli",
+                        "aug.",
+                        "sep.",
+                        "okt.",
+                        "nov.",
+                        "des.",
+                    }
                 }
             }
             quarters{

@@ -162,12 +162,12 @@ UPerfFunction* BreakIteratorPerformanceTest::TestICUIsBound()
 
 UPerfFunction* BreakIteratorPerformanceTest::TestDarwinForward()
 {
-  return nullptr;
+  return NULL;
 }
 
 UPerfFunction* BreakIteratorPerformanceTest::TestDarwinIsBound()
 {
-  return nullptr;
+  return NULL;
 }
 
 UPerfFunction* BreakIteratorPerformanceTest::runIndexedTest(int32_t index, UBool exec,
@@ -181,9 +181,9 @@ UPerfFunction* BreakIteratorPerformanceTest::runIndexedTest(int32_t index, UBool
 		TESTCASE(3, TestDarwinIsBound);
         default: 
             name = ""; 
-            return nullptr;
+            return NULL;
     }
-    return nullptr;
+    return NULL;
 }
 
 UOption options[]={
@@ -193,8 +193,8 @@ UOption options[]={
 
 BreakIteratorPerformanceTest::BreakIteratorPerformanceTest(int32_t argc, const char* argv[], UErrorCode& status)
 : UPerfTest(argc,argv,status),
-m_mode_(nullptr),
-m_file_(nullptr),
+m_mode_(NULL),
+m_file_(NULL),
 m_fileLen_(0)
 {
 

@@ -258,9 +258,6 @@ bg{
         "America:Chihuahua"{
             ec{"Чиуауа"}
         }
-        "America:Ciudad_Juarez"{
-            ec{"Сиудад Хуарес"}
-        }
         "America:Coral_Harbour"{
             ec{"Атикокан"}
         }

@@ -460,11 +460,6 @@ wo{
         }
         day-narrow{
             dn{"fan"}
-            relative{
-                "-1"{"démb"}
-                "0"{"tay"}
-                "1"{"suba"}
-            }
             relativeTime{
                 future{
                     other{"fileek {0} fan"}
@@ -476,11 +471,6 @@ wo{
         }
         day-short{
             dn{"fan"}
-            relative{
-                "-1"{"démb"}
-                "0"{"tay"}
-                "1"{"suba"}
-            }
             relativeTime{
                 future{
                     other{"fileek {0} fan"}
@@ -502,19 +492,7 @@ wo{
         dayperiod{
             dn{"Sub/Ngo"}
         }
-        dayperiod-narrow{
-            dn{"Sub/Ngo"}
-        }
-        dayperiod-short{
-            dn{"Sub/Ngo"}
-        }
         era{
-            dn{"jamono"}
-        }
-        era-narrow{
-            dn{"jamono"}
-        }
-        era-short{
             dn{"jamono"}
         }
         fri{
@@ -1087,12 +1065,6 @@ wo{
             dn{"ayu-b. we."}
         }
         weekday{
-            dn{"bisu ayu-bis"}
-        }
-        weekday-narrow{
-            dn{"bisu ayu-bis"}
-        }
-        weekday-short{
             dn{"bisu ayu-bis"}
         }
         weekdayOfMonth{

@@ -258,9 +258,6 @@ sw{
         "America:Chihuahua"{
             ec{"Chihuahua"}
         }
-        "America:Ciudad_Juarez"{
-            ec{"Ciudad Juarez"}
-        }
         "America:Coral_Harbour"{
             ec{"Atikokan"}
         }

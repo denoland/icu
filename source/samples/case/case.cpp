@@ -28,17 +28,17 @@ void printUnicodeString(UFILE *out, const UnicodeString &s) {
 }
 
 
-int main()
+int main( void )
 {
     UFILE *out;
     UErrorCode status  = U_ZERO_ERROR;
-    out = u_finit(stdout, nullptr, nullptr);
+    out = u_finit(stdout, NULL, NULL);
     if(!out) {
         fprintf(stderr, "Could not initialize (finit()) over stdout! \n");
         return 1;
     }
     ucnv_setFromUCallBack(u_fgetConverter(out), UCNV_FROM_U_CALLBACK_ESCAPE,
-        nullptr, nullptr, nullptr, &status);
+        NULL, NULL, NULL, &status);
     if(U_FAILURE(status)) {
         u_fprintf(out, "Warning- couldn't set the substitute callback - err %s\n", u_errorName(status));
     }
@@ -50,9 +50,9 @@ int main()
 
     UnicodeString string("This is a test");
     /* lowercase = "istanbul" */ 
-    char16_t lowercase[] = {0x69, 0x73, 0x74, 0x61, 0x6e, 0x62, 0x75, 0x6c, 0};
+    UChar lowercase[] = {0x69, 0x73, 0x74, 0x61, 0x6e, 0x62, 0x75, 0x6c, 0};
     /* uppercase = "LATIN CAPITAL I WITH DOT ABOVE STANBUL" */  
-    char16_t uppercase[] = {0x0130, 0x53, 0x54, 0x41, 0x4e, 0x42, 0x55, 0x4C, 0};
+    UChar uppercase[] = {0x0130, 0x53, 0x54, 0x41, 0x4e, 0x42, 0x55, 0x4C, 0};
 
     UnicodeString upper(uppercase);
     UnicodeString lower(lowercase);

@@ -58,13 +58,13 @@ Scale& Scale::operator=(const Scale& other) {
     return *this;
 }
 
-Scale::Scale(Scale&& src) noexcept
+Scale::Scale(Scale&& src) U_NOEXCEPT
         : fMagnitude(src.fMagnitude), fArbitrary(src.fArbitrary), fError(src.fError) {
     // Take ownership away from src if necessary
     src.fArbitrary = nullptr;
 }
 
-Scale& Scale::operator=(Scale&& src) noexcept {
+Scale& Scale::operator=(Scale&& src) U_NOEXCEPT {
     fMagnitude = src.fMagnitude;
     if (fArbitrary != nullptr) {
         delete fArbitrary;

@@ -80,7 +80,6 @@ fr_CA{
         en_US{"anglais (É.-U.)"}
     }
     Languages%variant{
-        ckb{"kurde central"}
         ug{"ouïghour"}
     }
     Scripts{

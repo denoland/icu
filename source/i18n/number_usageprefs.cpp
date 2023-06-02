@@ -60,7 +60,7 @@ StringProp &StringProp::operator=(const StringProp &other) {
 }
 
 // Move constructor
-StringProp::StringProp(StringProp &&src) noexcept : fValue(src.fValue),
+StringProp::StringProp(StringProp &&src) U_NOEXCEPT : fValue(src.fValue),
                                                       fLength(src.fLength),
                                                       fError(src.fError) {
     // Take ownership away from src if necessary
@@ -68,7 +68,7 @@ StringProp::StringProp(StringProp &&src) noexcept : fValue(src.fValue),
 }
 
 // Move assignment operator
-StringProp &StringProp::operator=(StringProp &&src) noexcept {
+StringProp &StringProp::operator=(StringProp &&src) U_NOEXCEPT {
     if (this == &src) {
         return *this;
     }
@@ -102,9 +102,7 @@ void StringProp::set(StringPiece value) {
         fError = U_MEMORY_ALLOCATION_ERROR;
         return;
     }
-    if (fLength > 0) {
-        uprv_strncpy(fValue, value.data(), fLength);
-    }
+    uprv_strncpy(fValue, value.data(), fLength);
     fValue[fLength] = 0;
 }
 

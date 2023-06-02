@@ -17,9 +17,6 @@ xh{
         default{"latn"}
         latn{
             patterns{
-                accountingFormat{"¤#,##0.00"}
-                accountingFormat%alphaNextToNumber{"¤ #,##0.00"}
-                accountingFormat%noCurrency{"#,##0.00"}
                 currencyFormat{"¤#,##0.00"}
                 decimalFormat{"#,##0.###"}
                 percentFormat{"#,##0%"}
@@ -209,10 +206,6 @@ xh{
                 "AM",
                 "PM",
             }
-            AmPmMarkersNarrow{
-                "AM",
-                "PM",
-            }
             DateTimePatterns{
                 "HH:mm:ss zzzz",
                 "HH:mm:ss z",
@@ -320,15 +313,6 @@ xh{
                         "Hl",
                         "Mgq",
                     }
-                    short{
-                        "Caw",
-                        "Mvu",
-                        "Lwesb",
-                        "Tha",
-                        "Sin",
-                        "Hla",
-                        "Mgq",
-                    }
                     wide{
                         "Cawe",
                         "Mvulo",
@@ -358,15 +342,6 @@ xh{
                         "Hl",
                         "Mgq",
                     }
-                    short{
-                        "Caw",
-                        "Mvu",
-                        "Lwesb",
-                        "Tha",
-                        "Sin",
-                        "Hla",
-                        "Mgq",
-                    }
                     wide{
                         "Cawe",
                         "Mvulo",
@@ -384,14 +359,6 @@ xh{
                         am{"AM"}
                         pm{"PM"}
                     }
-                    narrow{
-                        am{"AM"}
-                        pm{"PM"}
-                    }
-                    wide{
-                        am{"AM"}
-                        pm{"PM"}
-                    }
                 }
             }
             eras{
@@ -400,14 +367,6 @@ xh{
                     "AD",
                 }
                 abbreviated%variant{
-                    "BCE",
-                    "CE",
-                }
-                wide{
-                    "BC",
-                    "AD",
-                }
-                wide%variant{
                     "BCE",
                     "CE",
                 }
@@ -690,7 +649,6 @@ xh{
             }
         }
         day-short{
-            dn{"usuku"}
             relative{
                 "-1"{"izolo"}
                 "0"{"namhlanje"}
@@ -757,9 +715,6 @@ xh{
         second{
             dn{"umzuzwana"}
         }
-        second-narrow{
-            dn{"zuzwa."}
-        }
         second-short{
             dn{"zuzwa."}
         }
@@ -819,50 +774,6 @@ xh{
         }
         zone{
             dn{"ingingqi yexesha"}
-        }
-    }
-    listPattern{
-        or-narrow{
-            2{"{0} or {1}"}
-            end{"{0}, or {1}"}
-            middle{"{0}, {1}"}
-            start{"{0}, {1}"}
-        }
-        or-short{
-            2{"{0} or {1}"}
-            end{"{0}, or {1}"}
-            middle{"{0}, {1}"}
-            start{"{0}, {1}"}
-        }
-        standard-narrow{
-            2{"{0}, {1}"}
-            end{"{0}, {1}"}
-            middle{"{0}, {1}"}
-            start{"{0}, {1}"}
-        }
-        standard-short{
-            2{"{0}, {1}"}
-            end{"{0}, {1}"}
-            middle{"{0}, {1}"}
-            start{"{0}, {1}"}
-        }
-        unit{
-            2{"{0}, {1}"}
-            end{"{0}, {1}"}
-            middle{"{0}, {1}"}
-            start{"{0}, {1}"}
-        }
-        unit-narrow{
-            2{"{0}, {1}"}
-            end{"{0}, {1}"}
-            middle{"{0}, {1}"}
-            start{"{0}, {1}"}
-        }
-        unit-short{
-            2{"{0}, {1}"}
-            end{"{0}, {1}"}
-            middle{"{0}, {1}"}
-            start{"{0}, {1}"}
         }
     }
     measurementSystemNames{

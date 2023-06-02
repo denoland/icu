@@ -28,7 +28,7 @@
 #include "cmaps.h"
 
 GDISurface::GDISurface(HDC theHDC)
-    : fHdc(theHDC), fCurrentFont(nullptr)
+    : fHdc(theHDC), fCurrentFont(NULL)
 {
     // nothing else to do
 }
@@ -41,7 +41,7 @@ GDISurface::~GDISurface()
 void GDISurface::setHDC(HDC theHDC)
 {
     fHdc         = theHDC;
-    fCurrentFont = nullptr;
+    fCurrentFont = NULL;
 }
 
 void GDISurface::setFont(const GDIFontInstance *font)
@@ -108,9 +108,9 @@ void GDISurface::drawGlyphs(const LEFontInstance *font, const LEGlyphID *glyphs,
 }
 
 GDIFontInstance::GDIFontInstance(GDISurface *surface, TCHAR *faceName, le_int16 pointSize, LEErrorCode &status)
-    : FontTableCache(), fSurface(surface), fFont(nullptr),
+    : FontTableCache(), fSurface(surface), fFont(NULL),
       fPointSize(pointSize), fUnitsPerEM(0), fAscent(0), fDescent(0), fLeading(0),
-      fDeviceScaleX(1), fDeviceScaleY(1), fMapper(nullptr)
+      fDeviceScaleX(1), fDeviceScaleY(1), fMapper(NULL)
 {
     LOGFONT lf;
     FLOAT dpiX, dpiY;
@@ -125,9 +125,9 @@ GDIFontInstance::GDIFontInstance(GDISurface *surface, TCHAR *faceName, le_int16 
     SaveDC(hdc);
 
     SetGraphicsMode(hdc, GM_ADVANCED);
-    ModifyWorldTransform(hdc, nullptr, MWT_IDENTITY);
-    SetViewportOrgEx(hdc, 0, 0, nullptr);
-    SetWindowOrgEx(hdc, 0, 0, nullptr);
+    ModifyWorldTransform(hdc, NULL, MWT_IDENTITY);
+    SetViewportOrgEx(hdc, 0, 0, NULL);
+    SetWindowOrgEx(hdc, 0, 0, NULL);
 
     dpiX = (FLOAT) GetDeviceCaps(hdc, LOGPIXELSX);
     dpiY = (FLOAT) GetDeviceCaps(hdc, LOGPIXELSY);
@@ -159,7 +159,7 @@ GDIFontInstance::GDIFontInstance(GDISurface *surface, TCHAR *faceName, le_int16 
 
     fFont = CreateFontIndirect(&lf);
 
-    if (fFont == nullptr) {
+    if (fFont == NULL) {
         status = LE_FONT_FILE_NOT_FOUND_ERROR;
         return;
     }
@@ -193,9 +193,9 @@ restore:
 }
 
 GDIFontInstance::GDIFontInstance(GDISurface *surface, const char *faceName, le_int16 pointSize, LEErrorCode &status)
-    : FontTableCache(), fSurface(surface), fFont(nullptr),
+    : FontTableCache(), fSurface(surface), fFont(NULL),
       fPointSize(pointSize), fUnitsPerEM(0), fAscent(0), fDescent(0), fLeading(0),
-      fDeviceScaleX(1), fDeviceScaleY(1), fMapper(nullptr)
+      fDeviceScaleX(1), fDeviceScaleY(1), fMapper(NULL)
 {
     LOGFONTA lf;
     FLOAT dpiX, dpiY;
@@ -210,9 +210,9 @@ GDIFontInstance::GDIFontInstance(GDISurface *surface, const char *faceName, le_i
     SaveDC(hdc);
 
     SetGraphicsMode(hdc, GM_ADVANCED);
-    ModifyWorldTransform(hdc, nullptr, MWT_IDENTITY);
-    SetViewportOrgEx(hdc, 0, 0, nullptr);
-    SetWindowOrgEx(hdc, 0, 0, nullptr);
+    ModifyWorldTransform(hdc, NULL, MWT_IDENTITY);
+    SetViewportOrgEx(hdc, 0, 0, NULL);
+    SetWindowOrgEx(hdc, 0, 0, NULL);
 
     dpiX = (FLOAT) GetDeviceCaps(hdc, LOGPIXELSX);
     dpiY = (FLOAT) GetDeviceCaps(hdc, LOGPIXELSY);
@@ -247,7 +247,7 @@ GDIFontInstance::GDIFontInstance(GDISurface *surface, const char *faceName, le_i
 
     fFont = CreateFontIndirectA(&lf);
 
-    if (fFont == nullptr) {
+    if (fFont == NULL) {
         status = LE_FONT_FILE_NOT_FOUND_ERROR;
         return;
     }
@@ -262,13 +262,13 @@ GDIFontInstance::GDIFontInstance(GDISurface *surface, const char *faceName, le_i
         fDescent = otm.otmTextMetrics.tmDescent;
         fLeading = otm.otmTextMetrics.tmExternalLeading;
     } else {
-        const HEADTable *headTable = nullptr;
-        const HHEATable *hheaTable = nullptr;
+        const HEADTable *headTable = NULL;
+        const HHEATable *hheaTable = NULL;
 
         // read unitsPerEm from 'head' table
         headTable = (const HEADTable *) readFontTable(LE_HEAD_TABLE_TAG);
 
-        if (headTable == nullptr) {
+        if (headTable == NULL) {
             status = LE_MISSING_FONT_TABLE_ERROR;
             goto restore;
         }
@@ -278,7 +278,7 @@ GDIFontInstance::GDIFontInstance(GDISurface *surface, const char *faceName, le_i
 
         hheaTable = (HHEATable *) readFontTable(LE_HHEA_TABLE_TAG);
 
-        if (hheaTable == nullptr) {
+        if (hheaTable == NULL) {
             status = LE_MISSING_FONT_TABLE_ERROR;
             goto restore;
         }
@@ -311,13 +311,13 @@ GDIFontInstance::~GDIFontInstance()
     delete[] fTableCache;
 #endif
 
-    if (fFont != nullptr) {
+    if (fFont != NULL) {
         // FIXME: call RemoveObject first?
         DeleteObject(fFont);
     }
 
     delete fMapper;
-    fMapper = nullptr;
+    fMapper = NULL;
 }
 
 LEErrorCode GDIFontInstance::initMapper()
@@ -325,13 +325,13 @@ LEErrorCode GDIFontInstance::initMapper()
     LETag cmapTag = LE_CMAP_TABLE_TAG;
     const CMAPTable *cmap = (const CMAPTable *) readFontTable(cmapTag);
 
-    if (cmap == nullptr) {
+    if (cmap == NULL) {
         return LE_MISSING_FONT_TABLE_ERROR;
     }
 
     fMapper = CMAPMapper::createUnicodeMapper(cmap);
 
-    if (fMapper == nullptr) {
+    if (fMapper == NULL) {
         return LE_MISSING_FONT_TABLE_ERROR;
     }
 
@@ -349,8 +349,8 @@ const void *GDIFontInstance::readFontTable(LETag tableTag) const
 
     HDC   hdc    = fSurface->getHDC();
     DWORD stag   = SWAPL(tableTag);
-    DWORD len    = GetFontData(hdc, stag, 0, nullptr, 0);
-    void *result = nullptr;
+    DWORD len    = GetFontData(hdc, stag, 0, NULL, 0);
+    void *result = NULL;
 
     if (len != GDI_ERROR) {
         result = LE_NEW_ARRAY(char, len);
@@ -377,7 +377,7 @@ void GDIFontInstance::getGlyphAdvance(LEGlyphID glyph, LEPoint &advance) const
 
     fSurface->setFont(this);
 
-    result = GetGlyphOutline(hdc, glyph, GGO_GLYPH_INDEX | GGO_METRICS, &metrics, 0, nullptr, &identity);
+    result = GetGlyphOutline(hdc, glyph, GGO_GLYPH_INDEX | GGO_METRICS, &metrics, 0, NULL, &identity);
 
     if (result == GDI_ERROR) {
         return;

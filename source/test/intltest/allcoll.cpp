@@ -32,7 +32,7 @@ CollationDummyTest::CollationDummyTest()
 
     UErrorCode status = U_ZERO_ERROR;
     UnicodeString ruleset("& C < ch, cH, Ch, CH & Five, 5 & Four, 4 & one, 1 & Ampersand; '&' & Two, 2 ");
-    if (myCollation != nullptr)
+    if (myCollation != NULL)
     {
       delete myCollation;
     }
@@ -153,7 +153,7 @@ void CollationDummyTest::TestIdentical()
     }
 }
 
-void CollationDummyTest::TestJB581()
+void CollationDummyTest::TestJB581(void)
 {
     UErrorCode status = U_ZERO_ERROR;
 

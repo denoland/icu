@@ -28,7 +28,7 @@ SortKeyByteSink::~SortKeyByteSink() {}
 
 void
 SortKeyByteSink::Append(const char *bytes, int32_t n) {
-    if (n <= 0 || bytes == nullptr) {
+    if (n <= 0 || bytes == NULL) {
         return;
     }
     if (ignore_ > 0) {
@@ -63,7 +63,7 @@ SortKeyByteSink::GetAppendBuffer(int32_t min_capacity,
                                  int32_t *result_capacity) {
     if (min_capacity < 1 || scratch_capacity < min_capacity) {
         *result_capacity = 0;
-        return nullptr;
+        return NULL;
     }
     if (ignore_ > 0) {
         // Do not write ignored bytes right at the end of the buffer.
@@ -192,7 +192,7 @@ UBool SortKeyLevel::ensureCapacity(int32_t appendCapacity) {
     if (newCapacity < 200) {
         newCapacity = 200;
     }
-    if(buffer.resize(newCapacity, len)==nullptr) {
+    if(buffer.resize(newCapacity, len)==NULL) {
         return ok = false;
     }
     return true;

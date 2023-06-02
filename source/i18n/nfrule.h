@@ -63,7 +63,7 @@ public:
     int64_t getBaseValue() const { return baseValue; }
     void setBaseValue(int64_t value, UErrorCode& status);
 
-    char16_t getDecimalPoint() const { return decimalPoint; }
+    UChar getDecimalPoint() const { return decimalPoint; }
 
     int64_t getDivisor() const;
 
@@ -108,7 +108,7 @@ private:
     int64_t baseValue;
     int32_t radix;
     int16_t exponent;
-    char16_t decimalPoint;
+    UChar decimalPoint;
     UnicodeString fRuleText;
     NFSubstitution* sub1;
     NFSubstitution* sub2;

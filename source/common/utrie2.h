@@ -599,34 +599,34 @@ U_NAMESPACE_BEGIN
 // Use the Forward/Backward subclasses below.
 class UTrie2StringIterator : public UMemory {
 public:
-    UTrie2StringIterator(const UTrie2 *t, const char16_t *p) :
+    UTrie2StringIterator(const UTrie2 *t, const UChar *p) :
         trie(t), codePointStart(p), codePointLimit(p), codePoint(U_SENTINEL) {}
 
     const UTrie2 *trie;
-    const char16_t *codePointStart, *codePointLimit;
+    const UChar *codePointStart, *codePointLimit;
     UChar32 codePoint;
 };
 
 class BackwardUTrie2StringIterator : public UTrie2StringIterator {
 public:
-    BackwardUTrie2StringIterator(const UTrie2 *t, const char16_t *s, const char16_t *p) :
+    BackwardUTrie2StringIterator(const UTrie2 *t, const UChar *s, const UChar *p) :
         UTrie2StringIterator(t, p), start(s) {}
 
     uint16_t previous16();
 
-    const char16_t *start;
+    const UChar *start;
 };
 
 class ForwardUTrie2StringIterator : public UTrie2StringIterator {
 public:
-    // Iteration limit l can be nullptr.
+    // Iteration limit l can be NULL.
     // In that case, the caller must detect c==0 and stop.
-    ForwardUTrie2StringIterator(const UTrie2 *t, const char16_t *p, const char16_t *l) :
+    ForwardUTrie2StringIterator(const UTrie2 *t, const UChar *p, const UChar *l) :
         UTrie2StringIterator(t, p), limit(l) {}
 
     uint16_t next16();
 
-    const char16_t *limit;
+    const UChar *limit;
 };
 
 U_NAMESPACE_END

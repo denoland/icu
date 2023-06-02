@@ -75,9 +75,9 @@ class U_COMMON_API ICUNotifier : public UMemory  {
 private: UVector* listeners;
          
 public: 
-    ICUNotifier();
+    ICUNotifier(void);
     
-    virtual ~ICUNotifier();
+    virtual ~ICUNotifier(void);
     
     /**
      * Add a listener to be notified when notifyChanged is called.
@@ -101,7 +101,7 @@ public:
      * indefinitely block the calling thread.  Callers should beware of
      * deadlock situations.  
      */
-    virtual void notifyChanged();
+    virtual void notifyChanged(void);
     
 protected: 
     /**

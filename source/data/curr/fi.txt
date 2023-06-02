@@ -899,13 +899,9 @@ fi{
             "SKK",
             "Slovakian koruna",
         }
-        SLE{
-            "SLE",
-            "Sierra Leonen leone",
-        }
         SLL{
             "SLL",
-            "Sierra Leonen leone (1964—2022)",
+            "Sierra Leonen leone",
         }
         SOS{
             "SOS",
@@ -2219,13 +2215,9 @@ fi{
             one{"Slovakian koruna"}
             other{"Slovakian korunaa"}
         }
-        SLE{
-            one{"Sierra Leonen leonea"}
-            other{"Sierra Leonen leonea"}
-        }
         SLL{
-            one{"Sierra Leonen leone (1964—2022)"}
-            other{"Sierra Leonen leonea (1964—2022)"}
+            one{"Sierra Leonen leone"}
+            other{"Sierra Leonen leonea"}
         }
         SOS{
             one{"Somalian šillinki"}

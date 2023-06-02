@@ -8,7 +8,7 @@
 *******************************************************************************
 *   file name:  stubdata.h
 *
-*   This header file is intended to be internal and only included in the
+*   This header file is intended to be internal and only included in the 
 *   accompanying implementation file. This file declares a single entry
 *   point for visibility of tools like TAPI.
 *
@@ -21,6 +21,7 @@
 *
 *   The stub data library (for which this file is the source) is sufficient
 *   for running the data building tools.
+*
 */
 
 #ifndef __STUBDATA_H__
@@ -30,7 +31,7 @@
 #include "unicode/udata.h"
 #include "unicode/uversion.h"
 
-typedef struct alignas(16) {
+typedef struct {
     uint16_t headerSize;
     uint8_t magic1, magic2;
     UDataInfo info;
@@ -42,7 +43,7 @@ typedef struct alignas(16) {
     const void *const data;
     } toc[1];
     */
-   uint64_t fakeNameAndData[2];    /* TODO:  Change this header type from */
+   int   fakeNameAndData[4];       /* TODO:  Change this header type from */
                                    /*        pointerTOC to OffsetTOC.     */
 } ICU_Data_Header;
 

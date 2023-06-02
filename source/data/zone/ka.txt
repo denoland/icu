@@ -258,9 +258,6 @@ ka{
         "America:Chihuahua"{
             ec{"ჩიჰუაჰუა"}
         }
-        "America:Ciudad_Juarez"{
-            ec{"სიუდად-ხუარესი"}
-        }
         "America:Coral_Harbour"{
             ec{"ატიკოკანი"}
         }

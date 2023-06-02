@@ -198,7 +198,7 @@ public:
          * @param src Result to move contents from.
          * @stable ICU 65
          */
-        Result(Result &&src) noexcept;
+        Result(Result &&src) U_NOEXCEPT;
 
         /**
          * Destructor.
@@ -214,7 +214,7 @@ public:
          * @param src Result to move contents from.
          * @stable ICU 65
          */
-        Result &operator=(Result &&src) noexcept;
+        Result &operator=(Result &&src) U_NOEXCEPT;
 
         /**
          * Returns the best-matching desired locale.
@@ -313,7 +313,7 @@ public:
          * @param src Builder to move contents from.
          * @stable ICU 65
          */
-        Builder(Builder &&src) noexcept;
+        Builder(Builder &&src) U_NOEXCEPT;
 
         /**
          * Destructor.
@@ -329,7 +329,7 @@ public:
          * @param src Builder to move contents from.
          * @stable ICU 65
          */
-        Builder &operator=(Builder &&src) noexcept;
+        Builder &operator=(Builder &&src) U_NOEXCEPT;
 
         /**
          * Parses an Accept-Language string
@@ -548,7 +548,7 @@ public:
      * @param src source matcher
      * @stable ICU 65
      */
-    LocaleMatcher(LocaleMatcher &&src) noexcept;
+    LocaleMatcher(LocaleMatcher &&src) U_NOEXCEPT;
 
     /**
      * Destructor.
@@ -564,7 +564,7 @@ public:
      * @return *this
      * @stable ICU 65
      */
-    LocaleMatcher &operator=(LocaleMatcher &&src) noexcept;
+    LocaleMatcher &operator=(LocaleMatcher &&src) U_NOEXCEPT;
 
     /**
      * Returns the supported locale which best matches the desired locale.

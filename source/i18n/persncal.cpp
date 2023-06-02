@@ -58,7 +58,6 @@ static const int32_t kPersianCalendarLimits[UCAL_FIELD_COUNT][4] = {
     {/*N/A*/-1,/*N/A*/-1,/*N/A*/-1,/*N/A*/-1}, // JULIAN_DAY
     {/*N/A*/-1,/*N/A*/-1,/*N/A*/-1,/*N/A*/-1}, // MILLISECONDS_IN_DAY
     {/*N/A*/-1,/*N/A*/-1,/*N/A*/-1,/*N/A*/-1}, // IS_LEAP_MONTH
-    {        0,        0,       11,       11}, // ORDINAL_MONTH
 };
 
 U_NAMESPACE_BEGIN
@@ -230,26 +229,21 @@ void PersianCalendar::handleComputeFields(int32_t julianDay, UErrorCode &/*statu
     internalSet(UCAL_YEAR, year);
     internalSet(UCAL_EXTENDED_YEAR, year);
     internalSet(UCAL_MONTH, month);
-    internalSet(UCAL_ORDINAL_MONTH, month);
     internalSet(UCAL_DAY_OF_MONTH, dayOfMonth);
     internalSet(UCAL_DAY_OF_YEAR, dayOfYear);
 }    
 
-constexpr uint32_t kPersianRelatedYearDiff = 622;
-
-int32_t PersianCalendar::getRelatedYear(UErrorCode &status) const
+UBool
+PersianCalendar::inDaylightTime(UErrorCode& status) const
 {
-    int32_t year = get(UCAL_EXTENDED_YEAR, status);
-    if (U_FAILURE(status)) {
-        return 0;
-    }
-    return year + kPersianRelatedYearDiff;
-}
+    // copied from GregorianCalendar
+    if (U_FAILURE(status) || !getTimeZone().useDaylightTime()) 
+        return false;
 
-void PersianCalendar::setRelatedYear(int32_t year)
-{
-    // set extended year
-    set(UCAL_EXTENDED_YEAR, year - kPersianRelatedYearDiff);
+    // Force an update of the state of the Calendar.
+    ((PersianCalendar*)this)->complete(status); // cast away const
+
+    return (UBool)(U_SUCCESS(status) ? (internalGet(UCAL_DST_OFFSET) != 0) : false);
 }
 
 // default century

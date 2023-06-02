@@ -85,7 +85,6 @@ en{
         CN{"China"}
         CO{"Colombia"}
         CP{"Clipperton Island"}
-        CQ{"Sark"}
         CR{"Costa Rica"}
         CU{"Cuba"}
         CV{"Cape Verde"}
@@ -268,7 +267,7 @@ en{
         TM{"Turkmenistan"}
         TN{"Tunisia"}
         TO{"Tonga"}
-        TR{"Türkiye"}
+        TR{"Turkey"}
         TT{"Trinidad & Tobago"}
         TV{"Tuvalu"}
         TW{"Taiwan"}
@@ -315,6 +314,6 @@ en{
         NZ{"Aotearoa New Zealand"}
         SZ{"Swaziland"}
         TL{"East Timor"}
-        TR{"Turkey"}
+        TR{"Türkiye"}
     }
 }

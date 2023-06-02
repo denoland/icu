@@ -54,12 +54,12 @@ void GnomeSurface::drawGlyphs(const LEFontInstance *font, const LEGlyphID *glyph
 
 GnomeFontInstance::GnomeFontInstance(FT_Library engine, const char *fontPathName, le_int16 pointSize, LEErrorCode &status)
     : FontTableCache(), fPointSize(pointSize), fUnitsPerEM(0), fAscent(0), fDescent(0), fLeading(0),
-      fDeviceScaleX(1), fDeviceScaleY(1), fMapper(nullptr)
+      fDeviceScaleX(1), fDeviceScaleY(1), fMapper(NULL)
 {
     FT_Error error;
 
-    fFace      = nullptr;
-    fCairoFace = nullptr;
+    fFace      = NULL;
+    fCairoFace = NULL;
 
     error = FT_New_Face(engine, fontPathName, 0, &fFace);
 
@@ -97,7 +97,7 @@ GnomeFontInstance::~GnomeFontInstance()
 {
     cairo_font_face_destroy(fCairoFace);
     
-    if (fFace != nullptr) {
+    if (fFace != NULL) {
         FT_Done_Face(fFace);
     }
 }
@@ -107,13 +107,13 @@ LEErrorCode GnomeFontInstance::initMapper()
     LETag cmapTag = LE_CMAP_TABLE_TAG;
     const CMAPTable *cmap = (const CMAPTable *) readFontTable(cmapTag);
 
-    if (cmap == nullptr) {
+    if (cmap == NULL) {
         return LE_MISSING_FONT_TABLE_ERROR;
     }
 
     fMapper = CMAPMapper::createUnicodeMapper(cmap);
 
-    if (fMapper == nullptr) {
+    if (fMapper == NULL) {
         return LE_MISSING_FONT_TABLE_ERROR;
     }
 
@@ -128,9 +128,9 @@ const void *GnomeFontInstance::getFontTable(LETag tableTag) const
 const void *GnomeFontInstance::readFontTable(LETag tableTag) const
 {
     FT_ULong len = 0;
-    FT_Byte *result = nullptr;
+    FT_Byte *result = NULL;
 
-    FT_Load_Sfnt_Table(fFace, tableTag, 0, nullptr, &len);
+    FT_Load_Sfnt_Table(fFace, tableTag, 0, NULL, &len);
 
     if (len > 0) {
         result = LE_NEW_ARRAY(FT_Byte, len);

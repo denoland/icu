@@ -27,7 +27,7 @@ U_NAMESPACE_BEGIN
 
 UOBJECT_DEFINE_RTTI_IMPLEMENTATION(RuleBasedTransliterator)
 
-static Replaceable *gLockedText = nullptr;
+static Replaceable *gLockedText = NULL;
 
 void RuleBasedTransliterator::_construct(const UnicodeString& rules,
                                          UTransDirection direction,
@@ -46,7 +46,7 @@ void RuleBasedTransliterator::_construct(const UnicodeString& rules,
     }
 
     if (parser.idBlockVector.size() != 0 ||
-        parser.compoundFilter != nullptr ||
+        parser.compoundFilter != NULL ||
         parser.dataVector.size() == 0) {
         status = U_INVALID_RBT_SYNTAX; // ::ID blocks disallowed in RBT
         return;
@@ -267,7 +267,7 @@ RuleBasedTransliterator::handleTransliterate(Replaceable& text, UTransPosition& 
     }
     
     // Check to make sure we don't dereference a null pointer.
-    if (fData != nullptr) {
+    if (fData != NULL) {
 	    while (index.start < index.limit &&
 	           loopCount <= loopLimit &&
 	           fData->ruleSet.transliterate(text, index, isIncremental)) {
@@ -277,7 +277,7 @@ RuleBasedTransliterator::handleTransliterate(Replaceable& text, UTransPosition& 
     if (lockedMutexAtThisLevel) {
         {
             Mutex m;
-            gLockedText = nullptr;
+            gLockedText = NULL;
         }
         umtx_unlock(&transliteratorDataMutex);
     }

@@ -53,9 +53,9 @@ public:
 
     /**
      * Returns the next element a UnicodeString*.  If there are no
-     * more elements, returns nullptr.
+     * more elements, returns NULL.
      * @param status the error code.
-     * @return a pointer to the string, or nullptr.
+     * @return a pointer to the string, or NULL.
      */
     virtual const UnicodeString* snext(UErrorCode& status) override;
 

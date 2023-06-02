@@ -218,7 +218,7 @@ PUtilTest::maxMinTest(double a, double b, double exp, UBool max)
 // NaN is weird- comparisons with NaN _always_ return false, with the
 // exception of !=, which _always_ returns true
 void
-PUtilTest::testNaN()
+PUtilTest::testNaN(void)
 {
     logln("NaN tests may show that the expected NaN!=NaN etc. is not true on some");
     logln("platforms; however, ICU does not rely on them because it defines");
@@ -238,7 +238,7 @@ PUtilTest::testNaN()
 //==============================
 
 void 
-PUtilTest::testPositiveInfinity()
+PUtilTest::testPositiveInfinity(void)
 {
     double  pinf    = uprv_getInfinity();
     double  ninf    = -uprv_getInfinity();
@@ -276,7 +276,7 @@ PUtilTest::testPositiveInfinity()
 //==============================
 
 void           
-PUtilTest::testNegativeInfinity()
+PUtilTest::testNegativeInfinity(void)
 {
     double  pinf    = uprv_getInfinity();
     double  ninf    = -uprv_getInfinity();
@@ -318,7 +318,7 @@ PUtilTest::testNegativeInfinity()
 // -0.0 <  0.0 == false
 // generating -0.0 must be done at runtime.  compiler apparently ignores sign?
 void           
-PUtilTest::testZero()
+PUtilTest::testZero(void)
 {
     // volatile is used to fake out the compiler optimizer.  We really want to divide by 0.
     volatile double pzero   = 0.0;
@@ -367,7 +367,7 @@ PUtilTest::testZero()
 //==============================
 
 void
-PUtilTest::testIsNaN()
+PUtilTest::testIsNaN(void)
 {
     double  pinf    = uprv_getInfinity();
     double  ninf    = -uprv_getInfinity();
@@ -394,7 +394,7 @@ PUtilTest::testIsNaN()
 //==============================
 
 void
-PUtilTest::NaNGT()
+PUtilTest::NaNGT(void)
 {
     double  pinf    = uprv_getInfinity();
     double  ninf    = -uprv_getInfinity();
@@ -421,7 +421,7 @@ PUtilTest::NaNGT()
 //==============================
 
 void 
-PUtilTest::NaNLT()
+PUtilTest::NaNLT(void)
 {
     double  pinf    = uprv_getInfinity();
     double  ninf    = -uprv_getInfinity();
@@ -448,7 +448,7 @@ PUtilTest::NaNLT()
 //==============================
 
 void                   
-PUtilTest::NaNGTE()
+PUtilTest::NaNGTE(void)
 {
     double  pinf    = uprv_getInfinity();
     double  ninf    = -uprv_getInfinity();
@@ -475,7 +475,7 @@ PUtilTest::NaNGTE()
 //==============================
 
 void                   
-PUtilTest::NaNLTE()
+PUtilTest::NaNLTE(void)
 {
     double  pinf    = uprv_getInfinity();
     double  ninf    = -uprv_getInfinity();
@@ -502,7 +502,7 @@ PUtilTest::NaNLTE()
 //==============================
 
 void                   
-PUtilTest::NaNE()
+PUtilTest::NaNE(void)
 {
     double  pinf    = uprv_getInfinity();
     double  ninf    = -uprv_getInfinity();
@@ -529,7 +529,7 @@ PUtilTest::NaNE()
 //==============================
 
 void 
-PUtilTest::NaNNE()
+PUtilTest::NaNNE(void)
 {
     double  pinf    = uprv_getInfinity();
     double  ninf    = -uprv_getInfinity();

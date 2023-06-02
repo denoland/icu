@@ -21,7 +21,7 @@
  *  Performs some tests in many variations on DateFormat
  **/
 class IntlTestDateFormat: public IntlTest {
-    void runIndexedTest( int32_t index, UBool exec, const char* &name, char* par = nullptr ) override;
+    void runIndexedTest( int32_t index, UBool exec, const char* &name, char* par = NULL ) override;
     
 private:
 
@@ -49,11 +49,11 @@ private:
     /**
      *  return a random number
      **/
-    double randDouble();
+    double randDouble(void);
     /**
      * generate description for verbose test output
      **/
-    void describeTest();
+    void describeTest(void);
 
     DateFormat *fFormat;
     UnicodeString fTestName;

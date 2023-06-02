@@ -90,7 +90,7 @@ class SPUStringPool : public UMemory {
 class ConfusabledataBuilder : public UMemory {
   private:
     SpoofImpl  *fSpoofImpl;
-    char16_t   *fInput;
+    UChar      *fInput;
     UHashtable *fTable;
     UnicodeSet *fKeySet;     // A set of all keys (UChar32s) that go into the four mapping tables.
 

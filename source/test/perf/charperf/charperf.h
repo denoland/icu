@@ -91,7 +91,7 @@ public:
     ~CharPerformanceTest();
     virtual UPerfFunction* runIndexedTest(int32_t index, UBool exec,
         const char *&name, 
-        char *par = nullptr);
+        char *par = NULL);     
     UPerfFunction* TestIsAlpha();
     UPerfFunction* TestIsUpper();
     UPerfFunction* TestIsLower();

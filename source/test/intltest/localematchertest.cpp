@@ -51,7 +51,7 @@ class LocaleMatcherTest : public IntlTest {
 public:
     LocaleMatcherTest() {}
 
-    void runIndexedTest(int32_t index, UBool exec, const char *&name, char *par=nullptr) override;
+    void runIndexedTest(int32_t index, UBool exec, const char *&name, char *par=NULL) override;
 
     void testEmpty();
     void testCopyErrorTo();
@@ -651,7 +651,7 @@ void LocaleMatcherTest::testDataDriven() {
         return;
     }
     int32_t lineLength;
-    const char16_t *p;
+    const UChar *p;
     UnicodeString line;
     TestCase test;
     int32_t numPassed = 0;

@@ -23,7 +23,7 @@
 
 #define CASE(id,test) case id: name = #test; if (exec) { logln(#test "---"); logln((UnicodeString)""); test(); } break
 
-AstroTest::AstroTest(): astro(nullptr), gc(nullptr) {
+AstroTest::AstroTest(): astro(NULL), gc(NULL) {
 }
 
 void AstroTest::runIndexedTest( int32_t index, UBool exec, const char* &name, char* /*par*/ )
@@ -55,7 +55,7 @@ void AstroTest::runIndexedTest( int32_t index, UBool exec, const char* &name, ch
 void AstroTest::initAstro(UErrorCode &status) {
   if(U_FAILURE(status)) return;
 
-  if((astro != nullptr) || (gc != nullptr)) {
+  if((astro != NULL) || (gc != NULL)) {
     dataerrln("Err: initAstro() called twice!");
     closeAstro(status);
     if(U_SUCCESS(status)) {
@@ -70,17 +70,17 @@ void AstroTest::initAstro(UErrorCode &status) {
 }
 
 void AstroTest::closeAstro(UErrorCode &/*status*/) {
-  if(astro != nullptr) {
+  if(astro != NULL) {
     delete astro;
-    astro = nullptr;
+    astro = NULL;
   }
-  if(gc != nullptr) {
+  if(gc != NULL) {
     delete gc;
-    gc = nullptr;
+    gc = NULL;
   }
 }
 
-void AstroTest::TestSolarLongitude() {
+void AstroTest::TestSolarLongitude(void) {
   UErrorCode status = U_ZERO_ERROR;
   initAstro(status);
   ASSERT_OK(status);
@@ -111,7 +111,7 @@ void AstroTest::TestSolarLongitude() {
 
 
 
-void AstroTest::TestLunarPosition() {
+void AstroTest::TestLunarPosition(void) {
   UErrorCode status = U_ZERO_ERROR;
   initAstro(status);
   ASSERT_OK(status);
@@ -136,7 +136,7 @@ void AstroTest::TestLunarPosition() {
 
 
 
-void AstroTest::TestCoordinates() {
+void AstroTest::TestCoordinates(void) {
   UErrorCode status = U_ZERO_ERROR;
   initAstro(status);
   ASSERT_OK(status);
@@ -150,7 +150,7 @@ void AstroTest::TestCoordinates() {
 
 
 
-void AstroTest::TestCoverage() {
+void AstroTest::TestCoverage(void) {
   UErrorCode status = U_ZERO_ERROR;
   initAstro(status);
   ASSERT_OK(status);
@@ -212,7 +212,7 @@ void AstroTest::TestCoverage() {
 
 
 
-void AstroTest::TestSunriseTimes() {
+void AstroTest::TestSunriseTimes(void) {
   UErrorCode status = U_ZERO_ERROR;
   initAstro(status);
   ASSERT_OK(status);
@@ -370,7 +370,7 @@ void AstroTest::TestSunriseTimes() {
 
 
 
-void AstroTest::TestBasics() {
+void AstroTest::TestBasics(void) {
   UErrorCode status = U_ZERO_ERROR;
   initAstro(status);
   if (U_FAILURE(status)) {
@@ -433,7 +433,7 @@ void AstroTest::TestBasics() {
 
 }
 
-void AstroTest::TestMoonAge(){
+void AstroTest::TestMoonAge(void){
 	UErrorCode status = U_ZERO_ERROR;
 	initAstro(status);
 	ASSERT_OK(status);

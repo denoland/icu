@@ -55,7 +55,6 @@ class DateIntervalFormat;
 
 namespace number {
 class LocalizedNumberFormatter;
-class SimpleNumberFormatter;
 }
 
 /**
@@ -1317,7 +1316,7 @@ private:
 
     /**
      * initializes fCalendar from parameters.  Returns fCalendar as a convenience.
-     * @param adoptZone  Zone to be adopted, or nullptr for TimeZone::createDefault().
+     * @param adoptZone  Zone to be adopted, or NULL for TimeZone::createDefault().
      * @param locale Locale of the calendar
      * @param status Error code
      * @return the newly constructed fCalendar
@@ -1350,7 +1349,7 @@ private:
      * @param field the date field being parsed.
      * @param stringArray the string array to parsed.
      * @param stringArrayCount the size of the array.
-     * @param monthPattern pointer to leap month pattern, or nullptr if none.
+     * @param monthPattern pointer to leap month pattern, or NULL if none.
      * @param cal a Calendar set to the date and time to be formatted
      *            into a date/time string.
      * @return the new start position if matching succeeded; a negative number
@@ -1433,14 +1432,14 @@ private:
      * @param patLoc
      * @param numericLeapMonthFormatter If non-null, used to parse numeric leap months.
      * @param tzTimeType the type of parsed time zone - standard, daylight or unknown (output).
-     *      This parameter can be nullptr if caller does not need the information.
+     *      This parameter can be NULL if caller does not need the information.
      * @return the new start position if matching succeeded; a negative number
      * indicating matching failure, otherwise.
      */
     int32_t subParse(const UnicodeString& text, int32_t& start, char16_t ch, int32_t count,
                      UBool obeyCount, UBool allowNegative, UBool ambiguousYear[], int32_t& saveHebrewMonth, Calendar& cal,
                      int32_t patLoc, MessageFormat * numericLeapMonthFormatter, UTimeZoneFormatTimeType *tzTimeType,
-                     int32_t *dayPeriod=nullptr) const;
+                     int32_t *dayPeriod=NULL) const;
 
     void parseInt(const UnicodeString& text,
                   Formattable& number,
@@ -1521,9 +1520,14 @@ private:
     int32_t skipUWhiteSpace(const UnicodeString& text, int32_t pos) const;
 
     /**
-     * Initialize SimpleNumberFormat instance
+     * Initialize LocalizedNumberFormatter instances used for speedup.
      */
-    void initSimpleNumberFormatter(UErrorCode &status);
+    void initFastNumberFormatters(UErrorCode& status);
+
+    /**
+     * Delete the LocalizedNumberFormatter instances used for speedup.
+     */
+    void freeFastNumberFormatters();
 
     /**
      * Initialize NumberFormat instances used for numbering system overrides.
@@ -1595,12 +1599,12 @@ private:
      * A pointer to an object containing the strings to use in formatting (e.g.,
      * month and day names, AM and PM strings, time zone names, etc.)
      */
-    DateFormatSymbols*  fSymbols = nullptr;   // Owned
+    DateFormatSymbols*  fSymbols;   // Owned
 
     /**
      * The time zone formatter
      */
-    TimeZoneFormat* fTimeZoneFormat = nullptr;
+    TimeZoneFormat* fTimeZoneFormat;
 
     /**
      * If dates have ambiguous years, we map them into the century starting
@@ -1631,29 +1635,34 @@ private:
         int32_t hash;
         NSOverride *next;
         void free();
-        NSOverride() : snf(nullptr), hash(0), next(nullptr) {
+        NSOverride() : snf(NULL), hash(0), next(NULL) {
         }
         ~NSOverride();
     };
 
     /**
-     * The number format in use for each date field. nullptr means fall back
+     * The number format in use for each date field. NULL means fall back
      * to fNumberFormat in DateFormat.
      */
-    const SharedNumberFormat    **fSharedNumberFormatters = nullptr;
+    const SharedNumberFormat    **fSharedNumberFormatters;
+
+    enum NumberFormatterKey {
+        SMPDTFMT_NF_1x10,
+        SMPDTFMT_NF_2x10,
+        SMPDTFMT_NF_3x10,
+        SMPDTFMT_NF_4x10,
+        SMPDTFMT_NF_2x2,
+        SMPDTFMT_NF_COUNT
+    };
 
     /**
-     * Number formatter pre-allocated for fast performance
-     * 
-     * This references the decimal symbols from fNumberFormatter if it is an instance
-     * of DecimalFormat (and is otherwise null). This should always be cleaned up before
-     * destroying fNumberFormatter.
+     * Number formatters pre-allocated for fast performance on the most common integer lengths.
      */
-    const number::SimpleNumberFormatter* fSimpleNumberFormatter = nullptr;
+    const number::LocalizedNumberFormatter* fFastNumberFormatters[SMPDTFMT_NF_COUNT] = {};
 
     UBool fHaveDefaultCentury;
 
-    const BreakIterator* fCapitalizationBrkIter = nullptr;
+    const BreakIterator* fCapitalizationBrkIter;
 };
 
 inline UDate

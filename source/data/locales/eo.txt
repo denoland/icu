@@ -119,10 +119,6 @@ eo{
                     "aK",
                     "pK",
                 }
-                narrow%variant{
-                    "aK",
-                    "pK",
-                }
                 wide{
                     "aK",
                     "pK",

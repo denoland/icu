@@ -86,7 +86,7 @@ public:
     /**
      * Gets the pattern formatter that would be used for a particular variant.
      * If isValid() returns true, this method is guaranteed to return a
-     * non-nullptr value.
+     * non-NULL value.
      */
     const SimpleFormatter *getByVariant(const char *variant) const;
 

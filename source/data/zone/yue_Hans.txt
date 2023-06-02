@@ -259,9 +259,6 @@ yue_Hans{
         "America:Chihuahua"{
             ec{"奇华华"}
         }
-        "America:Ciudad_Juarez"{
-            ec{"华雷斯城"}
-        }
         "America:Coral_Harbour"{
             ec{"阿蒂科肯"}
         }

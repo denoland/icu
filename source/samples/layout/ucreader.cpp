@@ -15,7 +15,7 @@
 
 U_CDECL_BEGIN
 
-const char16_t *uc_readFile(const char *fileName, gs_guiSupport *guiSupport, int32_t *charCount)
+const UChar *uc_readFile(const char *fileName, gs_guiSupport *guiSupport, int32_t *charCount)
 {
     return UnicodeReader::readFile(fileName, (GUISupport *) guiSupport, *charCount);
 }

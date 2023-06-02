@@ -458,7 +458,6 @@ ky{
     }
     Languages%short{
         az{"азерче"}
-        en_GB{"англисче (УБ)"}
         en_US{"англисче (АКШ)"}
     }
     Languages%variant{

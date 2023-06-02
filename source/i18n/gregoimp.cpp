@@ -37,13 +37,11 @@ int32_t ClockMath::floorDivide(double numerator, int32_t denominator,
     // For an integer n and representable ⌊x/n⌋, ⌊RN(x/n)⌋=⌊x/n⌋, where RN is
     // rounding to nearest.
     double quotient = uprv_floor(numerator / denominator);
-    if (remainder != nullptr) {
-      // For doubles x and n, where n is an integer and ⌊x+n⌋ < 2³¹, the
-      // expression `(int32_t) (x + n)` evaluated with rounding to nearest
-      // differs from ⌊x+n⌋ if 0 < ⌈x⌉−x ≪ x+n, as `x + n` is rounded up to
-      // n+⌈x⌉ = ⌊x+n⌋ + 1.  Rewriting it as ⌊x⌋+n makes the addition exact.
-      *remainder = (int32_t) (uprv_floor(numerator) - (quotient * denominator));
-    }
+    // For doubles x and n, where n is an integer and ⌊x+n⌋ < 2³¹, the
+    // expression `(int32_t) (x + n)` evaluated with rounding to nearest
+    // differs from ⌊x+n⌋ if 0 < ⌈x⌉−x ≪ x+n, as `x + n` is rounded up to
+    // n+⌈x⌉ = ⌊x+n⌋ + 1.  Rewriting it as ⌊x⌋+n makes the addition exact.
+    *remainder = (int32_t) (uprv_floor(numerator) - (quotient * denominator));
     return (int32_t) quotient;
 }
 
@@ -52,16 +50,16 @@ double ClockMath::floorDivide(double dividend, double divisor,
     // Only designed to work for positive divisors
     U_ASSERT(divisor > 0);
     double quotient = floorDivide(dividend, divisor);
-    double r = dividend - (quotient * divisor);
+    *remainder = dividend - (quotient * divisor);
     // N.B. For certain large dividends, on certain platforms, there
     // is a bug such that the quotient is off by one.  If you doubt
     // this to be true, set a breakpoint below and run cintltst.
-    if (r < 0 || r >= divisor) {
+    if (*remainder < 0 || *remainder >= divisor) {
         // E.g. 6.7317038241449352e+022 / 86400000.0 is wrong on my
         // machine (too high by one).  4.1792057231752762e+024 /
         // 86400000.0 is wrong the other way (too low).
         double q = quotient;
-        quotient += (r < 0) ? -1 : +1;
+        quotient += (*remainder < 0) ? -1 : +1;
         if (q == quotient) {
             // For quotients > ~2^53, we won't be able to add or
             // subtract one, since the LSB of the mantissa will be >
@@ -72,15 +70,12 @@ double ClockMath::floorDivide(double dividend, double divisor,
             // values give back an approximate answer rather than
             // crashing.  For example, UDate values above a ~10^25
             // might all have a time of midnight.
-            r = 0;
+            *remainder = 0;
         } else {
-            r = dividend - (quotient * divisor);
+            *remainder = dividend - (quotient * divisor);
         }
     }
-    U_ASSERT(0 <= r && r < divisor);
-    if (remainder != nullptr) {
-        *remainder = r;
-    }
+    U_ASSERT(0 <= *remainder && *remainder < divisor);
     return quotient;
 }
 

@@ -29,12 +29,6 @@ zh_Hans_SG{
                 "GyMd",
                 "GyyMd",
             }
-            intervalFormats{
-                Hv{
-                    H{"vHH–HH"}
-                }
-                fallback{"{0}至{1}"}
-            }
         }
         chinese{
             DateTimePatterns{

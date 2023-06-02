@@ -68,11 +68,11 @@ finit_owner(FILE         *f,
 {
     UErrorCode status = U_ZERO_ERROR;
     UFILE     *result;
-    if(f == nullptr) {
+    if(f == NULL) {
         return 0;
     }
     result = (UFILE*) uprv_malloc(sizeof(UFILE));
-    if(result == nullptr) {
+    if(result == NULL) {
         return 0;
     }
 
@@ -94,10 +94,10 @@ finit_owner(FILE         *f,
 #endif
 
     /* If the codepage is not "" use the ucnv_open default behavior */
-    if(codepage == nullptr || *codepage != '\0') {
+    if(codepage == NULL || *codepage != '\0') {
         result->fConverter = ucnv_open(codepage, &status);
     }
-    /* else result->fConverter is already memset'd to nullptr. */
+    /* else result->fConverter is already memset'd to NULL. */
 
     if(U_SUCCESS(status)) {
         result->fOwnFile = takeOwnership;
@@ -108,7 +108,7 @@ finit_owner(FILE         *f,
 #endif
         /* DO NOT fclose here!!!!!! */
         uprv_free(result);
-        result = nullptr;
+        result = NULL;
     }
 
     return result;
@@ -168,7 +168,7 @@ u_fopen(const char    *filename,
 #endif
 
 U_CAPI UFILE* U_EXPORT2
-u_fopen_u(const char16_t   *filename,
+u_fopen_u(const UChar   *filename,
         const char    *perm,
         const char    *locale,
         const char    *codepage)
@@ -196,14 +196,14 @@ u_fopen_u(const char16_t   *filename,
         wchar_t wperm[40] = {};
         size_t  retVal;
         mbstowcs_s(&retVal, wperm, UPRV_LENGTHOF(wperm), perm, _TRUNCATE);
-        FILE *systemFile = _wfopen(reinterpret_cast<const wchar_t *>(filename), wperm); // may return nullptr for long filename
+        FILE *systemFile = _wfopen(reinterpret_cast<const wchar_t *>(filename), wperm); // may return NULL for long filename
         if (systemFile) {
             result = finit_owner(systemFile, locale, codepage, true);
         }
         if (!result && systemFile) {
             /* Something bad happened.
                Maybe the converter couldn't be opened.
-               Bu do not fclose(systemFile) if systemFile is nullptr. */
+               Bu do not fclose(systemFile) if systemFile is NULL. */
             fclose(systemFile);
         }
     }
@@ -216,20 +216,20 @@ u_fopen_u(const char16_t   *filename,
 
 
 U_CAPI UFILE* U_EXPORT2
-u_fstropen(char16_t *stringBuf,
+u_fstropen(UChar *stringBuf,
            int32_t      capacity,
            const char  *locale)
 {
     UFILE *result;
 
     if (capacity < 0) {
-        return nullptr;
+        return NULL;
     }
 
     result = (UFILE*) uprv_malloc(sizeof(UFILE));
     /* Null pointer test */
-    if (result == nullptr) {
-        return nullptr; /* Just get out. */
+    if (result == NULL) {
+        return NULL; /* Just get out. */
     }
     uprv_memset(result, 0, sizeof(UFILE));
     result->str.fBuffer = stringBuf;
@@ -252,11 +252,11 @@ U_CAPI UBool U_EXPORT2
 u_feof(UFILE  *f)
 {
     UBool endOfBuffer;
-    if (f == nullptr) {
+    if (f == NULL) {
         return true;
     }
     endOfBuffer = (UBool)(f->str.fPos >= f->str.fLimit);
-    if (f->fFile != nullptr) {
+    if (f->fFile != NULL) {
         return endOfBuffer && feof(f->fFile);
     }
     return endOfBuffer;
@@ -339,7 +339,7 @@ U_CAPI const char* U_EXPORT2 /* U_CAPI ... U_EXPORT2 added by Peter Kirk 17 Nov 
 u_fgetcodepage(UFILE        *file)
 {
     UErrorCode     status = U_ZERO_ERROR;
-    const char     *codepage = nullptr;
+    const char     *codepage = NULL;
 
     if (file->fConverter) {
         codepage = ucnv_getName(file->fConverter, &status);

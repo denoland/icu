@@ -35,7 +35,6 @@ nl{
         afh{"Afrihili"}
         agq{"Aghem"}
         ain{"Aino"}
-        ajp{"Zuid-Levantijns-Arabisch"}
         ak{"Akan"}
         akk{"Akkadisch"}
         akz{"Alabama"}
@@ -84,7 +83,6 @@ nl{
         bfd{"Bafut"}
         bfq{"Badaga"}
         bg{"Bulgaars"}
-        bgc{"Haryanvi"}
         bgn{"Westers Beloetsji"}
         bho{"Bhojpuri"}
         bi{"Bislama"}
@@ -669,8 +667,6 @@ nl{
     }
     Languages%short{
         az{"Azeri"}
-        en_GB{"Engels (VK)"}
-        en_US{"Engels (VS)"}
     }
     Languages%variant{
         ckb{"Koerdisch, Soranî"}
@@ -1118,7 +1114,6 @@ nl{
         FONNAPA{"Fonnapa"}
         FONUPA{"Oeralisch Fonetisch Alfabet"}
         FONXSAMP{"Transcriptie volgens X-SAMPA"}
-        GALLO{"Gallo"}
         GASCON{"Gascon"}
         GRCLASS{"Grclass"}
         GRITAL{"Grital"}
@@ -1174,7 +1169,6 @@ nl{
         SURMIRAN{"Surmiran"}
         SURSILV{"Sursilvan"}
         SUTSILV{"Sutsilvan"}
-        SYNNEJYL{"Zuid-Jutlands"}
         TARASK{"Taraskievica-spelling"}
         TONGYONG{"Tongyong"}
         TUNUMIIT{"Tunumiisiut"}

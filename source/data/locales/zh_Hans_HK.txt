@@ -32,13 +32,6 @@ zh_Hans_HK{
             availableFormats{
                 M{"L"}
                 MEd{"M/dE"}
-                MMM{"M月"}
-            }
-            intervalFormats{
-                Hv{
-                    H{"vHH–HH"}
-                }
-                fallback{"{0}–{1}"}
             }
         }
         chinese{

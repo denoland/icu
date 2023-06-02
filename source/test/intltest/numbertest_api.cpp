@@ -2310,7 +2310,7 @@ void NumberFormatterApiTest::runUnitInflectionsTestCases(UnlocalizedNumberFormat
             continue;
         };
         UnicodeString skelString = UnicodeString("unit/") + t.unitIdentifier + u" " + skeleton;
-        const char16_t *skel;
+        const UChar *skel;
         if (t.unitDisplayCase == nullptr || t.unitDisplayCase[0] == 0) {
             unf = unf.unit(mu).unitDisplayCase("");
             skel = skelString.getTerminatedBuffer();
@@ -2337,7 +2337,7 @@ void NumberFormatterApiTest::runUnitInflectionsTestCases(UnlocalizedNumberFormat
         };
 
         UnicodeString skelString = UnicodeString("unit/") + t.unitIdentifier + u" " + skeleton;
-        const char16_t *skel;
+        const UChar *skel;
         auto displayOptionsBuilder = DisplayOptions::builder();
         if (t.unitDisplayCase == nullptr || t.unitDisplayCase[0] == 0) {
             auto displayoptions = displayOptionsBuilder.build();
@@ -2365,7 +2365,7 @@ void NumberFormatterApiTest::unitInflections() {
     IcuTestErrorCode status(*this, "unitInflections");
 
     UnlocalizedNumberFormatter unf;
-    const char16_t *skeleton;
+    const UChar *skeleton;
     {
         // Simple inflected form test - test case based on the example in CLDR's
         // grammaticalFeatures.xml
@@ -6003,7 +6003,7 @@ void NumberFormatterApiTest::microPropsInternals() {
     MicroProps copyConstructed(mp);
     MicroProps copyAssigned;
     int64_t *resizeResult = mp.mixedMeasures.resize(4, 4);
-    assertTrue("Resize success", resizeResult != nullptr);
+    assertTrue("Resize success", resizeResult != NULL);
     copyAssigned = mp;
 
     assertTrue("MicroProps success status", U_SUCCESS(mp.mixedMeasures.status));

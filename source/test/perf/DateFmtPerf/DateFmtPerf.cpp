@@ -21,7 +21,7 @@ using namespace std;
 DateFormatPerfTest::DateFormatPerfTest(int32_t argc, const char* argv[], UErrorCode& status)
 : UPerfTest(argc,argv,status) {
 
-    if (locale == nullptr){
+    if (locale == NULL){
         locale = "en_US";   // set default locale
     }
 }
@@ -64,9 +64,9 @@ UPerfFunction* DateFormatPerfTest::runIndexedTest(int32_t index, UBool exec,cons
 
         default: 
             name = ""; 
-            return nullptr;
+            return NULL;
     }
-    return nullptr;
+    return NULL;
 }
 
 

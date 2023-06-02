@@ -163,13 +163,13 @@ class TransliteratorRegistry : public UMemory {
      * compound) attempt to instantiate it from the registry.  Return
      * 0 on failure.
      *
-     * Return a non-nullptr aliasReturn value if the ID points to an alias.
+     * Return a non-NULL aliasReturn value if the ID points to an alias.
      * We cannot instantiate it ourselves because the alias may contain
      * filters or compounds, which we do not understand.  Caller should
-     * make aliasReturn nullptr before calling.
+     * make aliasReturn NULL before calling.
      * @param ID          the given ID
      * @param aliasReturn output param to receive TransliteratorAlias;
-     *                    should be nullptr on entry
+     *                    should be NULL on entry
      * @param parseError  Struct to receive information on position
      *                    of error if an error is encountered
      * @param status      Output param set to success/failure code.
@@ -191,7 +191,7 @@ class TransliteratorRegistry : public UMemory {
      * from within the TransliteratorRegistry mutex.
      *
      * @param aliasReturn output param to receive TransliteratorAlias;
-     *                    should be nullptr on entry
+     *                    should be NULL on entry
      */
     Transliterator* reget(const UnicodeString& ID,
                           TransliteratorParser& parser,
@@ -268,7 +268,7 @@ class TransliteratorRegistry : public UMemory {
      * @return the number of IDs currently registered with the system.
      * @internal
      */
-    int32_t countAvailableIDs() const;
+    int32_t countAvailableIDs(void) const;
 
     /**
      * == OBSOLETE - remove in ICU 3.4 ==
@@ -287,7 +287,7 @@ class TransliteratorRegistry : public UMemory {
      * Return the number of registered source specifiers.
      * @return the number of registered source specifiers.
      */
-    int32_t countAvailableSources() const;
+    int32_t countAvailableSources(void) const;
 
     /**
      * Return a registered source specifier.
@@ -460,7 +460,7 @@ class TransliteratorRegistry : public UMemory {
 
 U_NAMESPACE_END
 
-U_CFUNC UBool utrans_transliterator_cleanup();
+U_CFUNC UBool utrans_transliterator_cleanup(void);
 
 #endif /* #if !UCONFIG_NO_TRANSLITERATION */
 

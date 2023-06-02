@@ -119,8 +119,8 @@ typedef enum {
 #define ISCII_CNV_PREFIX "ISCII,version="
 
 typedef struct {
-    char16_t contextCharToUnicode;         /* previous Unicode codepoint for contextual analysis */
-    char16_t contextCharFromUnicode;       /* previous Unicode codepoint for contextual analysis */
+    UChar contextCharToUnicode;         /* previous Unicode codepoint for contextual analysis */
+    UChar contextCharFromUnicode;       /* previous Unicode codepoint for contextual analysis */
     uint16_t defDeltaToUnicode;         /* delta for switching to default state when DEF is encountered  */
     uint16_t currentDeltaFromUnicode;   /* current delta in Indic block */
     uint16_t currentDeltaToUnicode;     /* current delta in Indic block */
@@ -195,7 +195,7 @@ _ISCIIOpen(UConverter *cnv, UConverterLoadArgs *pArgs, UErrorCode *errorCode) {
 
     cnv->extraInfo = uprv_malloc(sizeof(UConverterDataISCII));
 
-    if (cnv->extraInfo != nullptr) {
+    if (cnv->extraInfo != NULL) {
         int32_t len=0;
         UConverterDataISCII *converterData=
                 (UConverterDataISCII *) cnv->extraInfo;
@@ -223,7 +223,7 @@ _ISCIIOpen(UConverter *cnv, UConverterLoadArgs *pArgs, UErrorCode *errorCode) {
             converterData->prevToUnicodeStatus = 0x0000;
         } else {
             uprv_free(cnv->extraInfo);
-            cnv->extraInfo = nullptr;
+            cnv->extraInfo = NULL;
             *errorCode = U_ILLEGAL_ARGUMENT_ERROR;
         }
 
@@ -234,11 +234,11 @@ _ISCIIOpen(UConverter *cnv, UConverterLoadArgs *pArgs, UErrorCode *errorCode) {
 
 static void U_CALLCONV
 _ISCIIClose(UConverter *cnv) {
-    if (cnv->extraInfo!=nullptr) {
+    if (cnv->extraInfo!=NULL) {
         if (!cnv->isExtraLocal) {
             uprv_free(cnv->extraInfo);
         }
-        cnv->extraInfo=nullptr;
+        cnv->extraInfo=NULL;
     }
 }
 
@@ -248,7 +248,7 @@ _ISCIIgetName(const UConverter* cnv) {
         UConverterDataISCII* myData= (UConverterDataISCII*)cnv->extraInfo;
         return myData->name;
     }
-    return nullptr;
+    return NULL;
 }
 
 static void U_CALLCONV
@@ -895,8 +895,8 @@ static const uint16_t nuktaSpecialCases[][2]={
 static void U_CALLCONV
 UConverter_fromUnicode_ISCII_OFFSETS_LOGIC(
         UConverterFromUnicodeArgs * args, UErrorCode * err) {
-    const char16_t *source = args->source;
-    const char16_t *sourceLimit = args->sourceLimit;
+    const UChar *source = args->source;
+    const UChar *sourceLimit = args->sourceLimit;
     unsigned char *target = (unsigned char *) args->target;
     unsigned char *targetLimit = (unsigned char *) args->targetLimit;
     int32_t* offsets = args->offsets;
@@ -908,7 +908,7 @@ UConverter_fromUnicode_ISCII_OFFSETS_LOGIC(
     uint16_t range = 0;
     UBool deltaChanged = false;
 
-    if ((args->converter == nullptr) || (args->targetLimit < args->target) || (args->sourceLimit < args->source)) {
+    if ((args->converter == NULL) || (args->targetLimit < args->target) || (args->sourceLimit < args->source)) {
         *err = U_ILLEGAL_ARGUMENT_ERROR;
         return;
     }
@@ -1052,7 +1052,7 @@ UConverter_fromUnicode_ISCII_OFFSETS_LOGIC(
             }
         } else if (targetByteUnit != missingCharMarker) {
             if (targetByteUnit==ISCII_HALANT) {
-                converterData->contextCharFromUnicode = (char16_t)targetByteUnit;
+                converterData->contextCharFromUnicode = (UChar)targetByteUnit;
             }
             /* write targetByteUnit to target*/
             WRITE_TO_TARGET_FROM_U(args,offsets,source,target,targetLimit,targetByteUnit,err);
@@ -1068,7 +1068,7 @@ getTrail:
                     /*look ahead to find the trail surrogate*/
                     if (source < sourceLimit) {
                         /* test the following code unit */
-                        char16_t trail= (*source);
+                        UChar trail= (*source);
                         if (U16_IS_TRAIL(trail)) {
                             source++;
                             sourceChar=U16_GET_SUPPLEMENTARY(sourceChar, trail);
@@ -1131,13 +1131,13 @@ static const uint16_t lookupTable[][2]={
     }                                                                                    \
     /* now write the targetUniChar */                                                    \
     if(target<args->targetLimit){                                                        \
-        *(target)++ = (char16_t)targetUniChar;                                              \
+        *(target)++ = (UChar)targetUniChar;                                              \
         if(offsets){                                                                     \
             *(offsets)++ = (int32_t)(offset);                                            \
         }                                                                                \
     }else{                                                                               \
         args->converter->UCharErrorBuffer[args->converter->UCharErrorBufferLength++] =   \
-            (char16_t)targetUniChar;                                                        \
+            (UChar)targetUniChar;                                                        \
         *err = U_BUFFER_OVERFLOW_ERROR;                                                  \
     }                                                                                    \
 } UPRV_BLOCK_MACRO_END
@@ -1179,20 +1179,20 @@ static const uint16_t lookupTable[][2]={
 static void U_CALLCONV
 UConverter_toUnicode_ISCII_OFFSETS_LOGIC(UConverterToUnicodeArgs *args, UErrorCode* err) {
     const char *source = ( char *) args->source;
-    char16_t *target = args->target;
+    UChar *target = args->target;
     const char *sourceLimit = args->sourceLimit;
-    const char16_t* targetLimit = args->targetLimit;
+    const UChar* targetLimit = args->targetLimit;
     uint32_t targetUniChar = 0x0000;
     uint8_t sourceChar = 0x0000;
     UConverterDataISCII* data;
-    UChar32* toUnicodeStatus=nullptr;
+    UChar32* toUnicodeStatus=NULL;
     UChar32 tempTargetUniChar = 0x0000;
-    char16_t* contextCharToUnicode= nullptr;
+    UChar* contextCharToUnicode= NULL;
     UBool found;
     int i; 
     int offset = 0;
 
-    if ((args->converter == nullptr) || (target < args->target) || (source < args->source)) {
+    if ((args->converter == NULL) || (target < args->target) || (source < args->source)) {
         *err = U_ILLEGAL_ARGUMENT_ERROR;
         return;
     }
@@ -1293,7 +1293,7 @@ UConverter_toUnicode_ISCII_OFFSETS_LOGIC(UConverterToUnicodeArgs *args, UErrorCo
             case ISCII_INV:
             case EXT:
             case ATR:
-                *contextCharToUnicode = (char16_t)sourceChar;
+                *contextCharToUnicode = (UChar)sourceChar;
 
                 if (*toUnicodeStatus != missingCharMarker) {
                     /* Write the previous toUnicodeStatus, this was delayed to handle consonant clustering for Gurmukhi script. */
@@ -1471,7 +1471,7 @@ UConverter_toUnicode_ISCII_OFFSETS_LOGIC(UConverterToUnicodeArgs *args, UErrorCo
 
             if (targetUniChar != missingCharMarker) {
                 /* now save the targetUniChar for delayed write */
-                *toUnicodeStatus = (char16_t) targetUniChar;
+                *toUnicodeStatus = (UChar) targetUniChar;
                 if (data->resetToDefaultToUnicode) {
                     data->currentDeltaToUnicode = data->defDeltaToUnicode;
                     data->currentMaskToUnicode = data->defMaskToUnicode;
@@ -1589,8 +1589,8 @@ static const UConverterImpl _ISCIIImpl={
 
     UCNV_ISCII,
 
-    nullptr,
-    nullptr,
+    NULL,
+    NULL,
 
     _ISCIIOpen,
     _ISCIIClose,
@@ -1600,15 +1600,15 @@ static const UConverterImpl _ISCIIImpl={
     UConverter_toUnicode_ISCII_OFFSETS_LOGIC,
     UConverter_fromUnicode_ISCII_OFFSETS_LOGIC,
     UConverter_fromUnicode_ISCII_OFFSETS_LOGIC,
-    nullptr,
+    NULL,
 
-    nullptr,
+    NULL,
     _ISCIIgetName,
-    nullptr,
+    NULL,
     _ISCII_SafeClone,
     _ISCIIGetUnicodeSet,
-    nullptr,
-    nullptr
+    NULL,
+    NULL
 };
 
 static const UConverterStaticData _ISCIIStaticData={

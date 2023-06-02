@@ -23,6 +23,6 @@
 
 void GDIGUISupport::postErrorMessage(const char *message, const char *title)
 {
-    MessageBoxA(nullptr, message, title, MB_ICONERROR);
+    MessageBoxA(NULL, message, title, MB_ICONERROR);
 }
 

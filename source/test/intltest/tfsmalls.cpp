@@ -21,14 +21,14 @@
 #include "unicode/fieldpos.h"
 #include "unicode/fmtable.h"
 
-/*static UBool chkstatus( UErrorCode &status, char* msg = nullptr )
+/*static UBool chkstatus( UErrorCode &status, char* msg = NULL )
 {
     UBool ok = (status == U_ZERO_ERROR);
     if (!ok) it_errln( msg );
     return ok;
 }*/
 
-void test_ParsePosition()
+void test_ParsePosition( void )
 {
     ParsePosition* pp1 = new ParsePosition();
     if (pp1 && (pp1->getIndex() == 0)) {
@@ -78,7 +78,7 @@ void test_ParsePosition()
 
 #include "unicode/decimfmt.h"
 
-void test_FieldPosition_example()
+void test_FieldPosition_example( void )
 {
     //***** no error detection yet !!!!!!!
     //***** this test is for compiler checks and visual verification only.
@@ -87,7 +87,7 @@ void test_FieldPosition_example()
     int32_t dNumSize = UPRV_LENGTHOF(doubleNum);
 
     UErrorCode status = U_ZERO_ERROR;
-    DecimalFormat* fmt = dynamic_cast<DecimalFormat*>(NumberFormat::createInstance(status));
+    DecimalFormat* fmt = (DecimalFormat*) NumberFormat::createInstance(status);
     if (U_FAILURE(status)) {
         it_dataerrln("NumberFormat::createInstance() error");
         return;
@@ -115,7 +115,7 @@ void test_FieldPosition_example()
 
 }
 
-void test_FieldPosition()
+void test_FieldPosition( void )
 {
 
     FieldPosition fp( 7 );
@@ -161,7 +161,7 @@ void test_FieldPosition()
 
 }
 
-void test_Formattable()
+void test_Formattable( void )
 {
     UErrorCode status = U_ZERO_ERROR;
     Formattable* ftp = new Formattable();
@@ -294,7 +294,7 @@ void test_Formattable()
     
     res_array = fta.getArray(res_cnt, status = U_ZERO_ERROR);
     if (status == U_INVALID_FORMAT_ERROR){
-        if (res_cnt == 0 && res_array == nullptr){
+        if (res_cnt == 0 && res_array == NULL){
             it_logln("FT getArray with status tested on non array");
         } else {
             it_errln("*** FT getArray with status return values are not consistent");

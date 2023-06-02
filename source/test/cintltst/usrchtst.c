@@ -148,7 +148,7 @@ static char *toCharString(const UChar* unichars)
             *temp ++ = (char)ch;
         }
         else {
-            snprintf(temp, sizeof(result) - (temp-result),  "\\u%04x", ch);
+            sprintf(temp, "\\u%04x", ch);
             temp += 6; /* \uxxxx */
         }
     }

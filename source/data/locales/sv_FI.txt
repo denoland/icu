@@ -8,11 +8,6 @@ sv_FI{
                 timeSeparator{"."}
             }
         }
-        olck{
-            symbols{
-                timeSeparator{"."}
-            }
-        }
     }
     calendar{
         gregorian{

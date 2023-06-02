@@ -609,15 +609,6 @@ yrl{
                         "Y",
                         "S",
                     }
-                    short{
-                        "mit",
-                        "mur",
-                        "mmk",
-                        "mms",
-                        "sup",
-                        "yuk",
-                        "sau",
-                    }
                     wide{
                         "mituú",
                         "murakipí",
@@ -629,15 +620,6 @@ yrl{
                     }
                 }
                 stand-alone{
-                    abbreviated{
-                        "mit",
-                        "mur",
-                        "mmk",
-                        "mms",
-                        "sup",
-                        "yuk",
-                        "sau",
-                    }
                     narrow{
                         "M",
                         "M",
@@ -646,15 +628,6 @@ yrl{
                         "S",
                         "Y",
                         "S",
-                    }
-                    short{
-                        "mit",
-                        "mur",
-                        "mmk",
-                        "mms",
-                        "sup",
-                        "yuk",
-                        "sau",
                     }
                     wide{
                         "mituú",
@@ -1172,10 +1145,7 @@ yrl{
         day-narrow{
             dn{"ara"}
             relative{
-                "-1"{"kuesê"}
                 "-2"{"amũ kuesê"}
-                "0"{"wií"}
-                "1"{"wirãdé"}
                 "2"{"wirãdé ariré"}
             }
             relativeTime{
@@ -1192,10 +1162,7 @@ yrl{
         day-short{
             dn{"ara"}
             relative{
-                "-1"{"kuesê"}
                 "-2"{"amũ kuesê"}
-                "0"{"wií"}
-                "1"{"wirãdé"}
                 "2"{"wirãdé ariré"}
             }
             relativeTime{
@@ -1980,18 +1947,6 @@ yrl{
             2{"{0} u {1}"}
             end{"{0} u {1}"}
         }
-        or-narrow{
-            2{"{0} u {1}"}
-            end{"{0} u {1}"}
-            middle{"{0}, {1}"}
-            start{"{0}, {1}"}
-        }
-        or-short{
-            2{"{0} u {1}"}
-            end{"{0} u {1}"}
-            middle{"{0}, {1}"}
-            start{"{0}, {1}"}
-        }
         standard{
             2{"{0} asuí {1}"}
             end{"{0} asuí {1}"}
@@ -1999,8 +1954,6 @@ yrl{
         standard-narrow{
             2{"{0}, {1}"}
             end{"{0}, {1}"}
-            middle{"{0}, {1}"}
-            start{"{0}, {1}"}
         }
         standard-short{
             2{"{0} asuí {1}"}
@@ -2011,8 +1964,6 @@ yrl{
         unit{
             2{"{0} asuí {1}"}
             end{"{0} asuí {1}"}
-            middle{"{0}, {1}"}
-            start{"{0}, {1}"}
         }
         unit-narrow{
             2{"{0} {1}"}
@@ -2023,8 +1974,6 @@ yrl{
         unit-short{
             2{"{0} asuí {1}"}
             end{"{0} asuí {1}"}
-            middle{"{0}, {1}"}
-            start{"{0}, {1}"}
         }
     }
     measurementSystemNames{

@@ -38,25 +38,25 @@ class PropertiesAffixPatternProvider : public AffixPatternProvider, public UMemo
 
     // AffixPatternProvider Methods:
 
-    char16_t charAt(int32_t flags, int32_t i) const override;
+    char16_t charAt(int32_t flags, int32_t i) const U_OVERRIDE;
 
-    int32_t length(int32_t flags) const override;
+    int32_t length(int32_t flags) const U_OVERRIDE;
 
-    UnicodeString getString(int32_t flags) const override;
+    UnicodeString getString(int32_t flags) const U_OVERRIDE;
 
-    bool hasCurrencySign() const override;
+    bool hasCurrencySign() const U_OVERRIDE;
 
-    bool positiveHasPlusSign() const override;
+    bool positiveHasPlusSign() const U_OVERRIDE;
 
-    bool hasNegativeSubpattern() const override;
+    bool hasNegativeSubpattern() const U_OVERRIDE;
 
-    bool negativeHasMinusSign() const override;
+    bool negativeHasMinusSign() const U_OVERRIDE;
 
-    bool containsSymbolType(AffixPatternType, UErrorCode&) const override;
+    bool containsSymbolType(AffixPatternType, UErrorCode&) const U_OVERRIDE;
 
-    bool hasBody() const override;
+    bool hasBody() const U_OVERRIDE;
 
-    bool currencyAsDecimal() const override;
+    bool currencyAsDecimal() const U_OVERRIDE;
 
   private:
     UnicodeString posPrefix;
@@ -92,25 +92,25 @@ class CurrencyPluralInfoAffixProvider : public AffixPatternProvider, public UMem
 
     // AffixPatternProvider Methods:
 
-    char16_t charAt(int32_t flags, int32_t i) const override;
+    char16_t charAt(int32_t flags, int32_t i) const U_OVERRIDE;
 
-    int32_t length(int32_t flags) const override;
+    int32_t length(int32_t flags) const U_OVERRIDE;
 
-    UnicodeString getString(int32_t flags) const override;
+    UnicodeString getString(int32_t flags) const U_OVERRIDE;
 
-    bool hasCurrencySign() const override;
+    bool hasCurrencySign() const U_OVERRIDE;
 
-    bool positiveHasPlusSign() const override;
+    bool positiveHasPlusSign() const U_OVERRIDE;
 
-    bool hasNegativeSubpattern() const override;
+    bool hasNegativeSubpattern() const U_OVERRIDE;
 
-    bool negativeHasMinusSign() const override;
+    bool negativeHasMinusSign() const U_OVERRIDE;
 
-    bool containsSymbolType(AffixPatternType, UErrorCode&) const override;
+    bool containsSymbolType(AffixPatternType, UErrorCode&) const U_OVERRIDE;
 
-    bool hasBody() const override;
+    bool hasBody() const U_OVERRIDE;
 
-    bool currencyAsDecimal() const override;
+    bool currencyAsDecimal() const U_OVERRIDE;
 
   private:
     PropertiesAffixPatternProvider affixesByPlural[StandardPlural::COUNT];

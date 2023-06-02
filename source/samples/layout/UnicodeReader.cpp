@@ -27,12 +27,12 @@
  * Read the text from a file. The text must start with a Unicode Byte
  * Order Mark (BOM) so that we know what order to read the bytes in.
  */
-const char16_t *UnicodeReader::readFile(const char *fileName, GUISupport *guiSupport, int32_t &charCount)
+const UChar *UnicodeReader::readFile(const char *fileName, GUISupport *guiSupport, int32_t &charCount)
 {
     FILE *f;
     int32_t fileSize;
     
-    char16_t *charBuffer;
+    UChar *charBuffer;
     char *byteBuffer;
     char startBytes[4] = {'\xA5', '\xA5', '\xA5', '\xA5'};
     char errorMessage[128];
@@ -41,7 +41,7 @@ const char16_t *UnicodeReader::readFile(const char *fileName, GUISupport *guiSup
     
     f = fopen(fileName, "rb");
     
-    if( f == nullptr ) {
+    if( f == NULL ) {
         sprintf(errorMessage,"Couldn't open %s: %s \n", fileName, strerror(errno));
         guiSupport->postErrorMessage(errorMessage, "Text File Error");
         return 0;
@@ -108,7 +108,7 @@ const char16_t *UnicodeReader::readFile(const char *fileName, GUISupport *guiSup
     delete[] byteBuffer;
     
     charCount = myText.length();
-    charBuffer = LE_NEW_ARRAY(char16_t, charCount + 1);
+    charBuffer = LE_NEW_ARRAY(UChar, charCount + 1);
     if(charBuffer == 0) {
         sprintf(errorMessage,"Couldn't get memory for reading %s: %s \n", fileName, strerror(errno));
         guiSupport->postErrorMessage(errorMessage, "Text File Error");
@@ -116,7 +116,7 @@ const char16_t *UnicodeReader::readFile(const char *fileName, GUISupport *guiSup
     }
     
     myText.extract(0, myText.length(), charBuffer);
-    charBuffer[charCount] = 0;    // NUL terminate for easier reading in the debugger
+    charBuffer[charCount] = 0;    // NULL terminate for easier reading in the debugger
     
     return charBuffer;
 }

@@ -53,8 +53,8 @@ UOBJECT_DEFINE_RTTI_IMPLEMENTATION(SimpleTimeZone)
 // Gregorian calendar started.
 const int8_t SimpleTimeZone::STATICMONTHLENGTH[] = {31,29,31,30,31,30,31,31,30,31,30,31};
 
-static const char16_t DST_STR[] = {0x0028,0x0044,0x0053,0x0054,0x0029,0}; // "(DST)"
-static const char16_t STD_STR[] = {0x0028,0x0053,0x0054,0x0044,0x0029,0}; // "(STD)"
+static const UChar DST_STR[] = {0x0028,0x0044,0x0053,0x0054,0x0029,0}; // "(DST)"
+static const UChar STD_STR[] = {0x0028,0x0053,0x0054,0x0044,0x0029,0}; // "(STD)"
 
 
 // *****************************************************************************
@@ -725,7 +725,7 @@ UBool SimpleTimeZone::inDaylightTime(UDate date, UErrorCode& status) const
     // and provided only for Java compatibility as of 8/6/97 [LIU].
     if (U_FAILURE(status)) return false;
     GregorianCalendar *gc = new GregorianCalendar(*this, status);
-    /* test for nullptr */
+    /* test for NULL */
     if (gc == 0) {
         status = U_MEMORY_ALLOCATION_ERROR;
         return false;
@@ -991,14 +991,14 @@ SimpleTimeZone::getNextTransition(UDate base, UBool inclusive, TimeZoneTransitio
     UBool dstAvail = dstRule->getNextStart(base, stdRule->getRawOffset(), stdRule->getDSTSavings(), inclusive, dstDate);
     if (stdAvail && (!dstAvail || stdDate < dstDate)) {
         result.setTime(stdDate);
-        result.setFrom(*dstRule);
-        result.setTo(*stdRule);
+        result.setFrom((const TimeZoneRule&)*dstRule);
+        result.setTo((const TimeZoneRule&)*stdRule);
         return true;
     }
     if (dstAvail && (!stdAvail || dstDate < stdDate)) {
         result.setTime(dstDate);
-        result.setFrom(*stdRule);
-        result.setTo(*dstRule);
+        result.setFrom((const TimeZoneRule&)*stdRule);
+        result.setTo((const TimeZoneRule&)*dstRule);
         return true;
     }
     return false;
@@ -1025,40 +1025,40 @@ SimpleTimeZone::getPreviousTransition(UDate base, UBool inclusive, TimeZoneTrans
     UBool dstAvail = dstRule->getPreviousStart(base, stdRule->getRawOffset(), stdRule->getDSTSavings(), inclusive, dstDate);
     if (stdAvail && (!dstAvail || stdDate > dstDate)) {
         result.setTime(stdDate);
-        result.setFrom(*dstRule);
-        result.setTo(*stdRule);
+        result.setFrom((const TimeZoneRule&)*dstRule);
+        result.setTo((const TimeZoneRule&)*stdRule);
         return true;
     }
     if (dstAvail && (!stdAvail || dstDate > stdDate)) {
         result.setTime(dstDate);
-        result.setFrom(*stdRule);
-        result.setTo(*dstRule);
+        result.setFrom((const TimeZoneRule&)*stdRule);
+        result.setTo((const TimeZoneRule&)*dstRule);
         return true;
     }
     return false;
 }
 
 void
-SimpleTimeZone::clearTransitionRules() {
-    initialRule = nullptr;
-    firstTransition = nullptr;
-    stdRule = nullptr;
-    dstRule = nullptr;
+SimpleTimeZone::clearTransitionRules(void) {
+    initialRule = NULL;
+    firstTransition = NULL;
+    stdRule = NULL;
+    dstRule = NULL;
     transitionRulesInitialized = false;
 }
 
 void
-SimpleTimeZone::deleteTransitionRules() {
-    if (initialRule != nullptr) {
+SimpleTimeZone::deleteTransitionRules(void) {
+    if (initialRule != NULL) {
         delete initialRule;
     }
-    if (firstTransition != nullptr) {
+    if (firstTransition != NULL) {
         delete firstTransition;
     }
-    if (stdRule != nullptr) {
+    if (stdRule != NULL) {
         delete stdRule;
     }
-    if (dstRule != nullptr) {
+    if (dstRule != NULL) {
         delete dstRule;
     }
     clearTransitionRules();
@@ -1131,7 +1131,7 @@ SimpleTimeZone::initTransitionRules(UErrorCode& status) {
             return;
         }
         // Check for Null pointer
-        if (dtRule == nullptr) {
+        if (dtRule == NULL) {
             status = U_MEMORY_ALLOCATION_ERROR;
             return;
         }
@@ -1140,7 +1140,7 @@ SimpleTimeZone::initTransitionRules(UErrorCode& status) {
             dtRule, startYear, AnnualTimeZoneRule::MAX_YEAR);
         
         // Check for Null pointer
-        if (dstRule == nullptr) {
+        if (dstRule == NULL) {
             status = U_MEMORY_ALLOCATION_ERROR;
             deleteTransitionRules();
             return;
@@ -1168,7 +1168,7 @@ SimpleTimeZone::initTransitionRules(UErrorCode& status) {
         }
         
         // Check for Null pointer
-        if (dtRule == nullptr) {
+        if (dtRule == NULL) {
             status = U_MEMORY_ALLOCATION_ERROR;
             deleteTransitionRules();
             return;
@@ -1178,7 +1178,7 @@ SimpleTimeZone::initTransitionRules(UErrorCode& status) {
             dtRule, startYear, AnnualTimeZoneRule::MAX_YEAR);
         
         //Check for Null pointer
-        if (stdRule == nullptr) {
+        if (stdRule == NULL) {
             status = U_MEMORY_ALLOCATION_ERROR;
             deleteTransitionRules();
             return;
@@ -1190,7 +1190,7 @@ SimpleTimeZone::initTransitionRules(UErrorCode& status) {
         // Create a TimeZoneRule for initial time
         if (firstStdStart < firstDstStart) {
             initialRule = new InitialTimeZoneRule(tzid+UnicodeString(DST_STR), getRawOffset(), dstRule->getDSTSavings());
-            if (initialRule == nullptr) {
+            if (initialRule == NULL) {
                 status = U_MEMORY_ALLOCATION_ERROR;
                 deleteTransitionRules();
                 return;
@@ -1198,14 +1198,14 @@ SimpleTimeZone::initTransitionRules(UErrorCode& status) {
             firstTransition = new TimeZoneTransition(firstStdStart, *initialRule, *stdRule);
         } else {
             initialRule = new InitialTimeZoneRule(tzid+UnicodeString(STD_STR), getRawOffset(), 0);
-            if (initialRule == nullptr) {
+            if (initialRule == NULL) {
                 status = U_MEMORY_ALLOCATION_ERROR;
                 deleteTransitionRules();
                 return;
             }
             firstTransition = new TimeZoneTransition(firstDstStart, *initialRule, *dstRule);
         }
-        if (firstTransition == nullptr) {
+        if (firstTransition == NULL) {
             status = U_MEMORY_ALLOCATION_ERROR;
             deleteTransitionRules();
             return;
@@ -1215,7 +1215,7 @@ SimpleTimeZone::initTransitionRules(UErrorCode& status) {
         // Create a TimeZoneRule for initial time
         initialRule = new InitialTimeZoneRule(tzid, getRawOffset(), 0);
         // Check for null pointer.
-        if (initialRule == nullptr) {
+        if (initialRule == NULL) {
             status = U_MEMORY_ALLOCATION_ERROR;
             deleteTransitionRules();
             return;
@@ -1244,7 +1244,7 @@ SimpleTimeZone::getTimeZoneRules(const InitialTimeZoneRule*& initial,
     }
     initial = initialRule;
     int32_t cnt = 0;
-    if (stdRule != nullptr) {
+    if (stdRule != NULL) {
         if (cnt < trscount) {
             trsrules[cnt++] = stdRule;
         }

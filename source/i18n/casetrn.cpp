@@ -147,7 +147,7 @@ void CaseMapTransliterator::handleTransliterate(Replaceable& text,
     csc.limit = offsets.contextLimit;
 
     UnicodeString tmp;
-    const char16_t *s;
+    const UChar *s;
     UChar32 c;
     int32_t textPos, delta, result;
 

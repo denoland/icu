@@ -52,9 +52,9 @@ struct UPlugData {
   UPlugEntrypoint  *entrypoint; /**< plugin entrypoint */
   uint32_t structSize;    /**< initialized to the size of this structure */
   uint32_t token;         /**< must be U_PLUG_TOKEN */
-  void *lib;              /**< plugin library, or nullptr */
+  void *lib;              /**< plugin library, or NULL */
   char libName[UPLUG_NAME_MAX];   /**< library name */
-  char sym[UPLUG_NAME_MAX];        /**< plugin symbol, or nullptr */
+  char sym[UPLUG_NAME_MAX];        /**< plugin symbol, or NULL */
   char config[UPLUG_NAME_MAX];     /**< configuration data */
   void *context;          /**< user context data */
   char name[UPLUG_NAME_MAX];   /**< name of plugin */
@@ -148,9 +148,9 @@ static int32_t searchForLibrary(void *lib) {
 U_CAPI char * U_EXPORT2
 uplug_findLibrary(void *lib, UErrorCode *status) {
   int32_t libEnt;
-  char *ret = nullptr;
+  char *ret = NULL;
   if(U_FAILURE(*status)) {
-    return nullptr;
+    return NULL;
   }
   libEnt = searchForLibrary(lib);
   if(libEnt!=-1) { 
@@ -164,9 +164,9 @@ uplug_findLibrary(void *lib, UErrorCode *status) {
 U_CAPI void * U_EXPORT2
 uplug_openLibrary(const char *libName, UErrorCode *status) {
   int32_t libEntry = -1;
-  void *lib = nullptr;
+  void *lib = NULL;
     
-  if(U_FAILURE(*status)) return nullptr;
+  if(U_FAILURE(*status)) return NULL;
 
   libEntry = searchForLibraryName(libName);
   if(libEntry == -1) {
@@ -177,7 +177,7 @@ uplug_openLibrary(const char *libName, UErrorCode *status) {
 #if UPLUG_TRACE
       DBG((stderr, "uplug_openLibrary() - out of library slots (max %d)\n", libraryMax));
 #endif
-      return nullptr;
+      return NULL;
     }
     /* Some operating systems don't want 
        DL operations from multiple threads. */
@@ -186,9 +186,9 @@ uplug_openLibrary(const char *libName, UErrorCode *status) {
     DBG((stderr, "uplug_openLibrary(%s,%s) libEntry %d, lib %p\n", libName, u_errorName(*status), libEntry, lib));
 #endif
         
-    if(libraryList[libEntry].lib == nullptr || U_FAILURE(*status)) {
+    if(libraryList[libEntry].lib == NULL || U_FAILURE(*status)) {
       /* cleanup. */
-      libraryList[libEntry].lib = nullptr; /* failure with open */
+      libraryList[libEntry].lib = NULL; /* failure with open */
       libraryList[libEntry].name[0] = 0;
 #if UPLUG_TRACE
       DBG((stderr, "uplug_openLibrary(%s,%s) libEntry %d, lib %p\n", libName, u_errorName(*status), libEntry, lib));
@@ -252,14 +252,14 @@ static int32_t uplug_pluginNumber(UPlugData* d) {
 
 U_CAPI UPlugData * U_EXPORT2
 uplug_nextPlug(UPlugData *prior) {
-  if(prior==nullptr) {
+  if(prior==NULL) {
     return pluginList;
   } else {
     UPlugData *nextPlug = &prior[1];
     UPlugData *pastPlug = &pluginList[pluginCount];
     
     if(nextPlug>=pastPlug) {
-      return nullptr;
+      return NULL;
     } else {
       return nextPlug;
     }
@@ -273,7 +273,7 @@ uplug_nextPlug(UPlugData *prior) {
  */
 static void uplug_callPlug(UPlugData *plug, UPlugReason reason, UErrorCode *status) {
   UPlugTokenReturn token;
-  if(plug==nullptr||U_FAILURE(*status)) {
+  if(plug==NULL||U_FAILURE(*status)) {
     return;
   }
   token = (*(plug->entrypoint))(plug, reason, status);
@@ -330,15 +330,15 @@ static void uplug_loadPlug(UPlugData *plug, UErrorCode *status) {
 
 static UPlugData *uplug_allocateEmptyPlug(UErrorCode *status)
 {
-  UPlugData *plug = nullptr;
+  UPlugData *plug = NULL;
 
   if(U_FAILURE(*status)) {
-    return nullptr;
+    return NULL;
   }
 
   if(pluginCount == UPLUG_PLUGIN_INITIAL_COUNT) {
     *status = U_MEMORY_ALLOCATION_ERROR;
-    return nullptr;
+    return NULL;
   }
 
   plug = &pluginList[pluginCount++];
@@ -353,8 +353,8 @@ static UPlugData *uplug_allocateEmptyPlug(UErrorCode *status)
   plug->libName[0] = 0;
   plug->config[0]=0;
   plug->sym[0]=0;
-  plug->lib=nullptr;
-  plug->entrypoint=nullptr;
+  plug->lib=NULL;
+  plug->entrypoint=NULL;
 
 
   return plug;
@@ -364,16 +364,16 @@ static UPlugData *uplug_allocatePlug(UPlugEntrypoint *entrypoint, const char *co
                                      UErrorCode *status) {
   UPlugData *plug = uplug_allocateEmptyPlug(status);
   if(U_FAILURE(*status)) {
-    return nullptr;
+    return NULL;
   }
 
-  if(config!=nullptr) {
+  if(config!=NULL) {
     uprv_strncpy(plug->config, config, UPLUG_NAME_MAX);
   } else {
     plug->config[0] = 0;
   }
     
-  if(symName!=nullptr) {
+  if(symName!=NULL) {
     uprv_strncpy(plug->sym, symName, UPLUG_NAME_MAX);
   } else {
     plug->sym[0] = 0;
@@ -393,7 +393,7 @@ static void uplug_deallocatePlug(UPlugData *plug, UErrorCode *status) {
     uplug_closeLibrary(plug->lib, &subStatus);
 #endif
   }
-  plug->lib = nullptr;
+  plug->lib = NULL;
   if(U_SUCCESS(*status) && U_FAILURE(subStatus)) {
     *status = subStatus;
   }
@@ -410,7 +410,7 @@ static void uplug_deallocatePlug(UPlugData *plug, UErrorCode *status) {
 }
 
 static void uplug_doUnloadPlug(UPlugData *plugToRemove, UErrorCode *status) {
-  if(plugToRemove != nullptr) {
+  if(plugToRemove != NULL) {
     uplug_unloadPlug(plugToRemove, status);
     uplug_deallocatePlug(plugToRemove, status);
   }
@@ -418,14 +418,14 @@ static void uplug_doUnloadPlug(UPlugData *plugToRemove, UErrorCode *status) {
 
 U_CAPI void U_EXPORT2
 uplug_removePlug(UPlugData *plug, UErrorCode *status)  {
-  UPlugData *cursor = nullptr;
-  UPlugData *plugToRemove = nullptr;
+  UPlugData *cursor = NULL;
+  UPlugData *plugToRemove = NULL;
   if(U_FAILURE(*status)) return;
     
-  for(cursor=pluginList;cursor!=nullptr;) {
+  for(cursor=pluginList;cursor!=NULL;) {
     if(cursor==plug) {
       plugToRemove = plug;
-      cursor=nullptr;
+      cursor=NULL;
     } else {
       cursor = uplug_nextPlug(cursor);
     }
@@ -481,7 +481,7 @@ uplug_getLibraryName(UPlugData *data, UErrorCode *status) {
 #if U_ENABLE_DYLOAD
     return uplug_findLibrary(data->lib, status);
 #else
-    return nullptr;
+    return NULL;
 #endif
   }
 }
@@ -510,7 +510,7 @@ uplug_getConfiguration(UPlugData *data) {
 U_CAPI UPlugData* U_EXPORT2
 uplug_getPlugInternal(int32_t n) { 
   if(n <0 || n >= pluginCount) {
-    return nullptr;
+    return NULL;
   } else { 
     return &(pluginList[n]);
   }
@@ -530,7 +530,7 @@ uplug_getPlugLoadStatus(UPlugData *plug) {
  */
 static UPlugData* uplug_initPlugFromEntrypointAndLibrary(UPlugEntrypoint *entrypoint, const char *config, void *lib, const char *sym,
                                                          UErrorCode *status) {
-  UPlugData *plug = nullptr;
+  UPlugData *plug = NULL;
 
   plug = uplug_allocatePlug(entrypoint, config, lib, sym, status);
 
@@ -538,13 +538,13 @@ static UPlugData* uplug_initPlugFromEntrypointAndLibrary(UPlugEntrypoint *entryp
     return plug;
   } else {
     uplug_deallocatePlug(plug, status);
-    return nullptr;
+    return NULL;
   }
 }
 
 U_CAPI UPlugData* U_EXPORT2
 uplug_loadPlugFromEntrypoint(UPlugEntrypoint *entrypoint, const char *config, UErrorCode *status) {
-  UPlugData* plug = uplug_initPlugFromEntrypointAndLibrary(entrypoint, config, nullptr, nullptr, status);
+  UPlugData* plug = uplug_initPlugFromEntrypointAndLibrary(entrypoint, config, NULL, NULL, status);
   uplug_loadPlug(plug, status);
   return plug;
 }
@@ -555,25 +555,25 @@ static UPlugData*
 uplug_initErrorPlug(const char *libName, const char *sym, const char *config, const char *nameOrError, UErrorCode loadStatus, UErrorCode *status)
 {
   UPlugData *plug = uplug_allocateEmptyPlug(status);
-  if(U_FAILURE(*status)) return nullptr;
+  if(U_FAILURE(*status)) return NULL;
 
   plug->pluginStatus = loadStatus;
   plug->awaitingLoad = false; /* Won't load. */
   plug->dontUnload = true; /* cannot unload. */
 
-  if(sym!=nullptr) {
+  if(sym!=NULL) {
     uprv_strncpy(plug->sym, sym, UPLUG_NAME_MAX);
   }
 
-  if(libName!=nullptr) {
+  if(libName!=NULL) {
     uprv_strncpy(plug->libName, libName, UPLUG_NAME_MAX);
   }
 
-  if(nameOrError!=nullptr) {
+  if(nameOrError!=NULL) {
     uprv_strncpy(plug->name, nameOrError, UPLUG_NAME_MAX);
   }
 
-  if(config!=nullptr) {
+  if(config!=NULL) {
     uprv_strncpy(plug->config, config, UPLUG_NAME_MAX);
   }
 
@@ -585,39 +585,39 @@ uplug_initErrorPlug(const char *libName, const char *sym, const char *config, co
  */
 static UPlugData* 
 uplug_initPlugFromLibrary(const char *libName, const char *sym, const char *config, UErrorCode *status) {
-  void *lib = nullptr;
-  UPlugData *plug = nullptr;
-  if(U_FAILURE(*status)) { return nullptr; }
+  void *lib = NULL;
+  UPlugData *plug = NULL;
+  if(U_FAILURE(*status)) { return NULL; }
   lib = uplug_openLibrary(libName, status);
-  if(lib!=nullptr && U_SUCCESS(*status)) {
-    UPlugEntrypoint *entrypoint = nullptr;
+  if(lib!=NULL && U_SUCCESS(*status)) {
+    UPlugEntrypoint *entrypoint = NULL;
     entrypoint = (UPlugEntrypoint*)uprv_dlsym_func(lib, sym, status);
 
-    if(entrypoint!=nullptr&&U_SUCCESS(*status)) {
+    if(entrypoint!=NULL&&U_SUCCESS(*status)) {
       plug = uplug_initPlugFromEntrypointAndLibrary(entrypoint, config, lib, sym, status);
-      if(plug!=nullptr&&U_SUCCESS(*status)) {
+      if(plug!=NULL&&U_SUCCESS(*status)) {
         plug->lib = lib; /* plug takes ownership of library */
-        lib = nullptr; /* library is now owned by plugin. */
+        lib = NULL; /* library is now owned by plugin. */
       }
     } else {
       UErrorCode subStatus = U_ZERO_ERROR;
-      plug = uplug_initErrorPlug(libName,sym,config,"ERROR: Could not load entrypoint",(lib==nullptr)?U_MISSING_RESOURCE_ERROR:*status,&subStatus);
+      plug = uplug_initErrorPlug(libName,sym,config,"ERROR: Could not load entrypoint",(lib==NULL)?U_MISSING_RESOURCE_ERROR:*status,&subStatus);
     }
-    if(lib!=nullptr) { /* still need to close the lib */
+    if(lib!=NULL) { /* still need to close the lib */
       UErrorCode subStatus = U_ZERO_ERROR;
       uplug_closeLibrary(lib, &subStatus); /* don't care here */
     }
   } else {
     UErrorCode subStatus = U_ZERO_ERROR;
-    plug = uplug_initErrorPlug(libName,sym,config,"ERROR: could not load library",(lib==nullptr)?U_MISSING_RESOURCE_ERROR:*status,&subStatus);
+    plug = uplug_initErrorPlug(libName,sym,config,"ERROR: could not load library",(lib==NULL)?U_MISSING_RESOURCE_ERROR:*status,&subStatus);
   }
   return plug;
 }
 
 U_CAPI UPlugData* U_EXPORT2
 uplug_loadPlugFromLibrary(const char *libName, const char *sym, const char *config, UErrorCode *status) { 
-  UPlugData *plug = nullptr;
-  if(U_FAILURE(*status)) { return nullptr; }
+  UPlugData *plug = NULL;
+  if(U_FAILURE(*status)) { return NULL; }
   plug = uplug_initPlugFromLibrary(libName, sym, config, status);
   uplug_loadPlug(plug, status);
 
@@ -632,7 +632,7 @@ U_CAPI UPlugLevel U_EXPORT2 uplug_getCurrentLevel() {
   return gCurrentLevel;
 }
 
-static UBool U_CALLCONV uplug_cleanup()
+static UBool U_CALLCONV uplug_cleanup(void)
 {
   int32_t i;
     
@@ -712,7 +712,7 @@ uplug_getPluginFile() {
 #if U_ENABLE_DYLOAD && !UCONFIG_NO_FILE_IO
   return plugin_file;
 #else
-  return nullptr;
+  return NULL;
 #endif
 }
 
@@ -728,7 +728,7 @@ uplug_init(UErrorCode *status) {
   const char *env = getenv("ICU_PLUGINS");
 
   if(U_FAILURE(*status)) return;
-  if(env != nullptr) {
+  if(env != NULL) {
     plugin_dir.append(env, -1, *status);
   }
   if(U_FAILURE(*status)) return;
@@ -791,7 +791,7 @@ uplug_init(UErrorCode *status) {
 #ifdef __MVS__
     if (iscics()) /* 12 Nov 2011 JAM */
     {
-        f = nullptr;
+        f = NULL;
     }
     else
 #endif
@@ -799,9 +799,9 @@ uplug_init(UErrorCode *status) {
         f = fopen(pluginFile.data(), "r");
     }
 
-    if(f != nullptr) {
+    if(f != NULL) {
       char linebuf[1024];
-      char *p, *libName=nullptr, *symName=nullptr, *config=nullptr;
+      char *p, *libName=NULL, *symName=NULL, *config=NULL;
       int32_t line = 0;
             
             
@@ -843,7 +843,7 @@ uplug_init(UErrorCode *status) {
           }
                     
           /* chop whitespace at the end of the config */
-          if(config!=nullptr&&*config!=0) {
+          if(config!=NULL&&*config!=0) {
             p = config+strlen(config);
             while(p>config&&isspace((int)*(--p))) {
               *p=0;

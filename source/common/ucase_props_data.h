@@ -974,14 +974,14 @@ static const uint16_t ucase_props_unfold[370]={
 };
 
 static const UCaseProps ucase_props_singleton={
-  nullptr,
+  NULL,
   ucase_props_indexes,
   ucase_props_exceptions,
   ucase_props_unfold,
   {
     ucase_props_trieIndex,
     ucase_props_trieIndex+3412,
-    nullptr,
+    NULL,
     3412,
     9736,
     0x188,
@@ -990,7 +990,7 @@ static const UCaseProps ucase_props_singleton={
     0x0,
     0xe0800,
     0x3358,
-    nullptr, 0, false, false, 0, nullptr
+    NULL, 0, false, false, 0, NULL
   },
   { 4,0,0,0 }
 };

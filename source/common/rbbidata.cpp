@@ -78,13 +78,13 @@ UBool RBBIDataWrapper::isDataVersionAcceptable(const UVersionInfo version) {
 //
 //-----------------------------------------------------------------------------
 void RBBIDataWrapper::init0() {
-    fHeader = nullptr;
-    fForwardTable = nullptr;
-    fReverseTable = nullptr;
-    fRuleSource   = nullptr;
-    fRuleStatusTable = nullptr;
-    fTrie         = nullptr;
-    fUDataMem     = nullptr;
+    fHeader = NULL;
+    fForwardTable = NULL;
+    fReverseTable = NULL;
+    fRuleSource   = NULL;
+    fRuleStatusTable = NULL;
+    fTrie         = NULL;
+    fUDataMem     = NULL;
     fRefCount     = 0;
     fDontFreeData = true;
 }
@@ -246,7 +246,7 @@ void  RBBIDataWrapper::printTable(const char *heading, const RBBIStateTable *tab
     }
     RBBIDebugPrintf("\n");
 
-    if (table == nullptr) {
+    if (table == NULL) {
         RBBIDebugPrintf("         N U L L   T A B L E\n\n");
         return;
     }
@@ -305,10 +305,10 @@ U_CAPI int32_t U_EXPORT2
 ubrk_swap(const UDataSwapper *ds, const void *inData, int32_t length, void *outData,
            UErrorCode *status) {
 
-    if (status == nullptr || U_FAILURE(*status)) {
+    if (status == NULL || U_FAILURE(*status)) {
         return 0;
     }
-    if(ds==nullptr || inData==nullptr || length<-1 || (length>0 && outData==nullptr)) {
+    if(ds==NULL || inData==NULL || length<-1 || (length>0 && outData==NULL)) {
         *status=U_ILLEGAL_ARGUMENT_ERROR;
         return 0;
     }

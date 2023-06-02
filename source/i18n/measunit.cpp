@@ -57,10 +57,10 @@ static const int32_t gOffsets[] = {
     430,
     436,
     446,
-    451,
-    455,
-    457,
-    491
+    450,
+    454,
+    456,
+    490
 };
 
 static const int32_t kCurrencyOffset = 5;
@@ -540,7 +540,6 @@ static const char * const gSubTypes[] = {
     "millimeter-ofhg",
     "pascal",
     "pound-force-per-square-inch",
-    "beaufort",
     "kilometer-per-hour",
     "knot",
     "meter-per-second",
@@ -1751,44 +1750,36 @@ MeasureUnit MeasureUnit::getPoundPerSquareInch() {
     return MeasureUnit(18, 9);
 }
 
-MeasureUnit *MeasureUnit::createBeaufort(UErrorCode &status) {
+MeasureUnit *MeasureUnit::createKilometerPerHour(UErrorCode &status) {
     return MeasureUnit::create(19, 0, status);
 }
 
-MeasureUnit MeasureUnit::getBeaufort() {
+MeasureUnit MeasureUnit::getKilometerPerHour() {
     return MeasureUnit(19, 0);
 }
 
-MeasureUnit *MeasureUnit::createKilometerPerHour(UErrorCode &status) {
+MeasureUnit *MeasureUnit::createKnot(UErrorCode &status) {
     return MeasureUnit::create(19, 1, status);
 }
 
-MeasureUnit MeasureUnit::getKilometerPerHour() {
+MeasureUnit MeasureUnit::getKnot() {
     return MeasureUnit(19, 1);
 }
 
-MeasureUnit *MeasureUnit::createKnot(UErrorCode &status) {
+MeasureUnit *MeasureUnit::createMeterPerSecond(UErrorCode &status) {
     return MeasureUnit::create(19, 2, status);
 }
 
-MeasureUnit MeasureUnit::getKnot() {
+MeasureUnit MeasureUnit::getMeterPerSecond() {
     return MeasureUnit(19, 2);
 }
 
-MeasureUnit *MeasureUnit::createMeterPerSecond(UErrorCode &status) {
+MeasureUnit *MeasureUnit::createMilePerHour(UErrorCode &status) {
     return MeasureUnit::create(19, 3, status);
 }
 
-MeasureUnit MeasureUnit::getMeterPerSecond() {
-    return MeasureUnit(19, 3);
-}
-
-MeasureUnit *MeasureUnit::createMilePerHour(UErrorCode &status) {
-    return MeasureUnit::create(19, 4, status);
-}
-
 MeasureUnit MeasureUnit::getMilePerHour() {
-    return MeasureUnit(19, 4);
+    return MeasureUnit(19, 3);
 }
 
 MeasureUnit *MeasureUnit::createCelsius(UErrorCode &status) {
@@ -2286,13 +2277,13 @@ StringEnumeration* MeasureUnit::getAvailableTypes(UErrorCode &errorCode) {
             gTypes, UPRV_LENGTHOF(gTypes), &errorCode);
     if (U_FAILURE(errorCode)) {
         uenum_close(uenum);
-        return nullptr;
+        return NULL;
     }
     StringEnumeration *result = new UStringEnumeration(uenum);
-    if (result == nullptr) {
+    if (result == NULL) {
         errorCode = U_MEMORY_ALLOCATION_ERROR;
         uenum_close(uenum);
-        return nullptr;
+        return NULL;
     }
     return result;
 }
@@ -2318,10 +2309,10 @@ bool MeasureUnit::findBySubType(StringPiece subType, MeasureUnit* output) {
 
 MeasureUnit *MeasureUnit::create(int typeId, int subTypeId, UErrorCode &status) {
     if (U_FAILURE(status)) {
-        return nullptr;
+        return NULL;
     }
     MeasureUnit *result = new MeasureUnit(typeId, subTypeId);
-    if (result == nullptr) {
+    if (result == NULL) {
         status = U_MEMORY_ALLOCATION_ERROR;
     }
     return result;

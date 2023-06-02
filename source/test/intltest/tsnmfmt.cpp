@@ -178,7 +178,7 @@ IntlTestNumberFormat::testFormat(/* char* par */)
     UnicodeString str;
 
     // Assume it's a DecimalFormat and get some info
-    DecimalFormat *s = dynamic_cast<DecimalFormat*>(fFormat);
+    DecimalFormat *s = (DecimalFormat*)fFormat;
     logln((UnicodeString)"  Pattern " + s->toPattern(str));
 
 #if U_PF_OS390 <= U_PLATFORM && U_PLATFORM <= U_PF_OS400
@@ -422,7 +422,7 @@ void IntlTestNumberFormat::monsterTest(/* char* par */)
     const char *SEP = "============================================================\n";
     int32_t count;
     const Locale* allLocales = NumberFormat::getAvailableLocales(count);
-    Locale* locales = const_cast<Locale*>(allLocales);
+    Locale* locales = (Locale*)allLocales;
     Locale quickLocales[6];
     if (allLocales && count)
     {

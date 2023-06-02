@@ -98,7 +98,7 @@ public:
         loyear = 1902;
         hiyear = 2050;
         tick = 1000;
-        linesep = nullptr;
+        linesep = NULL;
     }
 
     ~ICUZDump() {
@@ -176,7 +176,7 @@ public:
                 str.remove();
                 formatter->format(hit, newRawOffset + newDstOffset, (newDstOffset == 0 ? false : true), str);
                 out << str;
-                if (linesep != nullptr) {
+                if (linesep != NULL) {
                     out << linesep;
                 } else {
                     out << endl;
@@ -218,38 +218,38 @@ public:
             // TODO: Add error case handling later.
         }
         else {
-            zenum = nullptr;
-            zids = nullptr;
+            zenum = NULL;
+            zids = NULL;
             idx = 0;
             numids = 1;
         }
     }
 
     ZoneIterator(const char** ids, int32_t num) {
-        zenum = nullptr;
+        zenum = NULL;
         zids = ids;
         idx = 0;
         numids = num;
     }
 
     ~ZoneIterator() {
-        if (zenum != nullptr) {
+        if (zenum != NULL) {
             delete zenum;
         }
     }
 
     TimeZone* next() {
-        TimeZone* tz = nullptr;
-        if (zenum != nullptr) {
+        TimeZone* tz = NULL;
+        if (zenum != NULL) {
             UErrorCode status = U_ZERO_ERROR;
             const UnicodeString* zid = zenum->snext(status);
-            if (zid != nullptr) {
+            if (zid != NULL) {
                 tz = TimeZone::createTimeZone(*zid);
             }
         }
         else {
             if (idx < numids) {
-                if (zids != nullptr) {
+                if (zids != NULL) {
                     tz = TimeZone::createTimeZone((const UnicodeString&)zids[idx]);
                 }
                 else {
@@ -291,8 +291,8 @@ main(int argc, char *argv[]) {
     int32_t low = 1902;
     int32_t high = 2038;
     UBool bAll = false;
-    const char *dir = nullptr;
-    const char *linesep = nullptr;
+    const char *dir = NULL;
+    const char *linesep = NULL;
 
     U_MAIN_INIT_ARGS(argc, argv);
     argc = u_parseArgs(argc, argv, UPRV_LENGTHOF(options), options);
@@ -338,7 +338,7 @@ main(int argc, char *argv[]) {
 
     if (options[kOptCutover].doesOccur) {
         char* comma = (char*)strchr(options[kOptCutover].value, ',');
-        if (comma == nullptr) {
+        if (comma == NULL) {
             high = atoi(options[kOptCutover].value);
         } else {
             *comma = 0;
@@ -350,7 +350,7 @@ main(int argc, char *argv[]) {
     ICUZDump dumper;
     dumper.setLowYear(low);
     dumper.setHighYear(high);
-    if (dir != nullptr && linesep != nullptr) {
+    if (dir != NULL && linesep != NULL) {
         // use the specified line separator only for file output
         dumper.setLineSeparator((const char*)linesep);
     }
@@ -367,16 +367,16 @@ main(int argc, char *argv[]) {
     }
 
     UnicodeString id;
-    if (dir != nullptr) {
+    if (dir != NULL) {
         // file output
         ostringstream path;
         ios::openmode mode = ios::out;
-        if (linesep != nullptr) {
+        if (linesep != NULL) {
             mode |= ios::binary;
         }
         for (;;) {
             TimeZone* tz = zit->next();
-            if (tz == nullptr) {
+            if (tz == NULL) {
                 break;
             }
             dumper.setTimeZone(tz);
@@ -407,7 +407,7 @@ main(int argc, char *argv[]) {
         UBool bFirst = true;
         for (;;) {
             TimeZone* tz = zit->next();
-            if (tz == nullptr) {
+            if (tz == NULL) {
                 break;
             }
             dumper.setTimeZone(tz);

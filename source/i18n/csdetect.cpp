@@ -46,22 +46,22 @@ struct CSRecognizerInfo : public UMemory {
 
 U_NAMESPACE_END
 
-static icu::CSRecognizerInfo **fCSRecognizers = nullptr;
+static icu::CSRecognizerInfo **fCSRecognizers = NULL;
 static icu::UInitOnce gCSRecognizersInitOnce {};
 static int32_t fCSRecognizers_size = 0;
 
 U_CDECL_BEGIN
-static UBool U_CALLCONV csdet_cleanup()
+static UBool U_CALLCONV csdet_cleanup(void)
 {
     U_NAMESPACE_USE
-    if (fCSRecognizers != nullptr) {
+    if (fCSRecognizers != NULL) {
         for(int32_t r = 0; r < fCSRecognizers_size; r += 1) {
             delete fCSRecognizers[r];
-            fCSRecognizers[r] = nullptr;
+            fCSRecognizers[r] = NULL;
         }
 
         DELETE_ARRAY(fCSRecognizers);
-        fCSRecognizers = nullptr;
+        fCSRecognizers = NULL;
         fCSRecognizers_size = 0;
     }
     gCSRecognizersInitOnce.reset();
@@ -124,14 +124,14 @@ static void U_CALLCONV initRecognizers(UErrorCode &status) {
 
     fCSRecognizers = NEW_ARRAY(CSRecognizerInfo *, rCount);
 
-    if (fCSRecognizers == nullptr) {
+    if (fCSRecognizers == NULL) {
         status = U_MEMORY_ALLOCATION_ERROR;
     } 
     else {
         fCSRecognizers_size = rCount;
         for (int32_t r = 0; r < rCount; r += 1) {
             fCSRecognizers[r] = tempArray[r];
-            if (fCSRecognizers[r] == nullptr) {
+            if (fCSRecognizers[r] == NULL) {
                 status = U_MEMORY_ALLOCATION_ERROR;
             }
         }
@@ -148,9 +148,9 @@ void CharsetDetector::setRecognizers(UErrorCode &status)
 }
 
 CharsetDetector::CharsetDetector(UErrorCode &status)
-  : textIn(new InputText(status)), resultArray(nullptr),
+  : textIn(new InputText(status)), resultArray(NULL),
     resultCount(0), fStripTags(false), fFreshTextSet(false),
-    fEnabledRecognizers(nullptr)
+    fEnabledRecognizers(NULL)
 {
     if (U_FAILURE(status)) {
         return;
@@ -164,7 +164,7 @@ CharsetDetector::CharsetDetector(UErrorCode &status)
 
     resultArray = (CharsetMatch **)uprv_malloc(sizeof(CharsetMatch *)*fCSRecognizers_size);
 
-    if (resultArray == nullptr) {
+    if (resultArray == NULL) {
         status = U_MEMORY_ALLOCATION_ERROR;
         return;
     }
@@ -172,7 +172,7 @@ CharsetDetector::CharsetDetector(UErrorCode &status)
     for(int32_t i = 0; i < fCSRecognizers_size; i += 1) {
         resultArray[i] = new CharsetMatch();
 
-        if (resultArray[i] == nullptr) {
+        if (resultArray[i] == NULL) {
             status = U_MEMORY_ALLOCATION_ERROR;
             break;
         }
@@ -236,7 +236,7 @@ const CharsetMatch *CharsetDetector::detect(UErrorCode &status)
     if(maxMatchesFound > 0) {
         return resultArray[0];
     } else {
-        return nullptr;
+        return NULL;
     }
 }
 
@@ -245,7 +245,7 @@ const CharsetMatch * const *CharsetDetector::detectAll(int32_t &maxMatchesFound,
     if(!textIn->isSet()) {
         status = U_MISSING_RESOURCE_ERROR;// TODO:  Need to set proper status code for input text not set
 
-        return nullptr;
+        return NULL;
     } else if (fFreshTextSet) {
         CharsetRecognizer *csr;
         int32_t            i;
@@ -263,7 +263,7 @@ const CharsetMatch * const *CharsetDetector::detectAll(int32_t &maxMatchesFound,
         }
 
         if (resultCount > 1) {
-            uprv_sortArray(resultArray, resultCount, sizeof resultArray[0], charsetMatchComparator, nullptr, true, &status);
+            uprv_sortArray(resultArray, resultCount, sizeof resultArray[0], charsetMatchComparator, NULL, true, &status);
         }
         fFreshTextSet = false;
     }
@@ -272,7 +272,7 @@ const CharsetMatch * const *CharsetDetector::detectAll(int32_t &maxMatchesFound,
 
     if (maxMatchesFound == 0) {
         status = U_INVALID_CHAR_FOUND;
-        return nullptr;
+        return NULL;
     }
 
     return resultArray;
@@ -300,10 +300,10 @@ void CharsetDetector::setDetectableCharset(const char *encoding, UBool enabled, 
         return;
     }
 
-    if (fEnabledRecognizers == nullptr && !isDefaultVal) {
+    if (fEnabledRecognizers == NULL && !isDefaultVal) {
         // Create an array storing the non default setting
         fEnabledRecognizers = NEW_ARRAY(UBool, fCSRecognizers_size);
-        if (fEnabledRecognizers == nullptr) {
+        if (fEnabledRecognizers == NULL) {
             status = U_MEMORY_ALLOCATION_ERROR;
             return;
         }
@@ -313,7 +313,7 @@ void CharsetDetector::setDetectableCharset(const char *encoding, UBool enabled, 
         }
     }
 
-    if (fEnabledRecognizers != nullptr) {
+    if (fEnabledRecognizers != NULL) {
         fEnabledRecognizers[modIdx] = enabled;
     }
 }
@@ -342,7 +342,7 @@ typedef struct {
 
 static void U_CALLCONV
 enumClose(UEnumeration *en) {
-    if(en->context != nullptr) {
+    if(en->context != NULL) {
         DELETE_ARRAY(en->context);
     }
 
@@ -359,7 +359,7 @@ enumCount(UEnumeration *en, UErrorCode *) {
     // Otherwise, ucsdet_getDetectableCharsets - only enabled ones
     int32_t count = 0;
     UBool *enabledArray = ((Context *)en->context)->enabledRecognizers;
-    if (enabledArray != nullptr) {
+    if (enabledArray != NULL) {
         // custom set
         for (int32_t i = 0; i < fCSRecognizers_size; i++) {
             if (enabledArray[i]) {
@@ -379,7 +379,7 @@ enumCount(UEnumeration *en, UErrorCode *) {
 
 static const char* U_CALLCONV
 enumNext(UEnumeration *en, int32_t *resultLength, UErrorCode * /*status*/) {
-    const char *currName = nullptr;
+    const char *currName = NULL;
 
     if (((Context *)en->context)->currIndex < fCSRecognizers_size) {
         if (((Context *)en->context)->all) {
@@ -389,9 +389,9 @@ enumNext(UEnumeration *en, int32_t *resultLength, UErrorCode * /*status*/) {
         } else {
             // ucsdet_getDetectableCharsets
             UBool *enabledArray = ((Context *)en->context)->enabledRecognizers;
-            if (enabledArray != nullptr) {
+            if (enabledArray != NULL) {
                 // custom set
-                while (currName == nullptr && ((Context *)en->context)->currIndex < fCSRecognizers_size) {
+                while (currName == NULL && ((Context *)en->context)->currIndex < fCSRecognizers_size) {
                     if (enabledArray[((Context *)en->context)->currIndex]) {
                         currName = fCSRecognizers[((Context *)en->context)->currIndex]->recognizer->getName();
                     }
@@ -399,7 +399,7 @@ enumNext(UEnumeration *en, int32_t *resultLength, UErrorCode * /*status*/) {
                 }
             } else {
                 // default set
-                while (currName == nullptr && ((Context *)en->context)->currIndex < fCSRecognizers_size) {
+                while (currName == NULL && ((Context *)en->context)->currIndex < fCSRecognizers_size) {
                     if (fCSRecognizers[((Context *)en->context)->currIndex]->isDefaultEnabled) {
                         currName = fCSRecognizers[((Context *)en->context)->currIndex]->recognizer->getName();
                     }
@@ -409,8 +409,8 @@ enumNext(UEnumeration *en, int32_t *resultLength, UErrorCode * /*status*/) {
         }
     }
 
-    if(resultLength != nullptr) {
-        *resultLength = currName == nullptr ? 0 : (int32_t)uprv_strlen(currName);
+    if(resultLength != NULL) {
+        *resultLength = currName == NULL ? 0 : (int32_t)uprv_strlen(currName);
     }
 
     return currName;
@@ -423,8 +423,8 @@ enumReset(UEnumeration *en, UErrorCode *) {
 }
 
 static const UEnumeration gCSDetEnumeration = {
-    nullptr,
-    nullptr,
+    NULL,
+    NULL,
     enumClose,
     enumCount,
     uenum_unextDefault,
@@ -447,13 +447,13 @@ UEnumeration * CharsetDetector::getAllDetectableCharsets(UErrorCode &status)
     }
 
     UEnumeration *en = NEW_ARRAY(UEnumeration, 1);
-    if (en == nullptr) {
+    if (en == NULL) {
         status = U_MEMORY_ALLOCATION_ERROR;
         return 0;
     }
     memcpy(en, &gCSDetEnumeration, sizeof(UEnumeration));
     en->context = (void*)NEW_ARRAY(Context, 1);
-    if (en->context == nullptr) {
+    if (en->context == NULL) {
         status = U_MEMORY_ALLOCATION_ERROR;
         DELETE_ARRAY(en);
         return 0;
@@ -470,13 +470,13 @@ UEnumeration * CharsetDetector::getDetectableCharsets(UErrorCode &status) const
     }
 
     UEnumeration *en = NEW_ARRAY(UEnumeration, 1);
-    if (en == nullptr) {
+    if (en == NULL) {
         status = U_MEMORY_ALLOCATION_ERROR;
         return 0;
     }
     memcpy(en, &gCSDetEnumeration, sizeof(UEnumeration));
     en->context = (void*)NEW_ARRAY(Context, 1);
-    if (en->context == nullptr) {
+    if (en->context == NULL) {
         status = U_MEMORY_ALLOCATION_ERROR;
         DELETE_ARRAY(en);
         return 0;

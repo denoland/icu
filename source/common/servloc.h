@@ -258,7 +258,7 @@ public:
 protected:
     /**
      * Utility method used by create(ICUServiceKey, ICUService).  Subclasses can implement
-     * this instead of create.  The default returns nullptr.
+     * this instead of create.  The default returns NULL.
      */
     virtual UObject* handleCreate(const Locale& loc, int32_t kind, const ICUService* service, UErrorCode& status) const;
 
@@ -518,7 +518,7 @@ class U_COMMON_API ICULocaleService : public ICUService
    * Convenience method for callers using locales.  This returns the standard
    * service ID enumeration.
    */
-  virtual StringEnumeration* getAvailableLocales() const;
+  virtual StringEnumeration* getAvailableLocales(void) const;
 
  protected:
 

@@ -76,7 +76,7 @@ U_CAPI void U_EXPORT2
 u_enumCharTypes(UCharEnumTypeRange *enumRange, const void *context) {
     struct _EnumTypeCallback callback;
 
-    if(enumRange==nullptr) {
+    if(enumRange==NULL) {
         return;
     }
 
@@ -304,6 +304,30 @@ u_ispunct(UChar32 c) {
     return (UBool)((CAT_MASK(props)&U_GC_P_MASK)!=0);
 }
 
+/* Checks if the Unicode character can start a Unicode identifier.*/
+U_CAPI UBool U_EXPORT2
+u_isIDStart(UChar32 c) {
+    /* same as u_isalpha() */
+    uint32_t props;
+    GET_PROPS(c, props);
+    return (UBool)((CAT_MASK(props)&(U_GC_L_MASK|U_GC_NL_MASK))!=0);
+}
+
+/* Checks if the Unicode character can be a Unicode identifier part other than starting the
+ identifier.*/
+U_CAPI UBool U_EXPORT2
+u_isIDPart(UChar32 c) {
+    uint32_t props;
+    GET_PROPS(c, props);
+    return (UBool)(
+           (CAT_MASK(props)&
+            (U_GC_ND_MASK|U_GC_NL_MASK|
+             U_GC_L_MASK|
+             U_GC_PC_MASK|U_GC_MC_MASK|U_GC_MN_MASK)
+           )!=0 ||
+           u_isIDIgnorable(c));
+}
+
 /*Checks if the Unicode character can be ignorable in a Java or Unicode identifier.*/
 U_CAPI UBool U_EXPORT2
 u_isIDIgnorable(UChar32 c) {
@@ -485,7 +509,7 @@ u_forDigit(int32_t digit, int8_t radix) {
 
 U_CAPI void U_EXPORT2
 u_getUnicodeVersion(UVersionInfo versionArray) {
-    if(versionArray!=nullptr) {
+    if(versionArray!=NULL) {
         uprv_memcpy(versionArray, dataVersion, U_MAX_VERSION_LENGTH);
     }
 }
@@ -522,7 +546,7 @@ uprv_getMaxValues(int32_t column) {
 
 U_CAPI void U_EXPORT2
 u_charAge(UChar32 c, UVersionInfo versionArray) {
-    if(versionArray!=nullptr) {
+    if(versionArray!=NULL) {
         uint32_t version=u_getUnicodeProperties(c, 0)>>UPROPS_AGE_SHIFT;
         versionArray[0]=(uint8_t)(version>>4);
         versionArray[1]=(uint8_t)(version&0xf);
@@ -532,7 +556,7 @@ u_charAge(UChar32 c, UVersionInfo versionArray) {
 
 U_CAPI UScriptCode U_EXPORT2
 uscript_getScript(UChar32 c, UErrorCode *pErrorCode) {
-    if(pErrorCode==nullptr || U_FAILURE(*pErrorCode)) {
+    if(pErrorCode==NULL || U_FAILURE(*pErrorCode)) {
         return USCRIPT_INVALID_CODE;
     }
     if((uint32_t)c>0x10ffff) {
@@ -553,7 +577,7 @@ uscript_getScript(UChar32 c, UErrorCode *pErrorCode) {
 }
 
 U_CAPI UBool U_EXPORT2
-uscript_hasScript(UChar32 c, UScriptCode sc) UPRV_NO_SANITIZE_UNDEFINED {
+uscript_hasScript(UChar32 c, UScriptCode sc) {
     uint32_t scriptX=u_getUnicodeProperties(c, 0)&UPROPS_SCRIPT_X_MASK;
     uint32_t codeOrIndex=uprops_mergeScriptCodeOrIndex(scriptX);
     if(scriptX<UPROPS_SCRIPT_X_WITH_COMMON) {
@@ -579,10 +603,10 @@ U_CAPI int32_t U_EXPORT2
 uscript_getScriptExtensions(UChar32 c,
                             UScriptCode *scripts, int32_t capacity,
                             UErrorCode *pErrorCode) {
-    if(pErrorCode==nullptr || U_FAILURE(*pErrorCode)) {
+    if(pErrorCode==NULL || U_FAILURE(*pErrorCode)) {
         return 0;
     }
-    if(capacity<0 || (capacity>0 && scripts==nullptr)) {
+    if(capacity<0 || (capacity>0 && scripts==NULL)) {
         *pErrorCode=U_ILLEGAL_ARGUMENT_ERROR;
         return 0;
     }
@@ -642,7 +666,7 @@ uchar_addPropertyStarts(const USetAdder *sa, UErrorCode *pErrorCode) {
     }
 
     /* add the start code point of each same-value range of the main trie */
-    utrie2_enum(&propsTrie, nullptr, _enumPropertyStartsRange, sa);
+    utrie2_enum(&propsTrie, NULL, _enumPropertyStartsRange, sa);
 
     /* add code points with hardcoded properties, plus the ones following them */
 
@@ -704,5 +728,5 @@ upropsvec_addPropertyStarts(const USetAdder *sa, UErrorCode *pErrorCode) {
     }
 
     /* add the start code point of each same-value range of the properties vectors trie */
-    utrie2_enum(&propsVectorsTrie, nullptr, _enumPropertyStartsRange, sa);
+    utrie2_enum(&propsVectorsTrie, NULL, _enumPropertyStartsRange, sa);
 }

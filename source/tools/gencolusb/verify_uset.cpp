@@ -53,7 +53,7 @@ int main(int argc, const char *argv[]) {
     printf("Finished deserialize with %d ranges\n", u.getRangeCount());
   }
 #endif
-// if(tailoring.unsafeBackwardSet == nullptr) {
+// if(tailoring.unsafeBackwardSet == NULL) {
   //   errorCode = U_MEMORY_ALLOCATION_ERROR;
   //   fprintf(stderr, "\n%s:%d: err %s\n", __FILE__, __LINE__, u_errorName(errorCode));
   // }

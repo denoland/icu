@@ -346,15 +346,15 @@ U_NAMESPACE_USE
 U_CAPI UNormalizer2 * U_EXPORT2
 unorm2_openFiltered(const UNormalizer2 *norm2, const USet *filterSet, UErrorCode *pErrorCode) {
     if(U_FAILURE(*pErrorCode)) {
-        return nullptr;
+        return NULL;
     }
-    if(filterSet==nullptr) {
+    if(filterSet==NULL) {
         *pErrorCode=U_ILLEGAL_ARGUMENT_ERROR;
-        return nullptr;
+        return NULL;
     }
     Normalizer2 *fn2=new FilteredNormalizer2(*(Normalizer2 *)norm2,
                                              *UnicodeSet::fromUSet(filterSet));
-    if(fn2==nullptr) {
+    if(fn2==NULL) {
         *pErrorCode=U_MEMORY_ALLOCATION_ERROR;
     }
     return (UNormalizer2 *)fn2;

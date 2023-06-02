@@ -26,19 +26,19 @@ public:
 public:
     AstroTest();
 
-    void TestSolarLongitude();
+    void TestSolarLongitude(void);
 
-    void TestLunarPosition();
+    void TestLunarPosition(void);
 
-    void TestCoordinates();
+    void TestCoordinates(void);
 
-    void TestCoverage();
+    void TestCoverage(void);
 
-    void TestSunriseTimes();
+    void TestSunriseTimes(void);
 
-    void TestBasics();
+    void TestBasics(void);
     
-    void TestMoonAge();
+    void TestMoonAge(void);
  private:
     void initAstro(UErrorCode&);
     void closeAstro(UErrorCode&);

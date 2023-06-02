@@ -30,7 +30,7 @@ typedef std::wstring stlstring;
 //#define LOOPS 10
 #define catenate_STRLEN 2
 
-const char16_t uTESTCHAR1 =  'a';
+const UChar uTESTCHAR1 =  'a';
 const wchar_t wTESTCHAR1 = 'a';
 const UnicodeString uEMPTY;
 const stlstring sEMPTY;
@@ -60,7 +60,7 @@ struct  WLine {
 
 enum FnType { Fn_ICU, Fn_STD };
 typedef FnType FnType;
-typedef void (*ICUStringPerfFn)(const char16_t* src,int32_t srcLen, UnicodeString s0);
+typedef void (*ICUStringPerfFn)(const UChar* src,int32_t srcLen, UnicodeString s0);
 typedef void (*StdStringPerfFn)(const wchar_t* src,int32_t srcLen, stlstring s0);
 
 
@@ -141,13 +141,13 @@ public:
 
         fn1_ = func;
         lines_=srcLines;
-        wlines_=nullptr;
+        wlines_=NULL;
         numLines_=srcNumLines;
         uselen_=uselen;
         line_mode_=true;
-        src_ = nullptr;
+        src_ = NULL;
         srcLen_ = 0;
-        wsrc_ = nullptr;
+        wsrc_ = NULL;
         wsrcLen_ = 0;
         fnType_ = Fn_ICU;
 
@@ -155,9 +155,9 @@ public:
         for(int32_t i=0; i<numLines_; i++) {
             uS0_[i]=UnicodeString(lines_[i].name, lines_[i].len);
         }
-        sS0_=nullptr;
-        ubulk_=nullptr;
-        sbulk_=nullptr;
+        sS0_=NULL;
+        ubulk_=NULL;
+        sbulk_=NULL;
     }
 
     StringPerfFunction(StdStringPerfFn func, ULine* srcLines, int32_t srcNumLines, UBool uselen)
@@ -165,63 +165,63 @@ public:
 
         fn2_ = func;
         lines_=srcLines;
-        wlines_=nullptr;
+        wlines_=NULL;
         numLines_=srcNumLines;
         uselen_=uselen;
         line_mode_=true;
-        src_ = nullptr;
+        src_ = NULL;
         srcLen_ = 0;
-        wsrc_ = nullptr;
+        wsrc_ = NULL;
         wsrcLen_ = 0;
         fnType_ = Fn_STD;
 
-        uS0_=nullptr;
-        ubulk_=nullptr;
-        sbulk_=nullptr;
+        uS0_=NULL;
+        ubulk_=NULL;
+        sbulk_=NULL;
 
         //fillin wlines_[], sS0_[]
         prepareLinesForStd();
     }
 
-    StringPerfFunction(ICUStringPerfFn func, char16_t* source, int32_t sourceLen, UBool uselen)
+    StringPerfFunction(ICUStringPerfFn func, UChar* source, int32_t sourceLen, UBool uselen)
     {
 
         fn1_ = func;
-        lines_=nullptr;
-        wlines_=nullptr;
+        lines_=NULL;
+        wlines_=NULL;
         numLines_=0;
         uselen_=uselen;
         line_mode_=false;
-        src_ = new char16_t[sourceLen];
+        src_ = new UChar[sourceLen];
         memcpy(src_, source, sourceLen * U_SIZEOF_UCHAR);
         srcLen_ = sourceLen;
-        wsrc_ = nullptr;
+        wsrc_ = NULL;
         wsrcLen_ = 0;
         fnType_ = Fn_ICU;
 
-        uS0_=nullptr;
-        sS0_=nullptr;
+        uS0_=NULL;
+        sS0_=NULL;	
         ubulk_=new UnicodeString(src_,srcLen_);
-        sbulk_=nullptr;
+        sbulk_=NULL;
     }
 
-    StringPerfFunction(StdStringPerfFn func, char16_t* source, int32_t sourceLen, UBool uselen)
+    StringPerfFunction(StdStringPerfFn func, UChar* source, int32_t sourceLen, UBool uselen)
     {
 
         fn2_ = func;
-        lines_=nullptr;
-        wlines_=nullptr;
+        lines_=NULL;
+        wlines_=NULL;
         numLines_=0;
         uselen_=uselen;
         line_mode_=false;
-        src_ = new char16_t[sourceLen];
+        src_ = new UChar[sourceLen];
         memcpy(src_, source, sourceLen * U_SIZEOF_UCHAR);
         srcLen_ = sourceLen;
         fnType_ = Fn_STD;
 
-        uS0_=nullptr;
-        sS0_=nullptr;
-        ubulk_=nullptr;
+        uS0_=NULL;
+        sS0_=NULL;
+        ubulk_=NULL;
 
         //fillin wsrc_, sbulk_
         prepareBulkForStd();
@@ -241,7 +241,7 @@ public:
     }
 
 private:
-    void prepareLinesForStd()
+    void prepareLinesForStd(void)
     {
         UErrorCode err=U_ZERO_ERROR;
 
@@ -272,13 +272,13 @@ private:
 
     }
 
-    void prepareBulkForStd()
+    void prepareBulkForStd(void)
     {
         UErrorCode err=U_ZERO_ERROR;
 
-        const char16_t* uSrc = src_;
+        const UChar* uSrc = src_;
         int32_t uSrcLen = srcLen_;
-        wchar_t* wDest = nullptr;
+        wchar_t* wDest = NULL;
         int32_t wDestLen = 0;
         int32_t reqLen= 0 ;
 
@@ -330,7 +330,7 @@ private:
     int32_t numLines_;
 
     UBool uselen_;
-    char16_t* src_;
+    UChar* src_;
     int32_t srcLen_;
     wchar_t* wsrc_;
     int32_t wsrcLen_;
@@ -352,7 +352,7 @@ public:
     ~StringPerformanceTest();
     virtual UPerfFunction* runIndexedTest(int32_t index, UBool exec,
                                           const char *&name,
-                                          char *par = nullptr);
+                                          char *par = NULL);
     UPerfFunction* TestCtor();
     UPerfFunction* TestCtor1();
     UPerfFunction* TestCtor2();
@@ -382,60 +382,60 @@ public:
 private:
     long COUNT_;
     ULine* filelines_;
-    char16_t* StrBuffer;
+    UChar* StrBuffer;
     int32_t StrBufferLen;
 
 };
 
 
-inline void ctor(const char16_t* src,int32_t srcLen, UnicodeString s0)
+inline void ctor(const UChar* src,int32_t srcLen, UnicodeString s0)
 {
     UnicodeString a;
 }
 
-inline void ctor1(const char16_t* src,int32_t srcLen, UnicodeString s0)
+inline void ctor1(const UChar* src,int32_t srcLen, UnicodeString s0)
 {
     UnicodeString b(uTESTCHAR1);
 }
 
-inline void ctor2(const char16_t* src,int32_t srcLen, UnicodeString s0)
+inline void ctor2(const UChar* src,int32_t srcLen, UnicodeString s0)
 {
     UnicodeString c(uEMPTY);
 }
 
-inline void ctor3(const char16_t* src,int32_t srcLen, UnicodeString s0)
+inline void ctor3(const UChar* src,int32_t srcLen, UnicodeString s0)
 {
     UnicodeString d(src,srcLen);
 }
 
-inline UnicodeString icu_assign_helper(const char16_t* src,int32_t srcLen)
+inline UnicodeString icu_assign_helper(const UChar* src,int32_t srcLen)
 {
     if (srcLen==-1) { return src;}
     else { return UnicodeString(src, srcLen);}
 }
 
-inline void assign(const char16_t* src,int32_t srcLen, UnicodeString s0)
+inline void assign(const UChar* src,int32_t srcLen, UnicodeString s0)
 {
     unistr = icu_assign_helper(src,srcLen);
 }
 
-inline void assign1(const char16_t* src,int32_t srcLen, UnicodeString s0)
+inline void assign1(const UChar* src,int32_t srcLen, UnicodeString s0)
 {
     unistr.setTo(src, srcLen);
 }
 
-inline void assign2(const char16_t* src,int32_t srcLen, UnicodeString s0)
+inline void assign2(const UChar* src,int32_t srcLen, UnicodeString s0)
 {
     unistr = s0;
 }
 
-inline void getch(const char16_t* src,int32_t srcLen, UnicodeString s0)
+inline void getch(const UChar* src,int32_t srcLen, UnicodeString s0)
 {
     s0.charAt(0);
 }
 
 
-inline void catenate(const char16_t* src,int32_t srcLen, UnicodeString s0)
+inline void catenate(const UChar* src,int32_t srcLen, UnicodeString s0)
 {
     UTimer mystart, mystop;
     utimer_getTime(&mystart);
@@ -451,21 +451,21 @@ inline void catenate(const char16_t* src,int32_t srcLen, UnicodeString s0)
 volatile int scan_idx;
 U_STRING_DECL(SCAN1, "123", 3);
 
-inline void scan(const char16_t* src,int32_t srcLen, UnicodeString s0)
+inline void scan(const UChar* src,int32_t srcLen, UnicodeString s0)
 {
-    char16_t c='.';
+    UChar c='.';
     scan_idx = uScan_STRING.indexOf(c);
 }
 
-inline void scan1(const char16_t* src,int32_t srcLen, UnicodeString s0)
+inline void scan1(const UChar* src,int32_t srcLen, UnicodeString s0)
 {
     scan_idx = uScan_STRING.indexOf(SCAN1,3);
 }
 
-inline void scan2(const char16_t* src,int32_t srcLen, UnicodeString s0)
+inline void scan2(const UChar* src,int32_t srcLen, UnicodeString s0)
 {
-    char16_t c1='s';
-    char16_t c2='m';
+    UChar c1='s';
+    UChar c2='m';
     scan_idx = uScan_STRING.indexOf(c1);
     scan_idx = uScan_STRING.indexOf(c2);
 }

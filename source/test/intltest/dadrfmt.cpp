@@ -42,11 +42,11 @@ DataDrivenFormatTest::~DataDrivenFormatTest() {
 
 void DataDrivenFormatTest::runIndexedTest(int32_t index, UBool exec,
         const char* &name, char* /*par */) {
-    if (driver != nullptr) {
+    if (driver != NULL) {
         if (exec) {
             //  logln("Begin ");
         }
-        const DataMap *info= nullptr;
+        const DataMap *info= NULL;
         UErrorCode status= U_ZERO_ERROR;
         TestData *testData = driver->createTestData(index, status);
         if (U_SUCCESS(status)) {
@@ -108,7 +108,7 @@ void DataDrivenFormatTest::testConvertDate(TestData *testData,
         return;
     }
 
-    const DataMap *currentCase= nullptr;
+    const DataMap *currentCase= NULL;
     // Start the processing
     int n = 0;
     while (testData->nextCase(currentCase, status)) {
@@ -126,7 +126,7 @@ void DataDrivenFormatTest::testConvertDate(TestData *testData,
         ++n;
 
         char theCase[200];
-        snprintf(theCase, sizeof(theCase), "case %d:", n);
+        sprintf(theCase, "case %d:", n);
         UnicodeString caseString(theCase, "");
         
         // load params
@@ -156,7 +156,7 @@ void DataDrivenFormatTest::testConvertDate(TestData *testData,
             continue;
         }
                 
-        DateFormat *format = nullptr;
+        DateFormat *format = NULL;
         
         // Process: 'locale'
         locale.extract(0, locale.length(), calLoc, (const char*)0); // default codepage.  Invariant codepage doesn't have '@'!
@@ -175,7 +175,7 @@ void DataDrivenFormatTest::testConvertDate(TestData *testData,
                 continue;
             }
             format = DateFormat::createDateTimeInstance((DateFormat::EStyle)styleSet.getDateStyle(), (DateFormat::EStyle)styleSet.getTimeStyle(), loc);
-            if(format == nullptr ) {
+            if(format == NULL ) {
                 errln("case %d: could not create SimpleDateFormat from styles.", n);
                 continue;
             }
@@ -327,12 +327,12 @@ void DataDrivenFormatTest::testConvertDate(TestData *testData,
 }
 
 void DataDrivenFormatTest::processTest(TestData *testData) {
-    //Format *cal= nullptr;
-    //const char16_t *arguments= nullptr;
+    //Format *cal= NULL;
+    //const UChar *arguments= NULL;
     //int32_t argLen = 0;
     char testType[256] = "";
-    const DataMap *settings= nullptr;
-    //const char16_t *type= nullptr;
+    const DataMap *settings= NULL;
+    //const UChar *type= NULL;
     UErrorCode status = U_ZERO_ERROR;
     UnicodeString testSetting;
     int n = 0;

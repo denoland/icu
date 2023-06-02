@@ -86,7 +86,7 @@ private:
     void        error(UErrorCode e);                   // error reporting convenience function.
     void        fixOpStack(RBBINode::OpPrecedence p);
                                                        //   a character.
-    void        findSetFor(const UnicodeString &s, RBBINode *node, UnicodeSet *setToAdopt = nullptr);
+    void        findSetFor(const UnicodeString &s, RBBINode *node, UnicodeSet *setToAdopt = NULL);
 
     UChar32     nextCharLL();
 #ifdef RBBI_DEBUG

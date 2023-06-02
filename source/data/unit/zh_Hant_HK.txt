@@ -521,13 +521,11 @@ zh_Hant_HK{
         }
         light{
             candela{
-                dnam{"坎德拉"}
                 other{"{0}坎德拉"}
             }
         }
         mass{
             grain{
-                dnam{"格令"}
                 other{"{0}格令"}
             }
             gram{
@@ -602,7 +600,6 @@ zh_Hant_HK{
             }
             cubic-meter{
                 dnam{"立方米"}
-                per{"{0} 每立方米"}
             }
             cubic-mile{
                 other{"{0}mi³"}
@@ -617,7 +614,6 @@ zh_Hant_HK{
                 dnam{"液安士"}
             }
             fluid-ounce-imperial{
-                dnam{"英制液安士"}
                 other{"{0}英液安士"}
             }
             gallon{

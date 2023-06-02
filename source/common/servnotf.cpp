@@ -23,16 +23,16 @@ UOBJECT_DEFINE_RTTI_IMPLEMENTATION(EventListener)
 
 static UMutex notifyLock;
 
-ICUNotifier::ICUNotifier() 
-: listeners(nullptr) 
+ICUNotifier::ICUNotifier(void) 
+: listeners(NULL) 
 {
 }
 
-ICUNotifier::~ICUNotifier() {
+ICUNotifier::~ICUNotifier(void) {
     {
         Mutex lmx(&notifyLock);
         delete listeners;
-        listeners = nullptr;
+        listeners = NULL;
     }
 }
 
@@ -41,14 +41,14 @@ void
 ICUNotifier::addListener(const EventListener* l, UErrorCode& status) 
 {
     if (U_SUCCESS(status)) {
-        if (l == nullptr) {
+        if (l == NULL) {
             status = U_ILLEGAL_ARGUMENT_ERROR;
             return;
         }
 
         if (acceptsListener(*l)) {
             Mutex lmx(&notifyLock);
-            if (listeners == nullptr) {
+            if (listeners == NULL) {
                 LocalPointer<UVector> lpListeners(new UVector(5, status), status);
                 if (U_FAILURE(status)) {
                     return;
@@ -78,14 +78,14 @@ void
 ICUNotifier::removeListener(const EventListener *l, UErrorCode& status) 
 {
     if (U_SUCCESS(status)) {
-        if (l == nullptr) {
+        if (l == NULL) {
             status = U_ILLEGAL_ARGUMENT_ERROR;
             return;
         }
 
         {
             Mutex lmx(&notifyLock);
-            if (listeners != nullptr) {
+            if (listeners != NULL) {
                 // identity equality check
                 for (int i = 0, e = listeners->size(); i < e; ++i) {
                     const EventListener* el = (const EventListener*)listeners->elementAt(i);
@@ -93,7 +93,7 @@ ICUNotifier::removeListener(const EventListener *l, UErrorCode& status)
                         listeners->removeElementAt(i);
                         if (listeners->size() == 0) {
                             delete listeners;
-                            listeners = nullptr;
+                            listeners = NULL;
                         }
                         return;
                     }
@@ -104,10 +104,10 @@ ICUNotifier::removeListener(const EventListener *l, UErrorCode& status)
 }
 
 void 
-ICUNotifier::notifyChanged() 
+ICUNotifier::notifyChanged(void) 
 {
     Mutex lmx(&notifyLock);
-    if (listeners != nullptr) {
+    if (listeners != NULL) {
         for (int i = 0, e = listeners->size(); i < e; ++i) {
             EventListener* el = (EventListener*)listeners->elementAt(i);
             notifyListener(*el);

@@ -50,11 +50,11 @@ UIterCollationIterator::handleNextCE32(UChar32 &c, UErrorCode & /*errorCode*/) {
     return UTRIE2_GET32_FROM_U16_SINGLE_LEAD(trie, c);
 }
 
-char16_t
+UChar
 UIterCollationIterator::handleGetTrailSurrogate() {
     UChar32 trail = iter.next(&iter);
     if(!U16_IS_TRAIL(trail) && trail >= 0) { iter.previous(&iter); }
-    return (char16_t)trail;
+    return (UChar)trail;
 }
 
 UChar32
@@ -140,7 +140,7 @@ FCDUIterCollationIterator::handleNextCE32(UChar32 &c, UErrorCode &errorCode) {
     return UTRIE2_GET32_FROM_U16_SINGLE_LEAD(trie, c);
 }
 
-char16_t
+UChar
 FCDUIterCollationIterator::handleGetTrailSurrogate() {
     if(state <= ITER_IN_FCD_SEGMENT) {
         UChar32 trail = iter.next(&iter);
@@ -149,10 +149,10 @@ FCDUIterCollationIterator::handleGetTrailSurrogate() {
         } else if(trail >= 0) {
             iter.previous(&iter);
         }
-        return (char16_t)trail;
+        return (UChar)trail;
     } else {
         U_ASSERT(pos < normalized.length());
-        char16_t trail;
+        UChar trail;
         if(U16_IS_TRAIL(trail = normalized[pos])) { ++pos; }
         return trail;
     }

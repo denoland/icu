@@ -162,9 +162,4 @@ en_GB{
             }
         }
     }
-    personNames{
-        initialPattern{
-            initial{"{0}"}
-        }
-    }
 }

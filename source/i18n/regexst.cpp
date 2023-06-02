@@ -143,7 +143,7 @@ RegexStaticSets::~RegexStaticSets() {
 
 U_CDECL_BEGIN
 static UBool U_CALLCONV
-regex_cleanup() {
+regex_cleanup(void) {
     delete RegexStaticSets::gStaticSets;
     RegexStaticSets::gStaticSets = nullptr;
     gStaticSetsInitOnce.reset();

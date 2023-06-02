@@ -36,7 +36,7 @@ void printUnicodeString(const UnicodeString &s)
 void printUChar(UChar32 ch)
 {
     if(ch < 127) {
-        u_fprintf(out, "%C", (char16_t) ch);
+        u_fprintf(out, "%C", (UChar) ch);
     } else if (ch == CharacterIterator::DONE) {
         u_fprintf(out, "[CharacterIterator::DONE = 0xFFFF]");
     } else {
@@ -56,7 +56,7 @@ void Test::TestUChariter() {
         "to the aid of their country.";
 
     UnicodeString testString(testChars,"");
-    const char16_t *testText = testString.getTerminatedBuffer();
+    const UChar *testText = testString.getTerminatedBuffer();
 
     UCharCharacterIterator iter(testText, u_strlen(testText));
     UCharCharacterIterator* test2 = iter.clone();
@@ -80,7 +80,7 @@ void Test::TestUChariter() {
     // Demonstrates seeking forward using the iterator.
     u_fprintf(out, "Forward  = ");
 
-    char16_t c = iter.first();
+    UChar c = iter.first();
     printUChar(c);    // The first char
     int32_t i = 0;
 
@@ -123,7 +123,7 @@ void Test::TestStringiter() {
         "to the aid of their country.";
 
     UnicodeString testString(testChars,"");
-    const char16_t *testText    = testString.getTerminatedBuffer();
+    const UChar *testText    = testString.getTerminatedBuffer();
 
     StringCharacterIterator iter(testText, u_strlen(testText));
     StringCharacterIterator* test2 = iter.clone();
@@ -142,7 +142,7 @@ void Test::TestStringiter() {
 
     u_fprintf(out, "Backwards: ");
 
-    char16_t c = iter.last();
+    UChar c = iter.last();
     int32_t i = iter.endIndex();
 
     printUChar(c);
@@ -180,11 +180,11 @@ void Test::TestStringiter() {
 }
 
 /* Creating and using text boundaries */
-int main()
+int main( void )
 {
     UErrorCode status = U_ZERO_ERROR;
 
-    out = u_finit(stdout, nullptr, nullptr);
+    out = u_finit(stdout, NULL, NULL);
 
     u_fprintf(out, "ICU Iteration Sample Program (C++)\n\n");
 

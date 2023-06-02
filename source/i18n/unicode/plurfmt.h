@@ -543,7 +543,7 @@ private:
 
     class U_I18N_API PluralSelectorAdapter : public PluralSelector {
       public:
-        PluralSelectorAdapter() : pluralRules(nullptr) {
+        PluralSelectorAdapter() : pluralRules(NULL) {
         }
 
         virtual ~PluralSelectorAdapter();

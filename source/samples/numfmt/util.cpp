@@ -44,7 +44,7 @@ static UnicodeString& appendHex(uint32_t number,
     uint32_t digit;
     while (digits > 0) {
         digit = (number >> ((--digits) * 4)) & 0xF;
-        target += (char16_t)(digit < 10 ? 0x30 + digit : 0x41 - 10 + digit);
+        target += (UChar)(digit < 10 ? 0x30 + digit : 0x41 - 10 + digit);
     }
     return target;
 }
@@ -53,17 +53,17 @@ static UnicodeString& appendHex(uint32_t number,
 UnicodeString escape(const UnicodeString &source) {
     int32_t i;
     UnicodeString target;
-    target += (char16_t)U_DQUOTE;
+    target += (UChar)U_DQUOTE;
     for (i=0; i<source.length(); ++i) {
-        char16_t ch = source[i];
+        UChar ch = source[i];
         if (ch < 0x09 || (ch > 0x0D && ch < 0x20) || ch > 0x7E) {
-            (target += (char16_t)U_BACKSLASH) += (char16_t)U_SMALL_U;
+            (target += (UChar)U_BACKSLASH) += (UChar)U_SMALL_U;
             appendHex(ch, 4, target);
         } else {
             target += ch;
         }
     }
-    target += (char16_t)U_DQUOTE;
+    target += (UChar)U_DQUOTE;
     return target;
 }
 
@@ -110,19 +110,19 @@ UnicodeString formattableToString(const Formattable& f) {
             return UnicodeString(buf, "");
         }
     case Formattable::kString:
-        return UnicodeString((char16_t)U_DQUOTE).append(f.getString()).append((char16_t)U_DQUOTE);
+        return UnicodeString((UChar)U_DQUOTE).append(f.getString()).append((UChar)U_DQUOTE);
     case Formattable::kArray:
         {
             int32_t i, count;
             const Formattable* array = f.getArray(count);
-            UnicodeString result((char16_t)U_LEFT_SQUARE_BRACKET);
+            UnicodeString result((UChar)U_LEFT_SQUARE_BRACKET);
             for (i=0; i<count; ++i) {
                 if (i > 0) {
-                    (result += (char16_t)U_COMMA) += (char16_t)U_SPACE;
+                    (result += (UChar)U_COMMA) += (UChar)U_SPACE;
                 }
                 result += formattableToString(array[i]);
             }
-            result += (char16_t)U_RIGHT_SQUARE_BRACKET;
+            result += (UChar)U_RIGHT_SQUARE_BRACKET;
             return result;
         }
     default:

@@ -40,7 +40,7 @@
 #define ARRAY_COPY(dst, src, count) uprv_memcpy((void *) (dst), (void *) (src), (size_t)(count) * sizeof (src)[0])
 
 CEList::CEList(UCollator *coll, const UnicodeString &string, UErrorCode &status)
-    : ces(nullptr), listMax(CELIST_BUFFER_SIZE), listSize(0)
+    : ces(NULL), listMax(CELIST_BUFFER_SIZE), listSize(0)
 {
     UCollationElements *elems = ucol_openElements(coll, string.getBuffer(), string.length(), &status);
     UCollationStrength strength = ucol_getStrength(coll);
@@ -114,7 +114,7 @@ void CEList::add(uint32_t ce, UErrorCode &status)
         int32_t newMax = listMax + CELIST_BUFFER_SIZE;
         uint32_t *newCEs = NEW_ARRAY(uint32_t, newMax);
 
-        if (newCEs == nullptr) {
+        if (newCEs == NULL) {
             status = U_MEMORY_ALLOCATION_ERROR;
             return;
         }
@@ -148,7 +148,7 @@ uint32_t &CEList::operator[](int32_t index) const
 
 UBool CEList::matchesAt(int32_t offset, const CEList *other) const
 {
-    if (other == nullptr || listSize - offset < other->size()) {
+    if (other == NULL || listSize - offset < other->size()) {
         return false;
     }
 
@@ -167,7 +167,7 @@ int32_t CEList::size() const
 }
 
 StringList::StringList(UErrorCode &status)
-    : strings(nullptr), listMax(STRING_LIST_BUFFER_SIZE), listSize(0)
+    : strings(NULL), listMax(STRING_LIST_BUFFER_SIZE), listSize(0)
 {
     if (U_FAILURE(status)) {
         return;
@@ -175,7 +175,7 @@ StringList::StringList(UErrorCode &status)
 
     strings = new UnicodeString [listMax];
 
-    if (strings == nullptr) {
+    if (strings == NULL) {
         status = U_MEMORY_ALLOCATION_ERROR;
         return;
     }
@@ -194,7 +194,7 @@ void StringList::add(const UnicodeString *string, UErrorCode &status)
     if (listSize >= listMax) {
         int32_t newMax = listMax + STRING_LIST_BUFFER_SIZE;
         UnicodeString *newStrings = new UnicodeString[newMax];
-        if (newStrings == nullptr) {
+        if (newStrings == NULL) {
             status = U_MEMORY_ALLOCATION_ERROR;
             return;
         }
@@ -212,7 +212,7 @@ void StringList::add(const UnicodeString *string, UErrorCode &status)
     strings[listSize++].append(*string);
 }
 
-void StringList::add(const char16_t *chars, int32_t count, UErrorCode &status)
+void StringList::add(const UChar *chars, int32_t count, UErrorCode &status)
 {
     const UnicodeString string(chars, count);
 
@@ -225,7 +225,7 @@ const UnicodeString *StringList::get(int32_t index) const
         return &strings[index];
     }
 
-    return nullptr;
+    return NULL;
 }
 
 int32_t StringList::size() const
@@ -238,7 +238,7 @@ U_CDECL_BEGIN
 static void U_CALLCONV
 deleteStringList(void *obj)
 {
-    StringList *strings = static_cast<StringList *>(obj);
+    StringList *strings = (StringList *) obj;
 
     delete strings;
 }
@@ -259,7 +259,7 @@ private:
 };
 
 CEToStringsMap::CEToStringsMap(UErrorCode &status)
-    : map(nullptr)
+    : map(NULL)
 {
     if (U_FAILURE(status)) {
         return;
@@ -285,10 +285,10 @@ void CEToStringsMap::put(uint32_t ce, UnicodeString *string, UErrorCode &status)
 {
     StringList *strings = getStringList(ce);
 
-    if (strings == nullptr) {
+    if (strings == NULL) {
         strings = new StringList(status);
 
-        if (strings == nullptr || U_FAILURE(status)) {
+        if (strings == NULL || U_FAILURE(status)) {
             status = U_MEMORY_ALLOCATION_ERROR;
             return;
         }
@@ -301,7 +301,7 @@ void CEToStringsMap::put(uint32_t ce, UnicodeString *string, UErrorCode &status)
 
 StringList *CEToStringsMap::getStringList(uint32_t ce) const
 {
-    return static_cast<StringList *>(uhash_iget(map, ce));
+    return (StringList *) uhash_iget(map, ce);
 }
 
 void CEToStringsMap::putStringList(uint32_t ce, StringList *stringList, UErrorCode &status)
@@ -312,7 +312,7 @@ void CEToStringsMap::putStringList(uint32_t ce, StringList *stringList, UErrorCo
 #define CLONE_COLLATOR
 
 CollData::CollData(UCollator *collator, UErrorCode &status)
-    : coll(nullptr), ceToCharsStartingWith(nullptr)
+    : coll(NULL), ceToCharsStartingWith(NULL)
 {
     // [:c:] == [[:cn:][:cc:][:co:][:cf:][:cs:]]
     // i.e. other, control, private use, format, surrogate
@@ -341,7 +341,7 @@ CollData::CollData(UCollator *collator, UErrorCode &status)
     }
 
 #ifdef CLONE_COLLATOR
-    coll = ucol_safeClone(collator, nullptr, nullptr, &status);
+    coll = ucol_safeClone(collator, NULL, NULL, &status);
 
     if (U_FAILURE(status)) {
         goto bail;
@@ -359,7 +359,7 @@ CollData::CollData(UCollator *collator, UErrorCode &status)
     itemCount = uset_getItemCount(charsToTest);
     for(int32_t item = 0; item < itemCount; item += 1) {
         UChar32 start = 0, end = 0;
-        char16_t buffer[16];
+        UChar buffer[16];
         int32_t len = uset_getItem(charsToTest, item, &start, &end,
                                    buffer, 16, &status);
 
@@ -367,7 +367,7 @@ CollData::CollData(UCollator *collator, UErrorCode &status)
             for (UChar32 ch = start; ch <= end; ch += 1) {
                 UnicodeString *st = new UnicodeString(ch);
 
-                if (st == nullptr) {
+                if (st == NULL) {
                     status = U_MEMORY_ALLOCATION_ERROR;
                     break;
                 }
@@ -382,7 +382,7 @@ CollData::CollData(UCollator *collator, UErrorCode &status)
         } else if (len > 0) {
             UnicodeString *st = new UnicodeString(buffer, len);
 
-            if (st == nullptr) {
+            if (st == NULL) {
                 status = U_MEMORY_ALLOCATION_ERROR;
                 break;
             }
@@ -427,7 +427,7 @@ bail:
     // and there are also more Jamo T at U+D7CB..U+D7FB.
     // Maybe use [:HST=T:] and look for the end of the last range?
     // Maybe use script boundary mappings instead of this code??
-    char16_t  jamoRanges[] = {Hangul::JAMO_L_BASE, Hangul::JAMO_V_BASE, Hangul::JAMO_T_BASE + 1, 0x11FF};
+    UChar  jamoRanges[] = {Hangul::JAMO_L_BASE, Hangul::JAMO_V_BASE, Hangul::JAMO_T_BASE + 1, 0x11FF};
      UnicodeString jamoString(false, jamoRanges, UPRV_LENGTHOF(jamoRanges));
      CEList hanList(coll, hanString, status);
      CEList jamoList(coll, jamoString, status);
@@ -491,7 +491,7 @@ const CEList *CollData::getCEList(const UnicodeString *string) const
 
     if (U_FAILURE(status)) {
         delete list;
-        list = nullptr;
+        list = NULL;
     }
 
     return list;
@@ -516,7 +516,7 @@ int32_t CollData::minLengthInChars(const CEList *ceList, int32_t offset, int32_t
     int32_t shortestLength = INT32_MAX;
     const StringList *strings = ceToCharsStartingWith->getStringList(ce);
 
-    if (strings != nullptr) {
+    if (strings != NULL) {
         int32_t stringCount = strings->size();
 
         for (int32_t s = 0; s < stringCount; s += 1) {
@@ -526,11 +526,11 @@ int32_t CollData::minLengthInChars(const CEList *ceList, int32_t offset, int32_t
 
             if (U_FAILURE(status)) {
                 delete ceList2;
-                ceList2 = nullptr;
+                ceList2 = NULL;
             }
 
             if (ceList->matchesAt(offset, ceList2)) {
-                U_ASSERT(ceList2 != nullptr);
+                U_ASSERT(ceList2 != NULL);
                 int32_t clength = ceList2->size();
                 int32_t slength = string->length();
                 int32_t roffset = offset + clength;

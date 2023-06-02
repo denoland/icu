@@ -31,7 +31,7 @@ void GnomeGUISupport::postErrorMessage(const char *message, const char *title)
   gchar *s;
   GtkWidget *error;
 
-  s = g_strconcat(title, ":\n", message, nullptr);
+  s = g_strconcat(title, ":\n", message, NULL);
   error = gnome_error_dialog(s);
   gtk_widget_show(error);
   g_free(s);

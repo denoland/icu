@@ -91,8 +91,8 @@ int32_t ICU_Utility::parsePattern(const UnicodeString& rule, int32_t pos, int32_
     int32_t p;
     int32_t intCount = 0; // number of integers parsed
     for (int32_t i=0; i<pattern.length(); ++i) {
-        char16_t cpat = pattern.charAt(i);
-        char16_t c;
+        UChar cpat = pattern.charAt(i);
+        UChar c;
         switch (cpat) {
         case 32 /*' '*/:
             if (pos >= limit) {
@@ -120,7 +120,7 @@ int32_t ICU_Utility::parsePattern(const UnicodeString& rule, int32_t pos, int32_
             if (pos >= limit) {
                 return -1;
             }
-            c = (char16_t) u_tolower(rule.charAt(pos++));
+            c = (UChar) u_tolower(rule.charAt(pos++));
             if (c != cpat) {
                 return -1;
             }

@@ -348,40 +348,6 @@ ceb{
                         "B",
                         "S",
                     }
-                    short{
-                        "Dom",
-                        "Lun",
-                        "Mar",
-                        "Miy",
-                        "Huw",
-                        "Biy",
-                        "Sab",
-                    }
-                    wide{
-                        "Domingo",
-                        "Lunes",
-                        "Martes",
-                        "Miyerkules",
-                        "Huwebes",
-                        "Biyernes",
-                        "Sabado",
-                    }
-                }
-            }
-            dayPeriod{
-                stand-alone{
-                    abbreviated{
-                        am{"AM"}
-                        pm{"PM"}
-                    }
-                    narrow{
-                        am{"AM"}
-                        pm{"PM"}
-                    }
-                    wide{
-                        am{"AM"}
-                        pm{"PM"}
-                    }
                 }
             }
             eras{
@@ -628,12 +594,6 @@ ceb{
                         "Q3",
                         "Q4",
                     }
-                    narrow{
-                        "1",
-                        "2",
-                        "3",
-                        "4",
-                    }
                     wide{
                         "unang quarter",
                         "ika-2 nga quarter",
@@ -794,7 +754,6 @@ ceb{
             }
         }
         year-narrow{
-            dn{"tuig"}
             relative{
                 "-1"{"miaging tuig"}
                 "0"{"karong tuiga"}
@@ -802,7 +761,6 @@ ceb{
             }
         }
         year-short{
-            dn{"tuig"}
             relative{
                 "-1"{"miaging tuig"}
                 "0"{"karong tuiga"}
@@ -825,14 +783,10 @@ ceb{
         or-narrow{
             2{"{0} o {1}"}
             end{"{0}, o {1}"}
-            middle{"{0}, {1}"}
-            start{"{0}, {1}"}
         }
         or-short{
             2{"{0} o {1}"}
             end{"{0}, o {1}"}
-            middle{"{0}, {1}"}
-            start{"{0}, {1}"}
         }
         standard{
             2{"{0} ug {1}"}
@@ -843,20 +797,14 @@ ceb{
         standard-narrow{
             2{"{0}, {1}"}
             end{"{0}, {1}"}
-            middle{"{0}, {1}"}
-            start{"{0}, {1}"}
         }
         standard-short{
             2{"{0} ug {1}"}
             end{"{0}, ug {1}"}
-            middle{"{0}, {1}"}
-            start{"{0}, {1}"}
         }
         unit{
             2{"{0}, {1}"}
             end{"{0}, {1}"}
-            middle{"{0}, {1}"}
-            start{"{0}, {1}"}
         }
         unit-narrow{
             2{"{0} {1}"}
@@ -867,8 +815,6 @@ ceb{
         unit-short{
             2{"{0}, {1}"}
             end{"{0}, {1}"}
-            middle{"{0}, {1}"}
-            start{"{0}, {1}"}
         }
     }
     measurementSystemNames{

@@ -80,8 +80,8 @@ static void subsetFontRuns(const FontRuns *fontRuns, le_int32 start, le_int32 li
 }
 
 Paragraph::Paragraph(const LEUnicode chars[], int32_t charCount, const FontRuns *fontRuns, LEErrorCode &status)
-  : fParagraphLayout(nullptr), fParagraphCount(0), fParagraphMax(PARA_GROW), fParagraphGrow(PARA_GROW),
-    fLineCount(0), fLinesMax(LINE_GROW), fLinesGrow(LINE_GROW), fLines(nullptr), fChars(nullptr),
+  : fParagraphLayout(NULL), fParagraphCount(0), fParagraphMax(PARA_GROW), fParagraphGrow(PARA_GROW),
+    fLineCount(0), fLinesMax(LINE_GROW), fLinesGrow(LINE_GROW), fLines(NULL), fChars(NULL),
     fLineHeight(-1), fAscent(-1), fWidth(-1), fHeight(-1), fParagraphLevel(UBIDI_DEFAULT_LTR)
 {
     static const LEUnicode separators[] = {CH_LF, CH_CR, CH_LSEP, CH_PSEP, 0x0000};
@@ -94,7 +94,7 @@ Paragraph::Paragraph(const LEUnicode chars[], int32_t charCount, const FontRuns 
     le_int32 descent = 0;
     le_int32 leading = 0;
 
-	LocaleRuns *locales = nullptr;
+	LocaleRuns *locales = NULL;
     FontRuns fr(0);
 
     fLines = LE_NEW_ARRAY(const ParagraphLayout::Line *, fLinesMax);
@@ -109,16 +109,16 @@ Paragraph::Paragraph(const LEUnicode chars[], int32_t charCount, const FontRuns 
     while (*pStart != 0) {
         LEUnicode *pEnd = u_strpbrk(pStart, separators);
         le_int32 pAscent, pDescent, pLeading;
-        ParagraphLayout *paragraphLayout = nullptr;
+        ParagraphLayout *paragraphLayout = NULL;
 
-        if (pEnd == nullptr) {
+        if (pEnd == NULL) {
             pEnd = &fChars[charCount];
         }
 
         if (pEnd != pStart) {
             subsetFontRuns(fontRuns, pStart - fChars, pEnd - fChars, &fr);
 
-            paragraphLayout = new ParagraphLayout(pStart, pEnd - pStart, &fr, nullptr, nullptr, locales, fParagraphLevel, false, status);
+            paragraphLayout = new ParagraphLayout(pStart, pEnd - pStart, &fr, NULL, NULL, locales, fParagraphLevel, false, status);
 
             if (LE_FAILURE(status)) {
                 delete paragraphLayout;
@@ -213,13 +213,13 @@ void Paragraph::breakLines(le_int32 width, le_int32 height)
     for (le_int32 p = 0; p < fParagraphCount; p += 1) {
         ParagraphLayout *paragraphLayout = fParagraphLayout[p];
 
-        if (paragraphLayout != nullptr) {
+        if (paragraphLayout != NULL) {
             paragraphLayout->reflow();
-            while ((line = paragraphLayout->nextLine(lineWidth)) != nullptr) {
+            while ((line = paragraphLayout->nextLine(lineWidth)) != NULL) {
                 addLine(line);
             }
         } else {
-            addLine(nullptr);
+            addLine(NULL);
         }
     }
 }
@@ -234,7 +234,7 @@ void Paragraph::draw(RenderingSurface *surface, le_int32 firstLine, le_int32 las
     for (li = firstLine; li <= lastLine; li += 1) {
         const ParagraphLayout::Line *line = fLines[li];
 
-        if (line != nullptr) {
+        if (line != NULL) {
             le_int32 runCount = line->countRuns();
             le_int32 run;
 
@@ -264,11 +264,11 @@ Paragraph *Paragraph::paragraphFactory(const char *fileName, const LEFontInstanc
 {
     LEErrorCode status  = LE_NO_ERROR;
     le_int32 charCount;
-    const char16_t *text = UnicodeReader::readFile(fileName, guiSupport, charCount);
-    Paragraph *result = nullptr;
+    const UChar *text = UnicodeReader::readFile(fileName, guiSupport, charCount);
+    Paragraph *result = NULL;
 
-    if (text == nullptr) {
-        return nullptr;
+    if (text == NULL) {
+        return NULL;
     }
 
     FontRuns  fontRuns(0);
@@ -279,7 +279,7 @@ Paragraph *Paragraph::paragraphFactory(const char *fileName, const LEFontInstanc
 
 	if (LE_FAILURE(status)) {
 		delete result;
-		result = nullptr;
+		result = NULL;
 	}
 
     LE_DELETE_ARRAY(text);

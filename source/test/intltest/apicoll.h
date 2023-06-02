@@ -23,7 +23,7 @@
 
 class CollationAPITest: public IntlTestCollator {
 public:
-    void runIndexedTest( int32_t index, UBool exec, const char* &name, char* /*par = nullptr */) override;
+    void runIndexedTest( int32_t index, UBool exec, const char* &name, char* /*par = NULL */) override;
     void doAssert(UBool condition, const char *message);
 
     /**
@@ -165,9 +165,9 @@ public:
     void TestUClassID();
 
     /**
-    * Test nullptr
+    * Test NULL
     */
-    void TestNullptrCharTailoring();
+    void TestNULLCharTailoring();
 
     void TestClone();
     void TestCloneBinary();

@@ -532,12 +532,6 @@ fr_CA{
         }
     }
     unitsNarrow{
-        acceleration{
-            g-force{
-                one{"{0} G"}
-                other{"{0} G"}
-            }
-        }
         angle{
             radian{
                 one{"{0}rad"}
@@ -555,11 +549,6 @@ fr_CA{
             percent{
                 one{"{0} %"}
                 other{"{0} %"}
-            }
-        }
-        consumption{
-            mile-per-gallon-imperial{
-                dnam{"mi/gal Imp"}
             }
         }
         duration{
@@ -595,16 +584,11 @@ fr_CA{
             }
         }
         graphics{
-            dot{
-                dnam{"p"}
-            }
             dot-per-centimeter{
-                dnam{"ppcm"}
                 one{"{0}ppcm"}
                 other{"{0}ppcm"}
             }
             dot-per-inch{
-                dnam{"ppp"}
                 one{"{0}ppp"}
                 other{"{0}ppp"}
             }
@@ -782,7 +766,6 @@ fr_CA{
                 other{"{0}pte"}
             }
             quart-imperial{
-                dnam{"pte imp"}
                 one{"{0}pte imp"}
                 other{"{0}pte imp"}
             }

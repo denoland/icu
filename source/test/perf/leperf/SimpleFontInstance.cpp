@@ -54,7 +54,7 @@ const void *SimpleFontInstance::getFontTable(LETag tableTag) const
         return CanonShaping::glyphDefinitionTable;
     }
 
-    return nullptr;
+    return NULL;
 }
 
 void SimpleFontInstance::getGlyphAdvance(LEGlyphID glyph, LEPoint &advance) const

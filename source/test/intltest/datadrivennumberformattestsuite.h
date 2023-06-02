@@ -30,7 +30,7 @@ class DataDrivenNumberFormatTestSuite : public IntlTest {
  public:
      DataDrivenNumberFormatTestSuite() {
          for (int32_t i = 0; i < UPRV_LENGTHOF(fPreviousFormatters); ++i) {
-             fPreviousFormatters[i] = nullptr;
+             fPreviousFormatters[i] = NULL;
          }
      }
 
@@ -129,7 +129,7 @@ class DataDrivenNumberFormatTestSuite : public IntlTest {
     int32_t splitBy(
             UnicodeString *columnValues,
             int32_t columnValueCount,
-            char16_t delimiter);
+            UChar delimiter);
     void showError(const char *message);
     void showFailure(const UnicodeString &message);
     void showLineInfo();

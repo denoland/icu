@@ -258,9 +258,6 @@ sr{
         "America:Chihuahua"{
             ec{"Чихуахуа"}
         }
-        "America:Ciudad_Juarez"{
-            ec{"Сиудад Хуарез"}
-        }
         "America:Coral_Harbour"{
             ec{"Корал Харбур"}
         }

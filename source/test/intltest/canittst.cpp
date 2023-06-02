@@ -53,17 +53,17 @@ static UnicodeString str(const char *input)
 
 
 CanonicalIteratorTest::CanonicalIteratorTest() :
-nameTrans(nullptr), hexTrans(nullptr)
+nameTrans(NULL), hexTrans(NULL)
 {
 }
 
 CanonicalIteratorTest::~CanonicalIteratorTest()
 {
 #if !UCONFIG_NO_TRANSLITERATION
-  if(nameTrans != nullptr) {
+  if(nameTrans != NULL) {
     delete(nameTrans);
   }
-  if(hexTrans != nullptr) {
+  if(hexTrans != NULL) {
     delete(hexTrans);
   }
 #endif
@@ -224,14 +224,14 @@ UnicodeString CanonicalIteratorTest::getReadable(const UnicodeString &s) {
     // set up for readable display
 #if !UCONFIG_NO_TRANSLITERATION
     if(verbose) {
-      if (nameTrans == nullptr)
+      if (nameTrans == NULL)
           nameTrans = Transliterator::createInstance("[^\\ -\\u007F] name", UTRANS_FORWARD, status);
       UnicodeString sName = s;
       nameTrans->transliterate(sName);
       result += sName;
       result += ";";
     }
-    if (hexTrans == nullptr)
+    if (hexTrans == NULL)
         hexTrans = Transliterator::createInstance("[^\\ -\\u007F] hex", UTRANS_FORWARD, status);
 #endif
     UnicodeString sHex = s;
@@ -248,8 +248,8 @@ UnicodeString CanonicalIteratorTest::getReadable(const UnicodeString &s) {
 
 U_CFUNC int U_CALLCONV
 compareUnicodeStrings(const void *s1, const void *s2) {
-  UnicodeString **st1 = static_cast<UnicodeString **>(const_cast<void*>(s1));
-  UnicodeString **st2 = static_cast<UnicodeString **>(const_cast<void*>(s2));
+  UnicodeString **st1 = (UnicodeString **)s1;
+  UnicodeString **st2 = (UnicodeString **)s2;
 
   return (*st1)->compare(**st2);
 }
@@ -263,14 +263,14 @@ UnicodeString CanonicalIteratorTest::collectionToString(Hashtable *col) {
     UnicodeString **resArray = new UnicodeString*[col->count()];
     int32_t i = 0;
 
-    const UHashElement *ne = nullptr;
+    const UHashElement *ne = NULL;
     int32_t el = UHASH_FIRST;
     //Iterator it = basic.iterator();
     ne = col->nextElement(el);
     //while (it.hasNext()) 
-    while (ne != nullptr) {
+    while (ne != NULL) {
       //String item = (String) it.next();
-      UnicodeString *item = static_cast<UnicodeString *>(ne->value.pointer);
+      UnicodeString *item = (UnicodeString *)(ne->value.pointer);
       resArray[i++] = item;
       ne = col->nextElement(el);
     }

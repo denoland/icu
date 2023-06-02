@@ -1202,7 +1202,6 @@ vi{
         KYD{"$"}
         MXN{"$"}
         NIO{"C$"}
-        RUR{"RUR"}
         TTD{"$"}
         TWD{"NT$"}
         USD{"$"}

@@ -164,8 +164,8 @@ OptSpec opts[] = {
 //---------------------------------------------------------------------------
 
 //DWORD          gWinLCID;
-BreakIterator *brkit = nullptr;
-char16_t *text = nullptr;
+BreakIterator *brkit = NULL;
+UChar *text = NULL;
 int32_t textSize = 0;
 
 
@@ -474,7 +474,7 @@ class UCharFile {
 public:
     UCharFile(const char *fileName);
     ~UCharFile();
-    char16_t   get();
+    UChar   get();
     UBool   eof() {return fEof;};
     UBool   error() {return fError;};
     int32_t size() { return fFileSize; };
@@ -487,7 +487,7 @@ private:
     const char   *fName;
     UBool        fEof;
     UBool        fError;
-    char16_t     fPending2ndSurrogate;
+    UChar        fPending2ndSurrogate;
     int32_t      fFileSize;
     
     enum {UTF16LE, UTF16BE, UTF8} fEncoding;
@@ -507,7 +507,7 @@ UCharFile::UCharFile(const char * fileName) {
     }
     fFile                = fopen(fName, "rb");
     fPending2ndSurrogate = 0;
-    if (fFile == nullptr) {
+    if (fFile == NULL) {
         fprintf(stderr, "Can not open file \"%s\"\n", opt_fName);
         fError = true;
         return;
@@ -541,8 +541,8 @@ UCharFile::~UCharFile() {
 
 
 
-char16_t UCharFile::get() {
-    char16_t   c;
+UChar UCharFile::get() {
+    UChar   c;
     switch (fEncoding) {
     case UTF16LE:
         {
@@ -576,7 +576,7 @@ char16_t UCharFile::get() {
                 break;
             }
             
-            int ch = fgetc(fFile);   // Note:  c and ch are separate cause eof test doesn't work on char16_t type.
+            int ch = fgetc(fFile);   // Note:  c and ch are separate cause eof test doesn't work on UChar type.
             if (ch == EOF) {
                 c = 0;
                 fEof = true;
@@ -617,13 +617,13 @@ char16_t UCharFile::get() {
             i = 0;
             uint32_t  cp;
             U8_NEXT_UNSAFE(bytes, i, cp);
-            c = (char16_t)cp;
+            c = (UChar)cp;
             
             if (cp >= 0x10000) {
                 // The code point needs to be broken up into a utf-16 surrogate pair.
                 //  Process first half this time through the main loop, and
                 //   remember the other half for the next time through.
-                char16_t utf16Buf[3];
+                UChar utf16Buf[3];
                 i = 0;
                 UTF16_APPEND_CHAR_UNSAFE(utf16Buf, i, cp);
                 fPending2ndSurrogate = utf16Buf[1];
@@ -693,13 +693,13 @@ int main(int argc, const char** argv) {
     int32_t bufSize = 0;
     int32_t charCount = 0;
     if(fileSize != -1) {
-      text = (char16_t *)malloc(fileSize*sizeof(char16_t));
+      text = (UChar *)malloc(fileSize*sizeof(UChar));
       bufSize = fileSize;
     } else {
-      text = (char16_t *)malloc(STARTSIZE*sizeof(char16_t));
+      text = (UChar *)malloc(STARTSIZE*sizeof(UChar));
       bufSize = STARTSIZE;
     }
-    if(text == nullptr) {
+    if(text == NULL) {
       fprintf(stderr, "Allocating buffer failed\n");
       exit(-1);
     }
@@ -710,7 +710,7 @@ int main(int argc, const char** argv) {
     //    (The number of bytes read from file per loop iteration depends on external encoding.)
     for (;;) {
 
-        char16_t c = f.get();
+        UChar c = f.get();
         if(f.eof()) {
           break;
         }
@@ -720,8 +720,8 @@ int main(int argc, const char** argv) {
         // We now have a good UTF-16 value in c.
         text[charCount++] = c;
         if(charCount == bufSize) {
-          text = (char16_t *)realloc(text, 2*bufSize*sizeof(char16_t));
-          if(text == nullptr) {
+          text = (UChar *)realloc(text, 2*bufSize*sizeof(UChar));
+          if(text == NULL) {
             fprintf(stderr, "Reallocating buffer failed\n");
             exit(-1);
           }
@@ -765,10 +765,10 @@ int main(int argc, const char** argv) {
       }
     }
 
-  if(text != nullptr) {
+  if(text != NULL) {
     free(text);
   }
-    if(brkit != nullptr) {
+    if(brkit != NULL) {
       delete brkit;
     }
 

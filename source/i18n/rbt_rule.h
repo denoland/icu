@@ -108,7 +108,7 @@ private:
     UnicodeFunctor** segments;
 
     /**
-     * The number of elements in segments[] or zero if segments is nullptr.
+     * The number of elements in segments[] or zero if segments is NULL.
      */
     int32_t segmentsCount;
 
@@ -217,7 +217,7 @@ public:
      * anchors work.
      * @return    the preceding context length.
      */
-    virtual int32_t getContextLength() const;
+    virtual int32_t getContextLength(void) const;
 
     /**
      * Internal method.  Returns 8-bit index value for this rule.

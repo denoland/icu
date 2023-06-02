@@ -1165,7 +1165,6 @@ ga{
         BRL{"R$"}
         BSD{"$"}
         BWP{"P"}
-        BYN{"BYN"}
         BZD{"$"}
         CAD{"$"}
         CLP{"$"}

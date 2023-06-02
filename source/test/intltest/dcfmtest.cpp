@@ -213,12 +213,12 @@ void DecimalFormatTest::DataDrivenTests() {
     //  Open and read the test data file.
     //
     srcPath=getPath(tdd, "dcfmtest.txt");
-    if(srcPath==nullptr) {
+    if(srcPath==NULL) {
         return; /* something went wrong, error already output */
     }
 
     int32_t    len;
-    char16_t *testData = ReadAndConvertFile(srcPath, len, "utf-8", status);
+    UChar *testData = ReadAndConvertFile(srcPath, len, "utf-8", status);
     if (U_FAILURE(status)) {
         return; /* something went wrong, error already output */
     }
@@ -239,7 +239,7 @@ void DecimalFormatTest::DataDrivenTests() {
     RegexMatcher    formatLineMat(UnicodeString(
             "(?i)\\s*format\\s+"
             "(\\S+)\\s+"                 // Capture group 1: pattern
-            "([a-z]+)\\s+"  // Capture group 2: Rounding Mode
+            "(ceiling|floor|down|up|halfeven|halfdown|halfup|default|unnecessary)\\s+"  // Capture group 2: Rounding Mode
             "\"([^\"]*)\"\\s+"           // Capture group 3: input
             "\"([^\"]*)\""               // Capture group 4: expected output
             "\\s*(?:#.*)?"),             // Trailing comment
@@ -435,12 +435,6 @@ void DecimalFormatTest::execFormatTest(int32_t lineNum,
         // don't set any value.
     } else if (round=="unnecessary") {
         fmtr.setRoundingMode(DecimalFormat::kRoundUnnecessary);
-    } else if (round=="halfodd") {
-        fmtr.setRoundingMode(DecimalFormat::kRoundHalfOdd);
-    } else if (round=="halfceiling") {
-        fmtr.setRoundingMode(DecimalFormat::kRoundHalfCeiling);
-    } else if (round=="halffloor") {
-        fmtr.setRoundingMode(DecimalFormat::kRoundHalfFloor);
     } else {
         fmtr.setRoundingMode(DecimalFormat::kRoundFloor);
         errln("file dcfmtest.txt, line %d: Bad rounding mode \"%s\"",
@@ -457,12 +451,12 @@ void DecimalFormatTest::execFormatTest(int32_t lineNum,
             typeStr = "Formattable";
             Formattable fmtbl;
             fmtbl.setDecimalNumber(spInput, status);
-            fmtr.format(fmtbl, result, nullptr, status);
+            fmtr.format(fmtbl, result, NULL, status);
         }
         break;
     case kStringPiece:
         typeStr = "StringPiece";
-        fmtr.format(spInput, result, nullptr, status);
+        fmtr.format(spInput, result, NULL, status);
         break;
     }
 

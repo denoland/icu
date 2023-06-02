@@ -16,13 +16,11 @@
 
 #include "brkeng.h"
 #include "hash.h"
-#include "mlbe.h"
 #include "uvectr32.h"
 
 U_NAMESPACE_BEGIN
 
 class DictionaryMatcher;
-class MlBreakEngine;
 class Normalizer2;
 
 /*******************************************************************
@@ -376,8 +374,6 @@ class CjkBreakEngine : public DictionaryBreakEngine {
 
   DictionaryMatcher        *fDictionary;
   const Normalizer2        *nfkcNorm2;
-  MlBreakEngine            *fMlBreakEngine;
-  bool                      isCj;
 
  private:
   // Load Japanese extensions.

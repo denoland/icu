@@ -35,7 +35,6 @@ fi{
         afh{"afrihili"}
         agq{"aghem"}
         ain{"ainu"}
-        ajp{"urduni"}
         ak{"akan"}
         akk{"akkadi"}
         akz{"alabama"}
@@ -84,7 +83,6 @@ fi{
         bfd{"fut"}
         bfq{"badaga"}
         bg{"bulgaria"}
-        bgc{"haryanvi"}
         bgn{"länsibelutši"}
         bho{"bhodžpuri"}
         bi{"bislama"}
@@ -771,7 +769,6 @@ fi{
         Jurc{"džurtšen"}
         Kali{"kayah li"}
         Kana{"katakana"}
-        Kawi{"kawi"}
         Khar{"kharosthi"}
         Khmr{"khmeriläinen"}
         Khoj{"khojki"}
@@ -811,7 +808,6 @@ fi{
         Mtei{"meitei"}
         Mult{"multanilainen"}
         Mymr{"burmalainen"}
-        Nagm{"Nagin mundariaakkoset"}
         Nand{"nandinagari"}
         Narb{"muinaispohjoisarabialainen"}
         Nbat{"nabatealainen"}
@@ -1053,7 +1049,6 @@ fi{
             jpan{"japanilaiset numerot"}
             jpanfin{"japanilaiset talousnumerot"}
             kali{"kayah li -numerot"}
-            kawi{"kawilaiset numerot"}
             khmr{"khmeriläiset numerot"}
             knda{"kannadalaiset numerot"}
             lana{"taithamin hora-numerot"}
@@ -1075,7 +1070,6 @@ fi{
             mymr{"burmalaiset numerot"}
             mymrshan{"myanmarin shan-numerot"}
             mymrtlng{"myanmarin tai laing -numerot"}
-            nagm{"Nagin mundarinumerot"}
             native{"kielen omat numerot"}
             nkoo{"n’ko-numerot"}
             olck{"ol chiki -numerot"}
@@ -1098,7 +1092,6 @@ fi{
             thai{"thainumerot"}
             tibt{"tiibetiläiset numerot"}
             tirh{"tirhuta-numerot"}
-            tnsa{"tangsa-numerot"}
             traditional{"perinteiset numerot"}
             vaii{"vai-numerot"}
             wara{"varang kshiti -numerot"}
@@ -1120,7 +1113,6 @@ fi{
         ARANES{"oksitaanin Aranin laakson variantti"}
         AREVELA{"itäarmenialainen"}
         AREVMDA{"länsiarmenialainen"}
-        ARKAIKA{"varhaisesperanto"}
         ASANTE{"akanin asante-variantti"}
         AUVERN{"oksitaanin Auvergnen variantti"}
         BAKU1926{"yhtenäistetty turkkilainen latinalainen aakkosto"}
@@ -1145,7 +1137,6 @@ fi{
         FONNAPA{"pohjoisamerikkalainen foneettinen aakkosto NAPA"}
         FONUPA{"uralilainen foneettinen aakkosto UPA"}
         FONXSAMP{"foneettinen X-SAMPA-merkistö"}
-        GALLO{"galo"}
         GASCON{"oksitaanin Gasconyn variantti"}
         GRCLASS{"oksitaanin klassinen ortografia"}
         GRITAL{"oksitaanin italialaisvaikutteinen ortografia"}
@@ -1180,7 +1171,6 @@ fi{
         PAHAWH3{"pahawh-hmongin tavukirjoituksen kolmas vaihe"}
         PAHAWH4{"pahawh-hmongin tavukirjoituksen viimeinen vaihe"}
         PAMAKA{"pamakan kreolimurre"}
-        PEANO{"taivutukseton latina"}
         PETR1708{"venäjän Pietarin siviiliaakkosto 1708"}
         PINYIN{"kiinan pinyin-latinaistus"}
         POLYTON{"polytoninen kreikka"}
@@ -1201,10 +1191,7 @@ fi{
         SURMIRAN{"retoromaanin surmiran-muoto"}
         SURSILV{"retoromaanin sursilvan-muoto"}
         SUTSILV{"retoromaanin sutsilvan-muoto"}
-        SYNNEJYL{"Etelä-Jyllannin kieli"}
         TARASK{"valkovenäjän taraškevitsa-oikeinkirjoitus"}
-        TONGYONG{"taiwanilainen pinyinin"}
-        TUNUMIIT{"tunumiit"}
         UCCOR{"kornin yhtenäiskirjoitus"}
         UCRCOR{"kornin uusittu yhtenäiskirjoitus"}
         ULSTER{"skotin ulster-murre"}
@@ -1212,7 +1199,6 @@ fi{
         VAIDIKA{"sanskriitin veda-murre"}
         VALENCIA{"katalaanin valencian murre"}
         VALLADER{"reoromaanin vallader-muoto"}
-        VECDRUKA{"varhaislatvia"}
         VIVARAUP{"oksitaanin vivaro-alpiininen variantti"}
         WADEGILE{"kiinan Wade-Giles-latinaistus"}
         XSISTEMO{"esperanton x-kirjoitus"}

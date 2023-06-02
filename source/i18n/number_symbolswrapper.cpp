@@ -16,7 +16,7 @@ SymbolsWrapper::SymbolsWrapper(const SymbolsWrapper &other) {
     doCopyFrom(other);
 }
 
-SymbolsWrapper::SymbolsWrapper(SymbolsWrapper &&src) noexcept {
+SymbolsWrapper::SymbolsWrapper(SymbolsWrapper &&src) U_NOEXCEPT {
     doMoveFrom(std::move(src));
 }
 
@@ -29,7 +29,7 @@ SymbolsWrapper &SymbolsWrapper::operator=(const SymbolsWrapper &other) {
     return *this;
 }
 
-SymbolsWrapper &SymbolsWrapper::operator=(SymbolsWrapper &&src) noexcept {
+SymbolsWrapper &SymbolsWrapper::operator=(SymbolsWrapper &&src) U_NOEXCEPT {
     if (this == &src) {
         return *this;
     }

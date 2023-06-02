@@ -529,7 +529,7 @@ fr{
         }
         LAK{
             "LAK",
-            "kip laotien",
+            "kip loatien",
         }
         LBP{
             "£LB",
@@ -1753,8 +1753,8 @@ fr{
             other{"tenges kazakhs"}
         }
         LAK{
-            one{"kip laotien"}
-            other{"kips laotiens"}
+            one{"kip loatien"}
+            other{"kips loatiens"}
         }
         LBP{
             one{"livre libanaise"}

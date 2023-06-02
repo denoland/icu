@@ -41,7 +41,7 @@ class UnitsTest : public IntlTest {
   public:
     UnitsTest() {}
 
-    void runIndexedTest(int32_t index, UBool exec, const char *&name, char *par = nullptr) override;
+    void runIndexedTest(int32_t index, UBool exec, const char *&name, char *par = NULL) override;
 
     void testUnitConstantFreshness();
     void testExtractConvertibility();
@@ -75,13 +75,13 @@ void UnitsTest::runIndexedTest(int32_t index, UBool exec, const char *&name, cha
 // units.txt.
 void UnitsTest::testUnitConstantFreshness() {
     IcuTestErrorCode status(*this, "testUnitConstantFreshness");
-    LocalUResourceBundlePointer unitsBundle(ures_openDirect(nullptr, "units", status));
+    LocalUResourceBundlePointer unitsBundle(ures_openDirect(NULL, "units", status));
     LocalUResourceBundlePointer unitConstants(
-        ures_getByKey(unitsBundle.getAlias(), "unitConstants", nullptr, status));
+        ures_getByKey(unitsBundle.getAlias(), "unitConstants", NULL, status));
 
     while (ures_hasNext(unitConstants.getAlias())) {
         int32_t len;
-        const char *constant = nullptr;
+        const char *constant = NULL;
         ures_getNextString(unitConstants.getAlias(), &len, &constant, status);
 
         Factor factor;
@@ -439,7 +439,7 @@ void unitsTestDataLineFn(void *context, char *fields[][2], int32_t fieldCount, U
     if (U_FAILURE(*pErrorCode)) {
         return;
     }
-    UnitsTestContext *ctx = static_cast<UnitsTestContext *>(context);
+    UnitsTestContext *ctx = (UnitsTestContext *)context;
     UnitsTest *unitsTest = ctx->unitsTest;
     (void)fieldCount; // unused UParseLineFn variable
     IcuTestErrorCode status(*unitsTest, "unitsTestDatalineFn");
@@ -450,7 +450,7 @@ void unitsTestDataLineFn(void *context, char *fields[][2], int32_t fieldCount, U
     StringPiece commentConversionFormula = trimField(fields[3]);
     StringPiece utf8Expected = trimField(fields[4]);
 
-    UNumberFormat *nf = unum_open(UNUM_DEFAULT, nullptr, -1, "en_US", nullptr, status);
+    UNumberFormat *nf = unum_open(UNUM_DEFAULT, NULL, -1, "en_US", NULL, status);
     if (status.errIfFailureAndReset("unum_open failed")) {
         return;
     }
@@ -902,7 +902,7 @@ void checkOutput(UnitsTest *unitsTest, const char *msg, ExpectedOutput expected,
 void unitPreferencesTestDataLineFn(void *context, char *fields[][2], int32_t fieldCount,
                                    UErrorCode *pErrorCode) {
     if (U_FAILURE(*pErrorCode)) return;
-    UnitsTest *unitsTest = static_cast<UnitsTest *>(context);
+    UnitsTest *unitsTest = (UnitsTest *)context;
     IcuTestErrorCode status(*unitsTest, "unitPreferencesTestDatalineFn");
 
     if (!unitsTest->assertTrue(u"unitPreferencesTestDataLineFn expects 9 fields for simple and 11 "
@@ -1028,23 +1028,23 @@ void parsePreferencesTests(const char *filename, char delimiter, char *fields[][
         return;
     }
 
-    if (fields == nullptr || lineFn == nullptr || maxFieldCount <= 0) {
+    if (fields == NULL || lineFn == NULL || maxFieldCount <= 0) {
         *pErrorCode = U_ILLEGAL_ARGUMENT_ERROR;
         return;
     }
 
-    if (filename == nullptr || *filename == 0 || (*filename == '-' && filename[1] == 0)) {
-        filename = nullptr;
+    if (filename == NULL || *filename == 0 || (*filename == '-' && filename[1] == 0)) {
+        filename = NULL;
         file = T_FileStream_stdin();
     } else {
         file = T_FileStream_open(filename, "r");
     }
-    if (file == nullptr) {
+    if (file == NULL) {
         *pErrorCode = U_FILE_ACCESS_ERROR;
         return;
     }
 
-    while (T_FileStream_readLine(file, line, sizeof(line)) != nullptr) {
+    while (T_FileStream_readLine(file, line, sizeof(line)) != NULL) {
         /* remove trailing newline characters */
         u_rtrim(line);
 
@@ -1058,7 +1058,7 @@ void parsePreferencesTests(const char *filename, char delimiter, char *fields[][
 
         /* remove in-line comments */
         limit = uprv_strchr(start, '#');
-        if (limit != nullptr) {
+        if (limit != NULL) {
             /* get white space before the pound sign */
             while (limit > start && U_IS_INV_WHITESPACE(*(limit - 1))) {
                 --limit;
@@ -1105,7 +1105,7 @@ void parsePreferencesTests(const char *filename, char delimiter, char *fields[][
         }
     }
 
-    if (filename != nullptr) {
+    if (filename != NULL) {
         T_FileStream_close(file);
     }
 }

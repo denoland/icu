@@ -258,9 +258,6 @@ gu{
         "America:Chihuahua"{
             ec{"ચિહુઆહુઆ"}
         }
-        "America:Ciudad_Juarez"{
-            ec{"સિયુદાદ હુઆરેઝ"}
-        }
         "America:Coral_Harbour"{
             ec{"એટિકોકેન"}
         }

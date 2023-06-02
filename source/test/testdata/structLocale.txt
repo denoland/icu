@@ -98,7 +98,6 @@ structLocale:table(nofallback){
         CM{""}
         CN{""}
         CO{""}
-        CQ{""}
         CR{""} 
         CS{""}
         CU{""}

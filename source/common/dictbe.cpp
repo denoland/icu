@@ -140,7 +140,7 @@ int32_t PossibleWord::candidates( UText *text, DictionaryMatcher *dict, int32_t 
     int32_t start = (int32_t)utext_getNativeIndex(text);
     if (start != offset) {
         offset = start;
-        count = dict->matches(text, rangeEnd-start, UPRV_LENGTHOF(cuLengths), cuLengths, cpLengths, nullptr, &prefix);
+        count = dict->matches(text, rangeEnd-start, UPRV_LENGTHOF(cuLengths), cuLengths, cpLengths, NULL, &prefix);
         // Dictionary leaves text after longest prefix, not longest word. Back up.
         if (count <= 0) {
             utext_setNativeIndex(text, start);
@@ -1054,10 +1054,9 @@ foundBest:
  */
 static const uint32_t kuint32max = 0xFFFFFFFF;
 CjkBreakEngine::CjkBreakEngine(DictionaryMatcher *adoptDictionary, LanguageType type, UErrorCode &status)
-: DictionaryBreakEngine(), fDictionary(adoptDictionary), isCj(false) {
+: DictionaryBreakEngine(), fDictionary(adoptDictionary) {
     UTRACE_ENTRY(UTRACE_UBRK_CREATE_BREAK_ENGINE);
     UTRACE_DATA1(UTRACE_INFO, "dictbe=%s", "Hani");
-    fMlBreakEngine = nullptr;
     nfkcNorm2 = Normalizer2::getNFKCInstance(status);
     // Korean dictionary only includes Hangul syllables
     fHangulWordSet.applyPattern(UnicodeString(u"[\\uac00-\\ud7a3]"), status);
@@ -1074,20 +1073,11 @@ CjkBreakEngine::CjkBreakEngine(DictionaryMatcher *adoptDictionary, LanguageType 
         if (U_SUCCESS(status)) {
             setCharacters(fHangulWordSet);
         }
-    } else { // Chinese and Japanese
+    } else { //Chinese and Japanese
         UnicodeSet cjSet(UnicodeString(u"[[:Han:][:Hiragana:][:Katakana:]\\u30fc\\uff70\\uff9e\\uff9f]"), status);
-        isCj = true;
         if (U_SUCCESS(status)) {
             setCharacters(cjSet);
-#if UCONFIG_USE_ML_PHRASE_BREAKING
-            fMlBreakEngine = new MlBreakEngine(fDigitOrOpenPunctuationOrAlphabetSet,
-                                               fClosePunctuationSet, status);
-            if (fMlBreakEngine == nullptr) {
-                status = U_MEMORY_ALLOCATION_ERROR;
-            }
-#else
             initJapanesePhraseParameter(status);
-#endif
         }
     }
     UTRACE_EXIT_STATUS(status);
@@ -1095,7 +1085,6 @@ CjkBreakEngine::CjkBreakEngine(DictionaryMatcher *adoptDictionary, LanguageType 
 
 CjkBreakEngine::~CjkBreakEngine(){
     delete fDictionary;
-    delete fMlBreakEngine;
 }
 
 // The katakanaCost values below are based on the length frequencies of all
@@ -1146,7 +1135,7 @@ CjkBreakEngine::divideUpDictionaryRange( UText *inText,
     UnicodeString inString;
 
     // inputMap[inStringIndex] = corresponding native index from UText inText.
-    // If nullptr then mapping is 1:1
+    // If NULL then mapping is 1:1
     LocalPointer<UVector32>     inputMap;
 
     // if UText has the input string as one contiguous UTF-16 chunk
@@ -1262,15 +1251,7 @@ CjkBreakEngine::divideUpDictionaryRange( UText *inText,
             }
         }
     }
-
-#if UCONFIG_USE_ML_PHRASE_BREAKING
-    // PhraseBreaking is supported in ja and ko; MlBreakEngine only supports ja.
-    if (isPhraseBreaking && isCj) {
-        return fMlBreakEngine->divideUpRange(inText, rangeStart, rangeEnd, foundBreaks, inString,
-                                             inputMap, status);
-    }
-#endif
-
+                
     // bestSnlp[i] is the snlp of the best segmentation of the first i
     // code points in the range to be matched.
     UVector32 bestSnlp(numCodePts + 1, status);
@@ -1311,9 +1292,9 @@ CjkBreakEngine::divideUpDictionaryRange( UText *inText,
         int32_t count;
         utext_setNativeIndex(&fu, ix);
         count = fDictionary->matches(&fu, maxWordSize, numCodePts,
-                             nullptr, lengths.getBuffer(), values.getBuffer(), nullptr);
+                             NULL, lengths.getBuffer(), values.getBuffer(), NULL);
                              // Note: lengths is filled with code point lengths
-                             //       The nullptr parameter is the ignored code unit lengths.
+                             //       The NULL parameter is the ignored code unit lengths.
 
         // if there are no single character matches found in the dictionary 
         // starting with this character, treat character as a 1-character word 

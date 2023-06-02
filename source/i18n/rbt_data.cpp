@@ -50,7 +50,7 @@ TransliterationRuleData::TransliterationRuleData(const TransliterationRuleData& 
         UnicodeString* value =
             new UnicodeString(*(const UnicodeString*)e->value.pointer);
         // Exit out if value could not be created.
-        if (value == nullptr) {
+        if (value == NULL) {
         	return;
         }
         variableNames.put(*(UnicodeString*)e->key.pointer, value, status);
@@ -59,14 +59,14 @@ TransliterationRuleData::TransliterationRuleData(const TransliterationRuleData& 
     variables = 0;
     if (other.variables != 0) {
         variables = (UnicodeFunctor **)uprv_malloc(variablesLength * sizeof(UnicodeFunctor *));
-        /* test for nullptr */
+        /* test for NULL */
         if (variables == 0) {
             status = U_MEMORY_ALLOCATION_ERROR;
             return;
         }
         for (i=0; i<variablesLength; ++i) {
             variables[i] = other.variables[i]->clone();
-            if (variables[i] == nullptr) {
+            if (variables[i] == NULL) {
                 status = U_MEMORY_ALLOCATION_ERROR;
                 break;
             }
@@ -78,7 +78,7 @@ TransliterationRuleData::TransliterationRuleData(const TransliterationRuleData& 
             delete variables[n];
         }
         uprv_free(variables);
-        variables = nullptr;
+        variables = NULL;
         return;
     }
 

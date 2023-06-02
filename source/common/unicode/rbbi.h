@@ -54,14 +54,14 @@ class  UStack;
  *
  * <p>This class is not intended to be subclassed.</p>
  */
-class U_COMMON_API RuleBasedBreakIterator /*final*/ : public BreakIterator {
+class U_COMMON_API RuleBasedBreakIterator /*U_FINAL*/ : public BreakIterator {
 
 private:
     /**
      * The UText through which this BreakIterator accesses the text
      * @internal (private)
      */
-    UText  fText = UTEXT_INITIALIZER;
+    UText  fText;
 
 #ifndef U_HIDE_INTERNAL_API
 public:
@@ -71,38 +71,32 @@ public:
      * Not for general use; Public only for testing purposes.
      * @internal
      */
-    RBBIDataWrapper    *fData = nullptr;
-
+    RBBIDataWrapper    *fData;
 private:
-    /**
-      * The saved error code associated with this break iterator.
-      * This is the value to be returned by copyErrorTo().
-      */
-    UErrorCode      fErrorCode = U_ZERO_ERROR;
 
     /**
       * The current  position of the iterator. Pinned, 0 < fPosition <= text.length.
       * Never has the value UBRK_DONE (-1).
       */
-    int32_t         fPosition = 0;
+    int32_t         fPosition;
 
     /**
       * TODO:
       */
-    int32_t         fRuleStatusIndex = 0;
+    int32_t         fRuleStatusIndex;
 
     /**
      *   Cache of previously determined boundary positions.
      */
     class BreakCache;
-    BreakCache         *fBreakCache = nullptr;
+    BreakCache         *fBreakCache;
 
     /**
      *  Cache of boundary positions within a region of text that has been
      *  sub-divided by dictionary based breaking.
      */
     class DictionaryCache;
-    DictionaryCache *fDictionaryCache = nullptr;
+    DictionaryCache *fDictionaryCache;
 
     /**
      *
@@ -111,7 +105,7 @@ private:
      * handle a given character.
      * @internal (private)
      */
-    UStack              *fLanguageBreakEngines = nullptr;
+    UStack              *fLanguageBreakEngines;
 
     /**
      *
@@ -120,43 +114,43 @@ private:
      * LanguageBreakEngine.
      * @internal (private)
      */
-    UnhandledEngine     *fUnhandledBreakEngine = nullptr;
+    UnhandledEngine     *fUnhandledBreakEngine;
 
     /**
      * Counter for the number of characters encountered with the "dictionary"
      *   flag set.
      * @internal (private)
      */
-    uint32_t            fDictionaryCharCount = 0;
+    uint32_t            fDictionaryCharCount;
 
     /**
      *   A character iterator that refers to the same text as the UText, above.
      *   Only included for compatibility with old API, which was based on CharacterIterators.
      *   Value may be adopted from outside, or one of fSCharIter or fDCharIter, below.
      */
-    CharacterIterator  *fCharIter = &fSCharIter;
+    CharacterIterator  *fCharIter;
 
     /**
      *   When the input text is provided by a UnicodeString, this will point to
      *    a characterIterator that wraps that data.  Needed only for the
      *    implementation of getText(), a backwards compatibility issue.
      */
-    UCharCharacterIterator fSCharIter {u"", 0};
+    StringCharacterIterator fSCharIter;
 
     /**
       * True when iteration has run off the end, and iterator functions should return UBRK_DONE.
       */
-    bool           fDone = false;
+    UBool           fDone;
 
     /**
      *  Array of look-ahead tentative results.
      */
-    int32_t *fLookAheadMatches = nullptr;
+    int32_t *fLookAheadMatches;
 
     /**
      *  A flag to indicate if phrase based breaking is enabled.
      */
-    UBool fIsPhraseBreaking = false;
+    UBool fIsPhraseBreaking;
 
     //=======================================================================
     // constructors
@@ -194,19 +188,10 @@ private:
     /** @internal */
     friend class BreakIterator;
 
-    /**
-     * Default constructor with an error code parameter.
-     * Aside from error handling, otherwise identical to the default constructor.
-     * Internally, handles common initialization for other constructors.
-     * @internal (private)
-     */
-    RuleBasedBreakIterator(UErrorCode *status);
-
 public:
 
     /** Default constructor.  Creates an empty shell of an iterator, with no
-     *  rules or text to iterate over.   Object can subsequently be assigned to,
-     *  but is otherwise unusable.
+     *  rules or text to iterate over.   Object can subsequently be assigned to.
      *  @stable ICU 2.2
      */
     RuleBasedBreakIterator();
@@ -304,9 +289,7 @@ public:
      * @return true if both BreakIterators are not same.
      *  @stable ICU 2.0
      */
-    inline bool operator!=(const BreakIterator& that) const {
-        return !operator==(that);
-    }
+    inline bool operator!=(const BreakIterator& that) const;
 
     /**
      * Returns a newly-constructed RuleBasedBreakIterator with the same
@@ -352,7 +335,8 @@ public:
      * </p>
      * <p>
      * When the break iterator is operating on text supplied via a UText,
-     * this function will fail, returning a CharacterIterator containing no text.
+     * this function will fail.  Lacking any way to signal failures, it
+     * returns an CharacterIterator containing no text.
      * The function getUText() provides similar functionality,
      * is reliable, and is more efficient.
      * </p>
@@ -372,7 +356,7 @@ public:
       *  access the text without impacting any break iterator operations,
       *  but the underlying text itself must not be altered.
       *
-      * @param fillIn A UText to be filled in.  If nullptr, a new UText will be
+      * @param fillIn A UText to be filled in.  If NULL, a new UText will be
       *           allocated to hold the result.
       * @param status receives any error codes.
       * @return   The current UText for this break iterator.  If an input
@@ -592,7 +576,7 @@ public:
      *  tricky.  Use clone() instead.
      *
      * @param stackBuffer  The pointer to the memory into which the cloned object
-     *                     should be placed.  If nullptr,  allocate heap memory
+     *                     should be placed.  If NULL,  allocate heap memory
      *                     for the cloned object.
      * @param BufferSize   The size of the buffer.  If zero, return the required
      *                     buffer size, but do not clone the object.  If the
@@ -665,6 +649,12 @@ private:
     // implementation
     //=======================================================================
     /**
+      * Common initialization function, used by constructors and bufferClone.
+      * @internal (private)
+      */
+    void init(UErrorCode &status);
+
+    /**
      * Iterate backwards from an arbitrary position in the input text using the
      * synthesized Safe Reverse rules.
      * This locates a "Safe Position" from which the forward break rules
@@ -735,6 +725,16 @@ private:
     void dumpTables();
 #endif  /* U_HIDE_INTERNAL_API */
 };
+
+//------------------------------------------------------------------------------
+//
+//   Inline Functions Definitions ...
+//
+//------------------------------------------------------------------------------
+
+inline bool RuleBasedBreakIterator::operator!=(const BreakIterator& that) const {
+    return !operator==(that);
+}
 
 U_NAMESPACE_END
 
